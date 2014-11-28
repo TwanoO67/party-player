@@ -77,7 +77,7 @@ function buildHTMLPlaylistItem(element,title){
     //ligne de date
     html += '<div class="playlist_item_ligne" style="float:left" >';
         html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
-        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+d.getMinutes()+'</div>';
+        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
     html += '</div>';
     
     var alreadyVoted = false;
@@ -96,7 +96,7 @@ function buildHTMLPlaylistItem(element,title){
     else{
         html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
         //bouton de resultat des votes
-        html += '<button type="button" class="btn btn-default" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
+        html += '<button type="button" style="padding: 4px 8px;" class="btn btn-default" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
         if(element.vote >= 0){
             html += 'glyphicon-thumbs-up';
         }
@@ -114,7 +114,7 @@ function buildHTMLPlaylistItem(element,title){
     html += '<div style="display:none" id="detail_vote_'+id+'" >';
     html += ''+title+'';
     if(element.votes.length == 0){
-        html += 'Pas de votant...';
+        html += '<br/><br/>Pas de votant...<br/><br/>';
     }
     else{
         html += '<ul>';

@@ -181,6 +181,15 @@ function loadPlaylistFromServer(callback){
     				            else if(mode == 'client' && typeof donnee['lastReadID'] !== 'undefined'){
         				           displayLastRead(donnee['lastReadID']);
     				            }
+    				            
+    				            if(mode == 'server'){
+        				            //ajout des separateur pour les listes deja lus ou non
+        				            if($('#playlist-container .list-group-item:not(.alreadyRead)').length > 0)
+        				                $('#playlist-container .list-group-item:not(.alreadyRead):first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Prochain(s) titre(s) à lire</span>');
+        				            if($('#playlist-container .list-group-item.alreadyRead').length > 0)
+        				                $('#playlist-container .list-group-item.alreadyRead:first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Déja lu(s)</span>');
+    				            }
+    				            
     				            if(typeof callback !== 'undefined'){
         				            callback();
     				            }

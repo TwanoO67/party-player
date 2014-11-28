@@ -88,7 +88,7 @@ function buildHTMLPlaylistItem(element,title,user,vote,date){
     //ligne de date
     html += '<div class="playlist_item_ligne" style="float:left" >';
         html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
-        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+d.getMinutes()+'</div>';
+        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
     html += '</div>';
     
     
@@ -97,7 +97,7 @@ function buildHTMLPlaylistItem(element,title,user,vote,date){
     html += '<button type="button" class="btn btn-success" title="Lire ce titre" onclick="loadByYoutubeId(\''+id+'\')"><span class="glyphicon glyphicon-play"></span></button>&nbsp;';
     //bouton de suppression
     html += '<button type="button" class="btn btn-danger" title="Supprimer ce titre" onclick="deleteFromPlaylistOnServer(\''+id+'\')"><span class="glyphicon glyphicon-remove"></span></button>&nbsp;';
-    //bouton des votes
+    //bouton de resultat des votes
     html += '<button type="button" class="btn btn-default" title="Qui a voté?" onclick="afficheVote(\''+id+'\')" style="padding: 4px 8px;" ><span class="glyphicon ';
     if(element.vote >= 0){
         html += 'glyphicon-thumbs-up';
@@ -117,7 +117,7 @@ function buildHTMLPlaylistItem(element,title,user,vote,date){
     html += '<div style="display:none" id="detail_vote_'+id+'" >';
         html += ''+title+'';
         if(element.votes.length == 0){
-            html += 'Pas de votant...';
+            html += '<br/><br/>Pas de votant...<br/><br/>';
         }
         else{
             html += '<ul>';
