@@ -1,4 +1,0 @@
-party-player
-============
-
-Party Player
