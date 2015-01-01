@@ -236,7 +236,10 @@ function searchYoutube(query){
             data.feed.entry.forEach(function(element,index,array){
                 var duree = 0;
                 
-                if( typeof(element['media$group']) !== 'undefined' && typeof(element['media$group']['media$content'][0]) !== 'undefined' )
+                if( typeof(element['media$group']) !== 'undefined' 
+                && typeof(element['media$group']['media$content']) !== 'undefined' 
+                && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+                )
                     duree = element['media$group']['media$content'][0]['duration'];
                 //si le resultat ne contient pas des trucs trop court ou trop long (spam)
                 if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
