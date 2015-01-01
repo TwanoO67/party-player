@@ -24,6 +24,12 @@
 	
 	//variable uniquement sur le serveur
 	playerIsLoaded = false;
+	
+	//variable pour la tentative de crossfading
+	preloadingPlayerIsLoaded = false;
+	preloadingInterval = false;
+	crossfadeTime = 5;
+	
 	autoPlay = false;
 	lastPlayedId = 0;
 	bootboxInstanceLoadNextTrack = null;

@@ -130,8 +130,6 @@ function loadPlaylistFromServer(callback){
 	if(sessid != ''){
 		//verification de l'anti flood
 		if( ((new Date()).getTime() - lastPlaylistLoading) > playlistMinRefreshTime){
-			lastPlaylistLoading = (new Date()).getTime();
-			
 			//chargement de la playlist depuis le serveur
 		    jQuery.getJSON(serverURL, {
 		        'mode': 'read',
@@ -164,6 +162,7 @@ function loadPlaylistFromServer(callback){
 			        }
 			        else if(data['content'] != 'no_news'){
 				        donnee = data['content'];//JSON.parse(data['content']);
+				        lastPlaylistLoading = (new Date()).getTime();
 				        if(donnee['lastUpdateTime'] > lastUpdateTime){
 					        lastUpdateTime = donnee['lastUpdateTime'];
 					        $('#playlist').html('');//on vide la playlist
@@ -226,6 +225,11 @@ function buildLocalPlaylistRecursive(tab_element,cb){
 	        $('#playlist').append(contenu);
 	        buildLocalPlaylistRecursive(tab_element,cb);
 	    };
+	    var callback_error = function (data) {
+		    //en cas d'erreur on passe à la chanson d'aprés
+		    //TODO: inserer un message d'erreur
+	        buildLocalPlaylistRecursive(tab_element,cb);
+	    };
 	    getYoutubeTrackInfo(element.id,callback);
     }
     else{
@@ -235,7 +239,7 @@ function buildLocalPlaylistRecursive(tab_element,cb){
     }
 }
 
-function getYoutubeTrackInfo(id,callback){
+function getYoutubeTrackInfo(id,callback,callback_error){
     //si on a deja les informations en local
     if(typeof youtubeTrackInfo[id] != 'undefined'){
         if(typeof callback == 'function'){
@@ -245,12 +249,22 @@ function getYoutubeTrackInfo(id,callback){
     //sinon on les cherche sur youtube
     else{
         var url = "https://gdata.youtube.com/feeds/api/videos/"+id+"?alt=json";
-        $.getJSON(url, function (data) { 
+        $.ajax({
+		  dataType: "json",
+		  url: url,
+		  data: {},
+		  success: function (data) { 
             youtubeTrackInfo[id] = data;
             if(typeof callback == 'function'){
                 callback(data);
             }
-        });
+          },
+          error: function(data){
+	         if(typeof callback_error == 'function'){
+                callback_error(data);
+              } 
+          }
+		});
     }
 }
 

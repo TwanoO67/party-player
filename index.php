@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang='fr'>
 <?php
     
@@ -7,7 +8,7 @@
         $sessid = $_REQUEST['sessid'];
     }
     
-    $base_url = "http://utube.weberantoine.fr";
+    $base_url = "http://partyplayer.fr";
     $session_url =  $base_url."?mode=client&sessid=".$sessid;
     
     $marge_header = '70';
@@ -17,7 +18,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="uTube Party Player">
+    <meta name="description" content="Party Player">
     <meta name="author" content="WEBER Antoine">
     <script src="build/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/css/bootstrap.min.css">
@@ -28,7 +29,7 @@
     <script src="js/jquery.cookie.js"></script>
     <script src="js/bootbox.min.js" type="text/javascript"></script>
     <link rel="icon" type="image/png" href="/css/favicon.png" />
-    <title>uTube Party Player</title>
+    <title>Party Player</title>
 </head>
 
 <body>
@@ -89,7 +90,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>-->
-          <a class="navbar-brand" href="#"><img src='/css/favicon.png' height='20px' /> uTube Party Player</a>
+          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player</a>
         </div>
         
         <!--<div id="nav-main" class="navbar-collapse collapse">
@@ -141,8 +142,8 @@
 
         <script>
 	      Intro = bootbox.dialog({
-			  message: "<div style='text-align: center;'>Bienvenue sur uTube Party-Player! <br/> Ce site vous permet de créer une playlist collaborative, pour animer vos soirées! <br/> Pour commencer merci de choisir si: <br/><br/> vous souhaitez être l'ordinateur de lecture (<b>Serveur</b>) <br/><br/> ou <br/><br/> si vous voulez participer à une playlist existante (<b>Client</b>)? </div>",
-			  title: "uTube Party Player",
+			  message: "<div style='text-align: center;'>Bienvenue sur Party-Player! <br/> Ce site vous permet de créer une playlist collaborative, pour animer vos soirées! <br/> Pour commencer merci de choisir si: <br/><br/> vous souhaitez être l'ordinateur de lecture (<b>Serveur</b>) <br/><br/> ou <br/><br/> si vous voulez participer à une playlist existante (<b>Client</b>)? </div>",
+			  title: "Party Player",
 			  buttons: {
 			    success: {
 			      label: "Serveur",
