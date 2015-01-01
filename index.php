@@ -142,15 +142,15 @@
 
         <script>
 	      Intro = bootbox.dialog({
-			  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez être: <br/><br/>  l'ordinateur de lecture (<b>Player</b>) <br/><br/> ou <br/><br/> participer à une playlist existante (<b>Participant</b>)? </div>",
+			  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez être: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> participer à une playlist existante ? </div>",
 			  title: "Bienvenue sur Party-Player!",
 			  buttons: {
 			    success: {
-			      label: "Player",
+			      label: "Nouvelle playlist",
 			      className: "btn-success",
 			      callback: function() {
 			        mode = 'server';
-			        window.location.href = '/?mode=server';
+			        window.location.href = '/?mode=server&sessid='+rand_sessid;
 			      }
 			    },
 			    main: {
