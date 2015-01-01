@@ -86,6 +86,7 @@
                 }
             }
             else{
+	            //recuperation des données existante
                 $donnee = '';
                 $data_ready = false;
                 if(file_exists($filename)){
