@@ -154,7 +154,7 @@
 			      }
 			    },
 			    main: {
-			      label: "Participant",
+			      label: "Participer à une playlist",
 			      className: "btn-primary",
 			      callback: function() {
 			        mode = 'client';

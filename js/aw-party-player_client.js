@@ -1,5 +1,5 @@
 function AccueilStep2(){
-	bootbox.prompt("Pour participer a une playlist, entrer son numero ID",function(retour){
+	bootbox.prompt("Entrer le numero de la playlist voulue",function(retour){
         if(retour != ''){
 	        window.location.href = '/?mode=client&sessid='+retour.toLowerCase();
         }
