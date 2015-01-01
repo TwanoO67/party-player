@@ -166,7 +166,7 @@
 			
 			Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
 		        bootbox.alert("Vous devez choisir de participer à une playlist, ou d'en creer une nouvelle...",function(){
-			        window.reload();
+			        document.location.reload();
 		        });
 		        
 		    });
