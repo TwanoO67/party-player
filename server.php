@@ -217,17 +217,19 @@
                             }
                             
                             if(!$alreadyVoted){
-    		                	if($_REQUEST['vote'] == 'moins'){
+	                            $value = $_REQUEST['vote'];
+    		                	if($value == 'moins'){
     			                	$item['vote'] -= 1;
     		                	}
     		                	else{
     			                	$item['vote'] += 1;
+    			                	$value = 'plus';
     		                	}
     		                	$vote = array(
         		                	/*'item_id' => $id,*/
         		                	'token' => $vote_token,
     			                	'user' => $user,
-    			                	'value' => $vote
+    			                	'value' => $value
     		                	);
     		                	$item['votes'][] = $vote;
     		                	

@@ -254,6 +254,7 @@ function searchYoutube(query){
                     //tableau de resultat supplémentaire
                     else{
                         $('#result_more').show();
+                        $('#result_more_content').hide();
                         $('#result_more_content').append(ligne);
                     }
                 }
