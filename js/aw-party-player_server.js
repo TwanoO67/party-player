@@ -1,7 +1,4 @@
-function AccueilStep2(){
-	window.location.href = '/?mode=server&sessid='+rand_sessid;
-	return true;
-	
+/*function AccueilStep2(){
 	//suppression de l'accueil step2
 	Intro = bootbox.dialog({
 	  message: "<div style='text-align: center;'>Vous voici dans le <b>'mode serveur'</b> <br/> Votre ordinateur doit donc etre branché sur des enceintes, <br/> Faites profiter vos amis de la musique! <br/><br/> Pour commencer, choisissez une des options suivantes: <br/> <br/><b>Nouvelle Playlist</b>, pour commencer à vide :)<br/><b>Ouvrir une playlist</b>, si vous avez une playlist enregistré d'une ancienne session<br/><b>Connexion par ID</b>, pour ré-ouvrir une playlist dont vous avez le numéro<br/> <br/> </div>",
@@ -27,13 +24,13 @@ function AccueilStep2(){
 	        
 	      }
 	    },
-	    /*danger: {
-	      label: "Ouvrir une playlist",
-	      className: "btn-danger",
-	      callback: function() {
-	        bootbox.alert("ce mode n'existe pas encore...");
-	      }
-	    },*/
+	    //danger: {
+	    //  label: "Ouvrir une playlist",
+	    //  className: "btn-danger",
+	    //  callback: function() {
+	    //    bootbox.alert("ce mode n'existe pas encore...");
+	    //  }
+	    //},
 	    main: {
 	      label: "Connexion par ID",
 	      className: "btn-primary",
@@ -53,7 +50,7 @@ function AccueilStep2(){
 	  }
 	});
 }
-
+*/
 function markAllAsUnread(){
     $.getJSON(serverURL, {
         'mode': 'unread_all',

@@ -10,7 +10,8 @@
     } 
 	//Si l'url ne contient pas les infos necessaire on relance l'accueil step2
 	if($sessid == ''){ ?>
-		AccueilStep2();
+		//AccueilStep2();
+		window.location.href = '/?mode=server&sessid='+rand_sessid;
 	<?php }
 		else{
 			echo "sessid = '".$sessid."';loadPlaylistFromServer();";
