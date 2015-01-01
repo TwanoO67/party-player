@@ -30,7 +30,7 @@
 	preloadingInterval = false;
 	crossfadeTime = 5;
 	
-	autoPlay = false;
+	autoPlay = true;
 	lastPlayedId = 0;
 	bootboxInstanceLoadNextTrack = null;
 	 
@@ -42,18 +42,16 @@
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
 	    
 	    <div class='well placeholders'>
-	        <h2 id='main-title'>Bienvenue sur uTube Party Player!</h2>
+	        <h2 id='main-title'>Bienvenue sur Party Player!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-	            Votre serveur est pret à lire vos musiques<br/>
+	            Vous est prêt à lire vos musiques<br/>
 	            <br/>
 	            Demandez à vos amis d'ajouter des chansons...<br/>
 	            et créez ensemble en live votre uTube Party!<br/>
 	            <br/>
-	            Laissez cet ordinateur connecté, et utilisez le mode client (numéro <b><? echo $sessid ?></b>) pour ajouter des musiques.<br/>
-	            Par exemple, sur votre smartphone ;) ( ou dans un <a href='<?php echo $session_url ?>' target='_new'> nouvel onglet </a> )
+	            Laissez cet ordinateur connecté, et utilisez le mode participant (numéro <b><? echo $sessid ?></b>) sur votre smartphone pour ajouter des musiques.<br/>
 	            <br/>
 	            <br/>
-	            <input type=button onclick="autoPlay=true;loadNextTrack();" value='Lire la playlist'></input>
 	        </div>
 	        <div id='vote-area-ph'></div>
 	    </div>

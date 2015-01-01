@@ -2,7 +2,7 @@ function AccueilStep2(){
 	window.location.href = '/?mode=server&sessid='+rand_sessid;
 	return true;
 	
-	//suppreesion de l'accueil step2
+	//suppression de l'accueil step2
 	Intro = bootbox.dialog({
 	  message: "<div style='text-align: center;'>Vous voici dans le <b>'mode serveur'</b> <br/> Votre ordinateur doit donc etre branché sur des enceintes, <br/> Faites profiter vos amis de la musique! <br/><br/> Pour commencer, choisissez une des options suivantes: <br/> <br/><b>Nouvelle Playlist</b>, pour commencer à vide :)<br/><b>Ouvrir une playlist</b>, si vous avez une playlist enregistré d'une ancienne session<br/><b>Connexion par ID</b>, pour ré-ouvrir une playlist dont vous avez le numéro<br/> <br/> </div>",
 	  title: "uTube Party Player",
