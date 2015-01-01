@@ -247,7 +247,7 @@ function searchYoutube(query){
                     var id = element['media$group']['yt$videoid']['$t'];
                     
                     var ligne = buildHTMLResultatTrackItem(
-                        index,
+                        nb_result,
                         element['media$group']['media$thumbnail'][0].url,
                         element.title['$t'],
                         id
