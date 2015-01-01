@@ -234,6 +234,7 @@ function searchYoutube(query){
             //pour chaque resultat venant de youtube
             data.feed.entry.forEach(function(element,index,array){
                 var duree = 0;
+                var nb_refus = 0;
                 if(typeof (element['media$group']['media$content'][0]) !== 'undefined' )
                     duree = element['media$group']['media$content'][0]['duration'];
                 //si le resultat ne contient pas des trucs trop court ou trop long (spam)
@@ -258,7 +259,11 @@ function searchYoutube(query){
                         $('#result_more_content').append(ligne);
                     }
                 }
+                else{
+	                nb_refus++;
+                }
             });
+            console.log(" Nombre de recherche exclue: "+nb_refus);
             $('#search-result').show();
             cible('#search-result');
         }
