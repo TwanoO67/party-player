@@ -9,7 +9,7 @@
                 <span class='glyphicon glyphicon-tasks'></span>&nbsp;<span class="caret"></span>
             </button>
             
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu" role="menu" style="left:auto;right:0;">
                 <!--<li role="presentation">
                     <a role="menuitem" tabindex="-1" href="#">Nouvelle playlist</a>
                 </li>
