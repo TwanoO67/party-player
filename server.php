@@ -390,7 +390,7 @@
                 
                     $response = $api->getUserPlaylists($api->me()->id);
                     
-                    var_dump($reponse);
+                    var_dump($response);
                 } else {
                     header('Location: ' . $session->getAuthorizeUrl(array(
                         'scope' => array('user-read-email', 'user-library-modify')
