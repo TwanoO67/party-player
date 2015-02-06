@@ -1,27 +1,5 @@
 <?php
-	/*
-    	AUTOLOADER DES LIBS
-	*/
-	function __autoload($class_name) {
-    	switch ($class_name) {
-            case "Request":
-                include './includes/spotify-web-api/Request.php';
-                break;
-            case "Session":
-                include './includes/spotify-web-api/Session.php';
-                break;
-            case "SpotifyWebAPI":
-                include './includes/spotify-web-api/SpotifyWebAPI.php';
-                break;
-            case "SpotifyWebAPIException":
-                include './includes/spotify-web-api/SpotifyWebAPIException.php';
-                break;
-        }
-        
-    }
-	
-	
-	
+
 	/*
     	FONCTIONS
 	*/
@@ -394,6 +372,12 @@
                 //creation d'une playlist a partir d'une de spotify
                 
                 $id = $_REQUEST['id_spotify'];
+                
+                include './includes/spotify-web-api/Request.php';
+                include './includes/spotify-web-api/Session.php';
+                include './includes/spotify-web-api/SpotifyWebAPI.php';
+                include './includes/spotify-web-api/SpotifyWebAPIException.php';
+
                 
                 $this->request = new Request();
                 	                
