@@ -3,6 +3,7 @@
 	/*
     	FONCTIONS
 	*/
+	require_once('config.php');
 	
 	function compareItems($a, $b) {
 		//si les 2 chansons sont parmis les lu / nouvelle, on les trie par vote
@@ -382,7 +383,7 @@
                 $request = new SpotifyWebAPI\Request();
                 echo "test";
                     echo getenv('SPOTIFY_CLIENT_ID'); exit;
-                $session = new SpotifyWebAPI\Session(getenv('SPOTIFY_CLIENT_ID'), getenv('SPOTIFY_CLIENT_SECRET'), getenv('SPOTIFY_REDIRECT_URI'));
+                $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
                 $api = new SpotifyWebAPI\SpotifyWebAPI();
                 
                 if (isset($_GET['code'])) {
