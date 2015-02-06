@@ -368,6 +368,21 @@
                     }
                 
             }
+            elseif($mode == 'convert_spotify'){
+                //creation d'une playlist a partir d'une de spotify
+                
+                $id = $_REQUEST['id_spotify'];
+                
+                $this->request = new SpotifyWebAPI\Request();
+                	                
+                if($id > 0){
+                    $reponse['result'] = 'success';
+                }
+                else{
+                    $reponse['error'] = 'no_read';
+                }
+                
+            }
             
         }
         else{
