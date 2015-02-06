@@ -379,7 +379,7 @@
                 include './includes/spotify-web-api/SpotifyWebAPIException.php';
 
                 
-                $this->request = new Request();
+                $this->request = new SpotifyWebAPI\Request();
                 	                
                 if($id > 0){
                     $reponse['result'] = 'success';
