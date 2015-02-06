@@ -388,9 +388,9 @@
                     $session->requestToken($_GET['code']);
                     $api->setAccessToken($session->getAccessToken());
                 
-                    print_r($api->me());
+                    $response = $api->getUserPlaylists($api->me()->id);
                     
-                    $response = $api->getUserPlaylistTracks('mcgurk', $this->playlistID);
+                    var_dump($reponse);
                 } else {
                     header('Location: ' . $session->getAuthorizeUrl(array(
                         'scope' => array('user-read-email', 'user-library-modify')
