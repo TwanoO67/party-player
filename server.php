@@ -381,8 +381,6 @@
 
                 
                 $request = new SpotifyWebAPI\Request();
-                echo "test";
-                    echo getenv('SPOTIFY_CLIENT_ID'); exit;
                 $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
                 $api = new SpotifyWebAPI\SpotifyWebAPI();
                 
