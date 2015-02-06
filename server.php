@@ -395,7 +395,7 @@
                 
                 $id = $_REQUEST['id_spotify'];
                 
-                $this->request = new SpotifyWebAPI\Request();
+                $this->request = new Request();
                 	                
                 if($id > 0){
                     $reponse['result'] = 'success';
