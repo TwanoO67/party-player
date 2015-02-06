@@ -1,4 +1,26 @@
 <?php
+	/*
+    	AUTOLOADER DES LIBS
+	*/
+	function __autoload($class_name) {
+    	switch ($class_name) {
+            case "Request":
+                include '/includes/spotify-web-api/Request.php';
+                break;
+            case "Session":
+                include '/includes/spotify-web-api/Session.php';
+                break;
+            case "SpotifyWebAPI":
+                include '/includes/spotify-web-api/SpotifyWebAPI.php';
+                break;
+            case "SpotifyWebAPIException":
+                include '/includes/spotify-web-api/SpotifyWebAPIException.php';
+                break;
+        }
+        
+    }
+	
+	
 	
 	/*
     	FONCTIONS
