@@ -91,7 +91,7 @@
             <span class="icon-bar"></span>
           </button>-->
           <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player</a>
-          <div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>
+          <!--<div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>-->
         </div>
         
         <!--<div id="nav-main" class="navbar-collapse collapse">
