@@ -91,8 +91,9 @@
             <span class="icon-bar"></span>
           </button>-->
           <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player</a>
+          &nbsp; Transformer votre PC en Jukebox!
         </div>
-        &nbsp; Transformer votre PC en Jukebox!
+        
         <!--<div id="nav-main" class="navbar-collapse collapse">
             <a class="navbar-brand" id='username' onclick='changeUsername();' style='float:right'>UserName</a>     
         </div>-->
