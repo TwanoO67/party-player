@@ -92,7 +92,7 @@
           </button>-->
           <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player</a>
         </div>
-        
+        &nbsp; Transformer votre PC en Jukebox!
         <!--<div id="nav-main" class="navbar-collapse collapse">
             <a class="navbar-brand" id='username' onclick='changeUsername();' style='float:right'>UserName</a>     
         </div>-->
@@ -142,7 +142,7 @@
 
         <script>
 	      Intro = bootbox.dialog({
-			  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez être: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> participer à une playlist existante ? </div>",
+			  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> Participer à une playlist existante ? </div>",
 			  title: "Bienvenue sur Party-Player!",
 			  buttons: {
 			    success: {
