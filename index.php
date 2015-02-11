@@ -151,7 +151,7 @@
 			      className: "btn-success",
 			      callback: function() {
 			        mode = 'server';
-			        bootbox.confirm("<b>Attention</>: Pour créer une playlist, vous devez être sur l'ordinateur qui va servir de jukebox.<br/> Par exemple: Une ordinateur branché à une chaine hifi...", function(result){
+			        bootbox.confirm("<b>Attention</b>: Pour créer une playlist, vous devez être sur l'ordinateur qui va servir de jukebox.<br/> Par exemple: Une ordinateur branché à une chaine hifi...", function(result){
 				        if(result)
 				        	window.location.href = '/?mode=server&sessid='+rand_sessid;
 				        else
