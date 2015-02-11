@@ -105,9 +105,9 @@
 	    <div class='row first_row'>
 		    
 	    <div class="jumbotron" id="jumbo1">
-		  <h1>Bienvenue, sur PartyPlayer!</h1>
+		  <h1><img src="/img/headphones.svg" alt="equalizer" width='100px'/>Bienvenue, sur PartyPlayer!</h1>
 		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
-			 <img src="/img/people.svg" alt="people" width='100px'/> <img src="/img/arrow_long.svg" alt="arrow" width='100px'/> <img src="/img/equalizer.svg" alt="equalizer" width='100px'/><br/>
+			 <img src="/img/people.svg" alt="people" width='100px' style='margin-left:auto;margin-right:auto;'/><br/>
 			 Le concept:<br/>
 			 - Vos amis peuvent ajouter des chansons<br/>
 			 - Voter pour/contre les chansons de vos amis<br/>
@@ -117,8 +117,7 @@
 		</div>
 		
 		<div class="jumbotron" id="jumbo2" style="display:none;">
-		  <h1>1 Ordi + Enceinte = JukeBox!</h1>
-		  <img src="/img/computer.svg" alt="people" width='100px'/> <img src="/img/plus.svg" alt="arrow" width='100px'/> <img src="/img/audio.svg" alt="equalizer" width='100px'/> <img src="/img/arrow_short.svg" alt="arrow" width='100px'/> <img src="/img/play.svg" alt="equalizer" width='100px'/><br/>
+		  <h1><img src="/img/computer.svg" alt="people" width='100px'/> Ordi + <img src="/img/audio.svg" alt="equalizer" width='100px'/> Enceinte = <img src="/img/play.svg" alt="equalizer" width='100px'/>JukeBox!</h1>
 		  <p>Avec un ordinateur connecté à internet, vous allez pouvoir créer votre jukebox.<br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
