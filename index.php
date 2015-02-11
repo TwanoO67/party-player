@@ -84,7 +84,6 @@
 			position: absolute;
 			bottom: 0;
 			width: 100%;
-			height: 60px;
 			background-color: #f5f5f5;
 		}
     </style>
@@ -261,10 +260,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9 item">
-						Copyright &copy; 2015 <a href="http://www.weberantoine.fr">WEBER Antoine</a>.
+						&copy; 2015 <a href="http://www.weberantoine.fr">Weber A.</a>.
 					</div>
 					<div class="col-sm-3 text-center">
-						<iframe src="https://ghbtns.com/github-btn.html?user=TwanoO67&repo=partyplayer&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+						<iframe src="https://ghbtns.com/github-btn.html?user=TwanoO67&repo=party-player&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="30px"></iframe>
 					</div>
 				</div>
 			</div>
