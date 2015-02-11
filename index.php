@@ -12,7 +12,7 @@
     $session_url =  $base_url."?mode=client&sessid=".$sessid;
     
     $marge_header = '70';
-    $boostrapversion = "3.3.1";
+    $boostrapversion = "3.3.2";
 ?>
 <head>
     <meta charset="utf-8">
@@ -81,8 +81,11 @@
         }
         .footer {
 			padding: 10px 0;
-			background: #222;
-			color: #fff;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 60px;
+			background-color: #f5f5f5;
 		}
     </style>
     
@@ -261,7 +264,7 @@
 						Copyright &copy; 2015 <a href="http://www.weberantoine.fr">WEBER Antoine</a>.
 					</div>
 					<div class="col-sm-3 text-center">
-						<a href="https://github.com/TwanoO67/" class="btn btn-github btn-social" data-toggle="tooltip" data-placement="top" title="Github Repositories"><i class="fa fa-github"></i></a>
+						<iframe src="https://ghbtns.com/github-btn.html?user=TwanoO67&repo=partyplayer&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
 					</div>
 				</div>
 			</div>
