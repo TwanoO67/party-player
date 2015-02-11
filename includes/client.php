@@ -55,8 +55,8 @@
                 Rechercher:<br/><br/>
 	            <form>
 		            <input type="text" class="form-control" placeholder="Artiste ou titre..." id='recherche' style='width:auto;display:inline'></input>
-		            <input type='button' class="btn btn-default" onclick='searchYoutube($("#recherche").val());' value='Ok'></input> 
-		            ou
+		            <input type='button' class="btn btn-default" onclick='searchYoutube($("#recherche").val());' value='Ok'></input> <br/>
+		            ou<br/>
 		            <input type="text" class="form-control" placeholder="Playlist..." id='recherche-playlist' style='width:auto;display:inline'></input>
                     <input type='button' class="btn btn-default" onclick='searchPlaylistOnYoutube($("#recherche-playlist").val());' value='Ok'></input> 
 		         </form>
