@@ -110,17 +110,17 @@
 			 - Voter pour/contre les chansons de vos amis<br/>
 			 - Le player lira en continue les chansons les mieux notées
 		  </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('jumbo1').hide();$('jumbo2').show()" role="button">Comment ça marche?</a> <a class="btn btn-warning btn-lg" href="#" onclick="loadIntro()" role="button">Je connais! Vite la suite!</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo1').hide();$('#jumbo2').show()" role="button">Comment ça marche?</a> <a class="btn btn-warning btn-lg" href="#" onclick="loadIntro()" role="button">Je connais! Vite la suite!</a></p>
 		</div>
 		
-		<div class="jumbotron" id="jumbo2" style="display='none';">
+		<div class="jumbotron" id="jumbo2" style="display:none;">
 		  <h1>1 Ordi + Enceinte = JukeBox!</h1>
 		  <p>Avec un ordinateur connecté à internet, vous allez pouvoir créer votre jukebox.<br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
 			 - Afficher les clips, et lire la musique sur ces enceintes<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('jumbo2').hide();$('jumbo3').show()" role="button">Et comment ajouter de la musique?</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Et comment ajouter de la musique?</a></p>
 		</div>
 		
 		
