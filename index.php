@@ -151,7 +151,10 @@
 			      className: "btn-success",
 			      callback: function() {
 			        mode = 'server';
-			        window.location.href = '/?mode=server&sessid='+rand_sessid;
+			        if(bootbox.confirm("Attention: Pour créer une nouvelle playlist, vous devez etre sur l'ordinateur qui va servir de jukebox")){
+				        window.location.href = '/?mode=server&sessid='+rand_sessid;
+			        }
+			        
 			      }
 			    },
 			    main: {
