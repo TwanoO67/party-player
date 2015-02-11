@@ -51,8 +51,7 @@
 	            <br/>
 	            <img src='/img/phone.svg' width='100px' /><br/>
 	            Pour cela, prenez votre <b>smartphone</b> : <br/>
-	            Flashez le QRCode <br/>
-	            <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=<?php echo urlencode($session_url); ?>&choe=UTF-8" /><br/>
+	            Flashez le QRCode de votre jukebox (situé à droite ==> )<br/>
 	            <br/>
 	            ou<br/>
 	            <br/>
