@@ -47,8 +47,8 @@
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
 	            Votre PartyPlayer est maintenant en attente de musique!<br/>
 	            <br/>
-	            <img src'/img/phone.svg' width='100px' />
-	            Prenez maintenant votre <b>smartphone</b> <br/>
+	            <img src'/img/phone.svg' width='100px' /><br/>
+	            Prenez maintenant votre <b>smartphone</b> : <br/>
 	            --> Aller sur <b>http://partyplayer.fr</b><br/>
 	            --> Participer à une playlist<br/>
 	            --> Code: <b><? echo $sessid ?></b>)<br/>
