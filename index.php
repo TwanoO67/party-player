@@ -101,6 +101,22 @@
       </div>
     </div>
     
+    <div id='container'>
+	    <div class="jumbotron" id="jumbo1">
+		  <h1>Bienvenue, sur PartyPlayer!</h1>
+		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
+			 Le concept:<br/>
+			 - Vos amis peuvent ajouter des chansons<br/>
+			 - Voter pour/contre les chansons de vos amis<br/>
+			 - Le player lira en continue les chansons les mieux notées
+		  </p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('jumbo1').hide();$('jumbo2').show()" role="button">Comment ça marche?</a> <a class="btn btn-warning btn-lg" href="#" onclick="loadIntro()" role="button">Je connais! Vite la suite!</a></p>
+		</div>
+		
+		
+		
+    </div>
+    
     
     <script>
         
@@ -142,43 +158,46 @@
         ?>
 
         <script>
-	      Intro = bootbox.dialog({
-			  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> Participer à une playlist existante ? </div>",
-			  title: "Bienvenue sur Party-Player!",
-			  buttons: {
-			    success: {
-			      label: "Nouvelle playlist",
-			      className: "btn-success",
-			      callback: function() {
-			        mode = 'server';
-			        bootbox.confirm("<b>Attention</b>: <br/>Pour créer une playlist, vous devez être sur l'ordinateur qui va servir de jukebox.<br/> <i>Par exemple: Une ordinateur branché à une chaine hifi...</i>", function(result){
-				        if(result)
-				        	window.location.href = '/?mode=server&sessid='+rand_sessid;
-				        else
-				        	document.location.reload();
+	        
+	    function loadIntro(){
+		      Intro = bootbox.dialog({
+				  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> Participer à une playlist existante ? </div>",
+				  title: "Bienvenue sur Party-Player!",
+				  buttons: {
+				    success: {
+				      label: "Nouvelle playlist",
+				      className: "btn-success",
+				      callback: function() {
+				        mode = 'server';
+				        bootbox.confirm("<b>Attention</b>: <br/>Pour créer une playlist, vous devez être sur l'ordinateur qui va servir de jukebox.<br/> <i>Par exemple: Une ordinateur branché à une chaine hifi...</i>", function(result){
+					        if(result)
+					        	window.location.href = '/?mode=server&sessid='+rand_sessid;
+					        else
+					        	document.location.reload();
+				        });
+				        
+				      }
+				    },
+				    main: {
+				      label: "Participer à une playlist",
+				      className: "btn-primary",
+				      callback: function() {
+				        mode = 'client';
+				        window.location.href = '/?mode=client';
+				      }
+				    }
+				  }
+				});
+				
+				Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
+					console.log('on hide');
+			        bootbox.alert("Vous devez choisir de participer à une playlist, ou d'en creer une nouvelle...",function(){
+				        console.log('callback');
+				        document.location.reload();
 			        });
 			        
-			      }
-			    },
-			    main: {
-			      label: "Participer à une playlist",
-			      className: "btn-primary",
-			      callback: function() {
-			        mode = 'client';
-			        window.location.href = '/?mode=client';
-			      }
-			    }
-			  }
-			});
-			
-			Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
-				console.log('on hide');
-		        bootbox.alert("Vous devez choisir de participer à une playlist, ou d'en creer une nouvelle...",function(){
-			        console.log('callback');
-			        document.location.reload();
-		        });
-		        
-		    });
+			    });
+		    }
 		</script>
         <?php }else{
                 $mode = $_REQUEST['mode'];
