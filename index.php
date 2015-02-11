@@ -156,7 +156,7 @@
 				        	window.location.href = '/?mode=server&sessid='+rand_sessid;
 				        else
 				        	document.location.reload();
-			        }
+			        });
 			        
 			      }
 			    },
