@@ -100,7 +100,7 @@
         
       </div>
     </div>
-    <?php if(!is_empty($_REQUEST['mode'])){ ?>
+    <?php if(is_empty($_REQUEST['mode'])){ ?>
     <div class='container'>
 	    <div class='row first_row'>
 		    
