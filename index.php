@@ -107,24 +107,51 @@
 	    <div class="jumbotron" id="jumbo1">
 		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Bienvenue, sur PartyPlayer!</h1>
 		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
+			 <br/>
 			 Le concept:<br/>
-			 - Vos amis peuvent ajouter des chansons<br/>
-			 - Voter pour/contre les chansons de vos amis<br/>
-			 - Le player lira en continue les chansons les mieux notées
-			 <div class='text-center'><img src="/img/people.svg" alt="people" width='120px' /></div><br/>
+			 - Vos amis peuvent ajouter des musiques/clips<br/>
+			 - Voter pour/contre les musiques de vos amis<br/>
+			 - Le jukebox lira en continue les musiques les mieux notées<br/>
+			 - La soirée peut commencer!!!<br/>
+			 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>
 			 
 		  </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo1').hide();$('#jumbo2').show()" role="button">Comment ça marche?</a> <a class="btn btn-warning btn-lg" href="#" onclick="loadIntro()" role="button">Je connais! Vite la suite!</a></p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo2" style="display:none;">
-		  <h1><img src="/img/computer.svg" alt="people" width='100px'/> Ordi + <img src="/img/audio.svg" alt="equalizer" width='100px'/> Enceinte = <img src="/img/play.svg" alt="equalizer" width='100px'/>JukeBox!</h1>
+		  <h1><img src="/img/computer.svg" width='100px'/> Ordi + <img src="/img/audio.svg" width='100px'/> Enceinte = JukeBox!</h1>
 		  <p>Avec un ordinateur connecté à internet, vous allez pouvoir créer votre jukebox.<br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
 			 - Afficher les clips, et lire la musique sur ces enceintes<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Et comment ajouter de la musique?</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Et comment ajouter des musiques?</a></p>
+		</div>
+		
+		<div class="jumbotron" id="jumbo3" style="display:none;">
+		  <h1>Ajouter des musiques, c'est facile!</h1>
+		  <p>Avec leur smartphone <img src="/img/smartphone.svg" width='100px'/> ou tablette <img src="/img/tablet.svg" width='100px'/><br/>
+			 Les participants:<br/>
+			 - Scan le QRCode du JukeBox pour s'y connecter<br/>
+			 <br/>
+			 ou<br/>
+			 <br/>
+			 - se connecte à http://partyplayer.fr <br/>
+			 - et participe à la playlist, en tapant le CODE de son jukebox<br/>
+			 </p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">C'est facile! On Commence?</a></p>
+		</div>
+		
+		<div class="jumbotron" id="jumbo3" style="display:none;">
+		  <h1>Comment commencer?</h1>
+		  <p>- Allez sur l'ordinateur <img src="/img/computer.svg" width='100px'/> qui va servir de JukeBox (pas sur un smartphone)<br/>
+		  - Ouvrez le site http://partyplayer.fr<br/>
+		  - Cliquez sur "Nouvelle Playlist"
+		  </p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo4').hide();" role="button">Ok, je change d'ordi!</a>
+		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Je suis déja sur le bon ordi!</a>
+		  </p>
 		</div>
 		
 	    </div>
