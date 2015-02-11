@@ -105,9 +105,9 @@
 	    <div class='row first_row'>
 		    
 	    <div class="jumbotron" id="jumbo1">
-		  <h1><img src="/img/headphones.svg" alt="equalizer" width='100px'/>Bienvenue, sur PartyPlayer!</h1>
+		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/>Bienvenue, sur PartyPlayer!</h1>
 		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
-			 <img src="/img/people.svg" alt="people" width='100px' style='margin-left:auto;margin-right:auto;'/><br/>
+			 <div class='row text-center'><img src="/img/people.svg" alt="people" width='100px' /></div><br/>
 			 Le concept:<br/>
 			 - Vos amis peuvent ajouter des chansons<br/>
 			 - Voter pour/contre les chansons de vos amis<br/>
