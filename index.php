@@ -90,7 +90,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>-->
-          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player - le JukeBox collaboratif de vos soirées!</a>
+          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> Party Player <span style='color:red;font-style:italic;'>beta</span>&nbsp;- le JukeBox collaboratif de vos soirées!</a>
           <!--<div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>-->
         </div>
         
