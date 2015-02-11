@@ -2,7 +2,7 @@
 <html lang='fr'>
 <?php
     
-    $rand_sessid = substr(md5(rand()), 0, 3);
+    $rand_sessid = strtoupper(substr(md5(rand()), 0, 3));
     $sessid = '';
     if(isset($_REQUEST['sessid']) ){
         $sessid = $_REQUEST['sessid'];

@@ -63,7 +63,7 @@
     
     if( isset($_REQUEST['sessid']) )
     {
-        $id = $_REQUEST['sessid'];
+        $id = strtoupper($_REQUEST['sessid']);
         $filename = '_playlists/'.$id.'.json';
         
         if( isset($_REQUEST['mode']) ){

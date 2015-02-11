@@ -45,14 +45,15 @@
 	    <div class='well placeholders'>
 	        <h2 id='main-title'>Bienvenue sur Party Player!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-	            Vous est prêt à lire vos musiques<br/>
+	            Votre PartyPlayer est maintenant prêt!<br/>
 	            <br/>
-	            Demandez à vos amis d'ajouter des chansons...<br/>
-	            et créez ensemble en live votre uTube Party!<br/>
+	            Utilisez maintenant votre smartphone pour ajouter des musiques<br/>
+	            --> Aller sur http://partyplayer.fr<br/>
+	            --> Participer à un playlist<br/>
+	            --> numéro <b><? echo $sessid ?></b>)<br/>
 	            <br/>
-	            Laissez cet ordinateur connecté, et utilisez le mode participant (numéro <b><? echo $sessid ?></b>) sur votre smartphone pour ajouter des musiques.<br/>
 	            <br/>
-	            <br/>
+	            ou Flashez le QRCode (situé sur la droite du site)
 	        </div>
 	        <div id='vote-area-ph'></div>
 	    </div>
