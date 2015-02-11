@@ -98,7 +98,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>-->
-          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> Party Player <span style='color:red;font-style:italic;'>beta</span><span id"subtitle">&nbsp;- le JukeBox collaboratif de vos soirées!</span></a>
+          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> Party Player <span style='color:red;font-style:italic;'>beta</span><span id="subtitle">&nbsp;- le JukeBox collaboratif de vos soirées!</span></a>
           <!--<div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>-->
         </div>
         
@@ -202,11 +202,8 @@
         mode = '';
         
         //on cache le sous titre si le header est trop petit (mobile)
-        if($('.navbar-header').outerWidth() < 500){
+        if($('.navbar-header').outerWidth() < 530){
 	        $('#subtitle').hide();
-        }
-        else{
-	        console.log($('.navbar-header').outerWidth());
         }
       </script>   
         <?php 
