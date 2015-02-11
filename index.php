@@ -102,9 +102,12 @@
     </div>
     
     <div class='container'>
+	    <div class='row first_row'>
+		    
 	    <div class="jumbotron" id="jumbo1">
 		  <h1>Bienvenue, sur PartyPlayer!</h1>
 		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
+			 <img src="/img/people.svg" alt="people" width='100px'/> <img src="/img/arrow_long.svg" alt="arrow" width='100px'/> <img src="/img/equalizer.svg" alt="equalizer" width='100px'/>
 			 Le concept:<br/>
 			 - Vos amis peuvent ajouter des chansons<br/>
 			 - Voter pour/contre les chansons de vos amis<br/>
@@ -123,7 +126,7 @@
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Et comment ajouter de la musique?</a></p>
 		</div>
 		
-		
+	    </div>
     </div>
     
     
