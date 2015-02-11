@@ -91,7 +91,7 @@
 	        </div>
 	        <div class="panel-body placeholders">
 	             <!--<b><div id='username' style='display:inline;'></div></b> <span class='glyphicon glyphicon-edit' onclick='changeUsername()'></span><br/>-->
-	             CODE de Playlist : <b><?php echo $sessid ?> <br/></b>
+	             Code de votre playlist : <b><?php echo $sessid ?> <br/></b>
 	             <!--<a href="<?php echo $session_url; ?>"><?php echo $session_url; ?></a><br/>-->
 	             <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=<?php echo urlencode($session_url); ?>&choe=UTF-8" /><br/>
 	      </div>
