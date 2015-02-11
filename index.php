@@ -29,7 +29,7 @@
     <script src="js/jquery.cookie.js"></script>
     <script src="js/bootbox.min.js" type="text/javascript"></script>
     <link rel="icon" type="image/png" href="/css/favicon.png" />
-    <title>Party Player</title>
+    <title>Party Player - le JukeBox collaboratif de vos soirées!</title>
 </head>
 
 <body>
@@ -90,7 +90,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>-->
-          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player</a>
+          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> <span style='color:red'>beta</span>&nbsp;Party Player - le JukeBox collaboratif de vos soirées!</a>
           <!--<div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>-->
         </div>
         
