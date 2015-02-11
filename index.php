@@ -85,6 +85,7 @@
 			bottom: 0;
 			width: 100%;
 			background-color: #f5f5f5;
+			height: 30px;
 		}
     </style>
     
@@ -260,7 +261,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9 item">
-						&copy; 2015 <a href="http://www.weberantoine.fr">Weber A.</a>.
+						&copy; 2015 <a href="http://www.weberantoine.fr">Weber A.</a>
 					</div>
 					<div class="col-sm-3 text-center">
 						<iframe src="https://ghbtns.com/github-btn.html?user=TwanoO67&repo=party-player&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="30px"></iframe>
