@@ -8,7 +8,7 @@
         $sessid = $_REQUEST['sessid'];
     }
     
-    $base_url = "http://<?php echo $_SERVER['SERVER_NAME']; ?>";
+    $base_url = "http://".$_SERVER['SERVER_NAME'];
     $session_url =  $base_url."?mode=client&sessid=".$sessid;
     
     $marge_header = '70';
