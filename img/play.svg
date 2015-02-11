@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- The icon can be used freely in both personal and commercial projects with no attribution required, but always appreciated. 
+You may NOT sub-license, resell, rent, redistribute or otherwise transfer the icon without express written permission from iconmonstr.com -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<path id="video-play-2-icon" d="M256,127.295c-71.676,0-129.779,57.404-129.779,128.217c0,70.812,58.104,128.217,129.779,128.217
+	c71.677,0,129.78-57.405,129.78-128.217C385.78,184.699,327.677,127.295,256,127.295z M219.21,326.149V188.021l112.644,69.065
+	L219.21,326.149z M276,50.487c65.755,6.403,124.963,44.108,158.401,102.025c33.438,57.917,36.483,128.044,9.152,188.19
+	l-34.857-20.125c20.314-47.653,17.349-102.539-8.937-148.065C373.476,126.986,327.426,96.976,276,90.74V50.487z M423.558,375.346
+	C385.134,429.09,322.877,461.513,256,461.513S126.866,429.09,88.442,375.346l34.86-20.127
+	c31.113,41.42,80.128,66.294,132.697,66.294s101.584-24.874,132.697-66.294L423.558,375.346z M68.446,340.703
+	c-27.331-60.146-24.285-130.273,9.152-188.19C111.037,94.596,170.245,56.891,236,50.487V90.74
+	c-51.426,6.235-97.476,36.246-123.76,81.772c-26.285,45.526-29.251,100.412-8.937,148.065L68.446,340.703z"/>
+</svg>

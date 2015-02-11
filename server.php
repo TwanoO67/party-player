@@ -1,8 +1,9 @@
 <?php
-	
+
 	/*
     	FONCTIONS
 	*/
+	require_once('config.php');
 	
 	function compareItems($a, $b) {
 		//si les 2 chansons sont parmis les lu / nouvelle, on les trie par vote
@@ -62,7 +63,7 @@
     
     if( isset($_REQUEST['sessid']) )
     {
-        $id = $_REQUEST['sessid'];
+        $id = strtoupper($_REQUEST['sessid']);
         $filename = '_playlists/'.$id.'.json';
         
         if( isset($_REQUEST['mode']) ){
@@ -366,6 +367,44 @@
                     else{
                         $reponse['error'] = 'no_read';
                     }
+                
+            }
+            elseif($mode == 'convert_spotify'){
+                //creation d'une playlist a partir d'une de spotify
+                
+                $id = $_REQUEST['id_spotify'];
+                
+                include './includes/spotify-web-api/Request.php';
+                include './includes/spotify-web-api/Session.php';
+                include './includes/spotify-web-api/SpotifyWebAPI.php';
+                include './includes/spotify-web-api/SpotifyWebAPIException.php';
+
+                
+                $request = new SpotifyWebAPI\Request();
+                $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
+                $api = new SpotifyWebAPI\SpotifyWebAPI();
+                
+                if (isset($_GET['code'])) {
+                    $session->requestToken($_GET['code']);
+                    $api->setAccessToken($session->getAccessToken());
+                
+                    $response = $api->getUserPlaylists($api->me()->id);
+                    
+                    var_dump($response);
+                } else {
+                    header('Location: ' . $session->getAuthorizeUrl(array(
+                        'scope' => array('user-read-email', 'user-library-modify')
+                    )));
+                }
+
+                
+                	                
+                if($id > 0){
+                    $reponse['result'] = 'success';
+                }
+                else{
+                    $reponse['error'] = 'no_read';
+                }
                 
             }
             

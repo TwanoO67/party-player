@@ -48,15 +48,15 @@
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
         
         <div class='well placeholders'>
-            <h2 id='main-title'>Bienvenue sur uTube Party Player!</h2>
+            <h2 id='main-title'>Bienvenue sur Party Player!</h2>
             <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-                Commencez par rechercher une musique et l'ajouter à la playlist partagée<br/>
+                Rechercher une musique pour l'ajouter à la playlist du Jukebox<br/>
                 <br/>
                 Rechercher:<br/><br/>
 	            <form>
 		            <input type="text" class="form-control" placeholder="Artiste ou titre..." id='recherche' style='width:auto;display:inline'></input>
-		            <input type='button' class="btn btn-default" onclick='searchYoutube($("#recherche").val());' value='Ok'></input> 
-		            ou
+		            <input type='button' class="btn btn-default" onclick='searchYoutube($("#recherche").val());' value='Ok'></input> <br/>
+		            ou<br/>
 		            <input type="text" class="form-control" placeholder="Playlist..." id='recherche-playlist' style='width:auto;display:inline'></input>
                     <input type='button' class="btn btn-default" onclick='searchPlaylistOnYoutube($("#recherche-playlist").val());' value='Ok'></input> 
 		         </form>

@@ -45,14 +45,16 @@
 	    <div class='well placeholders'>
 	        <h2 id='main-title'>Bienvenue sur Party Player!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-	            Vous est prêt à lire vos musiques<br/>
+	            Votre JukeBox est maintenant en attente de musique!<br/>
+	            Demandez à vos amis d'ajouter des musiques, et elle se liront automatiquement ici!<br/>
+	            <img src='/img/phone.svg' width='100px' /><br/>
+	            Pour cela, prenez votre <b>smartphone</b> : <br/>
+	            Flashez le QRCode de votre jukebox (situé à droite ==> )<br/>
 	            <br/>
-	            Demandez à vos amis d'ajouter des chansons...<br/>
-	            et créez ensemble en live votre uTube Party!<br/>
+	            ou<br/>
 	            <br/>
-	            Laissez cet ordinateur connecté, et utilisez le mode participant (numéro <b><? echo $sessid ?></b>) sur votre smartphone pour ajouter des musiques.<br/>
-	            <br/>
-	            <br/>
+	            Avec votre smartphone aller sur <b>http://partyplayer.fr</b><br/>
+	            Participer à la playlist, CODE: <b><? echo $sessid ?></b><br/>
 	        </div>
 	        <div id='vote-area-ph'></div>
 	    </div>
@@ -89,10 +91,11 @@
 	        </div>
 	        <div class="panel-body placeholders">
 	             <!--<b><div id='username' style='display:inline;'></div></b> <span class='glyphicon glyphicon-edit' onclick='changeUsername()'></span><br/>-->
-	             ID : <b><?php echo $sessid ?> <br/></b>
+	             Code de votre playlist : <b><?php echo $sessid ?> <br/></b>
 	             <!--<a href="<?php echo $session_url; ?>"><?php echo $session_url; ?></a><br/>-->
 	             <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=<?php echo urlencode($session_url); ?>&choe=UTF-8" /><br/>
 	      </div>
 	    </div>
 	    
 	    <?php include_once('_playlist.php'); ?>
+	</div>

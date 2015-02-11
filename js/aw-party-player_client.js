@@ -1,10 +1,10 @@
 function AccueilStep2(){
-	bootbox.prompt("Entrer le numero de la playlist voulue",function(retour){
+	bootbox.prompt("Entrer le code de la playlist voulue",function(retour){
         if(retour != ''){
 	        window.location.href = '/?mode=client&sessid='+retour.toLowerCase();
         }
         else{
-	        bootbox.confirm("Si vous n'avez pas de numéro ID, commencez une nouvelle playlist",function(){
+	        bootbox.confirm("Si vous n'avez pas de code, commencez par créer une nouvelle playlist",function(){
 		        window.location.href = '/?mode=server';
 	        });
         }
