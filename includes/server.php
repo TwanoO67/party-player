@@ -51,7 +51,7 @@
 	            Prenez maintenant votre <b>smartphone</b> : <br/>
 	            --> Aller sur <b>http://partyplayer.fr</b><br/>
 	            --> Participer à une playlist<br/>
-	            --> Code: <b><? echo $sessid ?></b>)<br/>
+	            --> Code: <b><? echo $sessid ?></b><br/>
 	            <br/>
 	            <br/>
 	            ou Flashez le QRCode (situé sur la droite du site)
@@ -91,7 +91,7 @@
 	        </div>
 	        <div class="panel-body placeholders">
 	             <!--<b><div id='username' style='display:inline;'></div></b> <span class='glyphicon glyphicon-edit' onclick='changeUsername()'></span><br/>-->
-	             ID : <b><?php echo $sessid ?> <br/></b>
+	             CODE de Playlist : <b><?php echo $sessid ?> <br/></b>
 	             <!--<a href="<?php echo $session_url; ?>"><?php echo $session_url; ?></a><br/>-->
 	             <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=<?php echo urlencode($session_url); ?>&choe=UTF-8" /><br/>
 	      </div>
