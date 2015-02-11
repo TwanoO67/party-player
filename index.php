@@ -79,6 +79,11 @@
         textarea {
           font-size: 16px;
         }
+        .footer {
+			padding: 10px 0;
+			background: #222;
+			color: #fff;
+		}
     </style>
     
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -253,7 +258,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9 item">
-						Copyright &copy; 2014 <a href="http://www.weberantoine.fr">WEBER Antoine</a>.
+						Copyright &copy; 2015 <a href="http://www.weberantoine.fr">WEBER Antoine</a>.
 					</div>
 					<div class="col-sm-3 text-center">
 						<a href="https://github.com/TwanoO67/" class="btn btn-github btn-social" data-toggle="tooltip" data-placement="top" title="Github Repositories"><i class="fa fa-github"></i></a>

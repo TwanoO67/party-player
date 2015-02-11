@@ -98,3 +98,4 @@
 	    </div>
 	    
 	    <?php include_once('_playlist.php'); ?>
+	</div>
