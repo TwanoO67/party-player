@@ -205,6 +205,9 @@
         if($('.navbar-header').outerWidth() < 500){
 	        $('#subtitle').hide();
         }
+        else{
+	        console.log($('.navbar-header').outerWidth());
+        }
       </script>   
         <?php 
             //lancement de l'appli
