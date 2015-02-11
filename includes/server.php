@@ -53,9 +53,8 @@
 	            <br/>
 	            ou<br/>
 	            <br/>
-	            --> Aller sur <b>http://partyplayer.fr</b><br/>
-	            --> Participer à une playlist<br/>
-	            --> Code: <b><? echo $sessid ?></b><br/>
+	            Avec votre smartphone aller sur <b>http://partyplayer.fr</b><br/>
+	            Participer à la playlist, CODE: <b><? echo $sessid ?></b><br/>
 	        </div>
 	        <div id='vote-area-ph'></div>
 	    </div>
