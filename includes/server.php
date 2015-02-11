@@ -46,9 +46,7 @@
 	        <h2 id='main-title'>Bienvenue sur Party Player!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
 	            Votre JukeBox est maintenant en attente de musique!<br/>
-	            <br/>
 	            Demandez à vos amis d'ajouter des musiques!<br/>
-	            <br/>
 	            <img src='/img/phone.svg' width='100px' /><br/>
 	            Pour cela, prenez votre <b>smartphone</b> : <br/>
 	            Flashez le QRCode de votre jukebox (situé à droite ==> )<br/>
