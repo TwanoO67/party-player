@@ -384,18 +384,45 @@
                 $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
                 $api = new SpotifyWebAPI\SpotifyWebAPI();
                 
-                //si je suis deja connecté à spotify
-                if(isset($_COOKIE["spotify_token"])){
-                    $api->setAccessToken($_COOKIE["spotify_token"]);
-                    $response = $api->getUserPlaylists($api->me()->id);
-                    
-                    echo json_encode($response,JSON_PRETTY_PRINT);
-                }
+               
+                $token = '';
                 //si spotify m'envoi un token de connexion
                 if (isset($_GET['code'])) {
                     $session->requestToken($_GET['code']);
-                    setcookie("spotify_token",$session->getAccessToken());
+                    $token = $session->getAccessToken();
+                    setcookie("spotify_token",$token);
                 } 
+                //si je suis deja connecté à spotify
+                if(isset($_COOKIE["spotify_token"])){
+                    $token = $_COOKIE["spotify_token"];
+                }
+                
+                //si une connexion est valide
+                if($token!=''){
+                    $api->setAccessToken($_COOKIE["spotify_token"]);
+                    
+                    
+                    if($_REQUEST['get_track_list']!=''){
+                        $data = $api->getUserPlaylistTracks($api->me()->id,$_REQUEST['get_track']);
+                        $reponse['content'] = $data;
+                        $reponse['result'] = 'success';
+                    }
+                    //sinon on renvoi la list des playlist
+                    else{
+                        $response = $api->getUserPlaylists($api->me()->id);
+                        $playlist = array();
+                        foreach($response->items as $pl){
+                            $cur_pl = array();
+                            $cur_pl['id'] = $pl->id;
+                            $cur_pl['name'] = $pl->name;
+                            $cur_pl['tracks_num'] = $pl->tracks->total;
+                            $playlist[] = $cur_pl;
+                        }
+                        
+                        $reponse['content'] = $playlist;
+                        $reponse['result'] = 'success';
+                    }
+                }
                 //sinon je propose une connexion à spotify
                 else {
                     header('Location: ' . $session->getAuthorizeUrl(array(
