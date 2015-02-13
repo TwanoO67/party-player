@@ -51,6 +51,28 @@
 	});
 }
 */
+
+
+function importSpotify(){
+    if(jQuery.cookie("spotify_token") != ""){
+        $.getJSON(serverURL, {
+        'mode': 'convert_spotify',
+        'sessid': sessid,
+        'user': username
+    }, function (data) { 
+        if(data.result == 'error'){
+            bootbox.alert(data.error);
+        }
+        else{
+            bootbox.alert(data.content);
+        }
+    });
+    }
+    else{
+        window.location.href = serverURL+"?mode=convert_spotify&sessid="+sessid;
+    }
+}
+
 function markAllAsUnread(){
     $.getJSON(serverURL, {
         'mode': 'unread_all',

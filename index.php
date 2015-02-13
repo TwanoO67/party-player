@@ -14,6 +14,7 @@
     $marge_header = '70';
     $boostrapversion = "3.3.2";
 ?>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -200,6 +201,7 @@
         
         voteEnCours = {};
         mode = '';
+        base_url= '<?php echo $base_url; ?>';
         
         //on cache le sous titre si le header est trop petit (mobile)
         if($('.navbar-header').outerWidth() < 530){

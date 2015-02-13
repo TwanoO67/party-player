@@ -19,6 +19,9 @@
                 <li role="presentation">
                     <a role="menuitem" tabindex="-1" onclick='markAllAsUnread();'>Marquer comme non-lus</a>
                 </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" onclick='importSpotify();'>Import depuis Spotify</a>
+                </li>
                 <!--<li role="presentation" class="divider"></li>
                 <li role="presentation">
                     <a role="menuitem" tabindex="-1" href="#">Enregistrer la playlist</a>
