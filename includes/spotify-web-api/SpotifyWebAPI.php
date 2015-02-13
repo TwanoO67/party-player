@@ -893,4 +893,25 @@ class SpotifyWebAPI
     {
         $this->request->setReturnAssoc($returnAssoc);
     }
+    
+    
+    
+    //AW: custom request with url direct from spotify api
+    public function getCustomRequest($spotifyApiUrl)
+    {
+        $headers = $this->authHeaders();
+        
+        $cut = explode("api.spotify.com", $spotifyApiUrl);
+        if(count($cut) > 1){
+            $spotifyApiUrl = $cut[1];
+        }
+        
+        $response = $this->request->api('GET', $spotifyApiUrl, json_encode(array()), $headers);
+
+        return $response['body'];
+    }
+    
+    
+    
+    
 }

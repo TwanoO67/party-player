@@ -391,6 +391,8 @@
                     $session->requestToken($_GET['code']);
                     $token = $session->getAccessToken();
                     setcookie("spotify_token",$token);
+                    //je redirige vers le referer
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
                 } 
                 //si je suis deja connecté à spotify
                 if(isset($_COOKIE["spotify_token"])){
@@ -428,15 +430,6 @@
                     header('Location: ' . $session->getAuthorizeUrl(array(
                         'scope' => array('user-read-email', 'user-library-modify')
                     )));
-                }
-
-                
-                	                
-                if($id > 0){
-                    $reponse['result'] = 'success';
-                }
-                else{
-                    $reponse['error'] = 'no_read';
                 }
                 
             }
