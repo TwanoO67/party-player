@@ -389,7 +389,7 @@
                     $api->setAccessToken($_COOKIE["spotify_token"]);
                     $response = $api->getUserPlaylists($api->me()->id);
                     
-                    var_dump($response);
+                    echo json_encode($response,JSON_PRETTY_PRINT);
                 }
                 //si spotify m'envoi un token de connexion
                 if (isset($_GET['code'])) {
