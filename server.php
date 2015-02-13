@@ -395,7 +395,7 @@
                     header('Location: ' . $_SERVER['HTTP_REFERER']);
                 } 
                 //si je suis deja connecté à spotify
-                if(isset($_COOKIE["spotify_token"])){
+                elseif(isset($_COOKIE["spotify_token"])){
                     $token = $_COOKIE["spotify_token"];
                 }
                 
@@ -409,6 +409,11 @@
                         $reponse['content'] = $data;
                         $reponse['result'] = 'success';
                     }
+                    elseif($_REQUEST['custom']!=''){
+                        $data = $api->getCustomRequest($_REQUEST['custom']);
+                        $reponse['content'] = $data;
+                        $reponse['result'] = 'success';
+                    }
                     //sinon on renvoi la list des playlist
                     else{
                         $response = $api->getUserPlaylists($api->me()->id);
@@ -418,6 +423,7 @@
                             $cur_pl['id'] = $pl->id;
                             $cur_pl['name'] = $pl->name;
                             $cur_pl['tracks_num'] = $pl->tracks->total;
+                            $cur_pl['owner_id'] = $pl->owner->id;
                             $playlist[] = $cur_pl;
                         }
                         
