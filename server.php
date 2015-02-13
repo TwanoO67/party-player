@@ -384,14 +384,21 @@
                 $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
                 $api = new SpotifyWebAPI\SpotifyWebAPI();
                 
-                if (isset($_GET['code'])) {
-                    $session->requestToken($_GET['code']);
+                //si je suis deja connecté à spotify
+                if(isset($_COOKIE["spotify_code"])){
+                    $session->requestToken($_COOKIE["spotify_code"]);
                     $api->setAccessToken($session->getAccessToken());
                 
                     $response = $api->getUserPlaylists($api->me()->id);
                     
                     var_dump($response);
-                } else {
+                }
+                //si spotify m'envoi un token de connexion
+                if (isset($_GET['code'])) {
+                    setcookie("spotify_code",$_GET['code']);
+                } 
+                //sinon je propose une connexion à spotify
+                else {
                     header('Location: ' . $session->getAuthorizeUrl(array(
                         'scope' => array('user-read-email', 'user-library-modify')
                     )));
