@@ -1,5 +1,15 @@
 function importSpotifyPlaylist(id) {
     alert(id);
+    
+    $.getJSON(serverURL, {
+	    'mode': 'convert_spotify',
+	    'get_track_list': id,
+	    'sessid': sessid,
+	    'user': username
+	}, function (data) {}
+    );
+    
+    
 }
 
 function importSpotify(){
@@ -15,19 +25,21 @@ function importSpotify(){
 	    else{
 		var message = "<ul>";
 		data.content.forEach(function(element,index,array){
-		    message += "<li onclick='importSpotifyPlaylist(\""+element.id+"\");'>"+element.name+" ("+element.tracks_num+") </li>";
+		    if (element.name != "" && element.tracks_num > 0)
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.id+"\");'>"+element.name+"</a> ("+element.tracks_num+" titres)</li>";
 		});
 		message += "</ul>";
 		
 		BB = bootbox.dialog({
 		    message: message,
-		    title: "Voulez vous importer une de vos playlist spotify?",
+		    title: "Voulez vous importer depuis une de vos playlist spotify?",
+		    closeButton: true,
 		    buttons: {
 		      main: {
 			label: "Non merci",
 			className: "btn-primary",
 			callback: function() {
-			    BB.close();
+			    BB.hide();
 			  //Example.show("Primary button");
 			}
 		      }
