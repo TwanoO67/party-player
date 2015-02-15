@@ -10,6 +10,7 @@
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
     $session_url =  $base_url."?mode=client&sessid=".$sessid;
+    $serveur_url = "server.php";
     
     $marge_header = '70';
     $boostrapversion = "3.3.2";
@@ -189,7 +190,7 @@
         sessid = "<?php echo $sessid; ?>";
         rand_sessid = "<?php echo $rand_sessid; ?>";
         session_url = "<?php echo $session_url; ?>";
-        serverURL = "server.php";
+        serverURL = "<?php echo $server_url; ?>";
         modeAudio = false;
         lastPlaylistLoading = 0;
         lastUpdateTime = 0;
