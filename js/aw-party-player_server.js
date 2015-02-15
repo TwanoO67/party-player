@@ -1,57 +1,6 @@
-/*function AccueilStep2(){
-	//suppression de l'accueil step2
-	Intro = bootbox.dialog({
-	  message: "<div style='text-align: center;'>Vous voici dans le <b>'mode serveur'</b> <br/> Votre ordinateur doit donc etre branché sur des enceintes, <br/> Faites profiter vos amis de la musique! <br/><br/> Pour commencer, choisissez une des options suivantes: <br/> <br/><b>Nouvelle Playlist</b>, pour commencer à vide :)<br/><b>Ouvrir une playlist</b>, si vous avez une playlist enregistré d'une ancienne session<br/><b>Connexion par ID</b>, pour ré-ouvrir une playlist dont vous avez le numéro<br/> <br/> </div>",
-	  title: "uTube Party Player",
-	  buttons: {
-	    success: {
-	      label: "Nouvelle Playlist",
-	      className: "btn-success",
-	      callback: function() {
-		    //creation d'une nouvelle playlist
-		    jQuery.getJSON(serverURL, {
-		        'mode': 'create',
-		        'sessid': rand_sessid
-		    }, function (data) { 
-		        if(data.result == 'error'){
-		            bootbox.alert(data.error);
-		        }
-		        else{
-			        window.location.href = '/?mode=server&sessid='+rand_sessid;
-		        }
-		    });  
-		      
-	        
-	      }
-	    },
-	    //danger: {
-	    //  label: "Ouvrir une playlist",
-	    //  className: "btn-danger",
-	    //  callback: function() {
-	    //    bootbox.alert("ce mode n'existe pas encore...");
-	    //  }
-	    //},
-	    main: {
-	      label: "Connexion par ID",
-	      className: "btn-primary",
-	      callback: function() {
-	        bootbox.prompt("Quel est le numéro ID de votre playlist?",function(retour){
-		        if(retour != ''){
-			        window.location.href = '/?mode=server&sessid='+retour;
-		        }
-		        else{
-			        bootbox.confirm("Si vous n'avez pas de numéro ID, commencez une nouvelle playlist",function(){
-				        window.location.href = '/?mode=server';
-			        });
-		        }
-	        });
-	      }
-	    }
-	  }
-	});
+function importSpotifyPlaylist(id) {
+    alert(id);
 }
-*/
-
 
 function importSpotify(){
     if(jQuery.cookie("spotify_token") != ""){
@@ -64,7 +13,27 @@ function importSpotify(){
 		bootbox.alert(data.error);
 	    }
 	    else{
-		bootbox.alert(data.content);
+		var message = "<ul>";
+		data.content.forEach(function(element,index,array){
+		    message += "<li onclick='importSpotifyPlaylist(\""+element.id+"\");'>"+element.name+" ("+element.tracks_num+") </li>";
+		});
+		message += "</ul>";
+		
+		BB = bootbox.dialog({
+		    message: message,
+		    title: "Voulez vous importer une de vos playlist spotify?",
+		    buttons: {
+		      main: {
+			label: "Non merci",
+			className: "btn-primary",
+			callback: function() {
+			    BB.close();
+			  //Example.show("Primary button");
+			}
+		      }
+		    }
+		  });
+		
 	    }
 	});
     }
