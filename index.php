@@ -190,7 +190,7 @@
         sessid = "<?php echo $sessid; ?>";
         rand_sessid = "<?php echo $rand_sessid; ?>";
         session_url = "<?php echo $session_url; ?>";
-        serverURL = "<?php echo $server_url; ?>";
+        serverURL = "<?php echo $serveur_url; ?>";
         modeAudio = false;
         lastPlaylistLoading = 0;
         lastUpdateTime = 0;
