@@ -1,12 +1,12 @@
-function importSpotifyPlaylist(id) {
-    alert(id);
-    
+function importSpotifyPlaylist(href) {
     $.getJSON(serverURL, {
 	    'mode': 'convert_spotify',
-	    'get_track_list': id,
+	    'custom': href,
 	    'sessid': sessid,
 	    'user': username
-	}, function (data) {}
+	}, function (data) {
+		console.log(data);
+	}
     );
     
     
@@ -26,7 +26,7 @@ function importSpotify(){
 		var message = "<ul>";
 		data.content.forEach(function(element,index,array){
 		    if (element.name != "" && element.tracks_num > 0)
-		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.id+"\");'>"+element.name+"</a> ("+element.tracks_num+" titres)</li>";
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks_num+" titres)</li>";
 		});
 		message += "</ul>";
 		

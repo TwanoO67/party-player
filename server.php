@@ -422,6 +422,7 @@
                             $cur_pl = array();
                             $cur_pl['id'] = $pl->id;
                             $cur_pl['name'] = $pl->name;
+                            $cur_pl['href'] = $pl->href;
                             $cur_pl['tracks_num'] = $pl->tracks->total;
                             $cur_pl['owner_id'] = $pl->owner->id;
                             $playlist[] = $cur_pl;
