@@ -401,7 +401,7 @@
                 
                 //si une connexion est valide
                 if($token!=''){
-                    $api->setAccessToken($_COOKIE["spotify_token"]);
+                    $api->setAccessToken($token);
                     
                     
                     if($_REQUEST['get_track_list']!=''){
