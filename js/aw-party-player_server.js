@@ -3,7 +3,9 @@
 function convertSpotify(){
 	my_convert_data = [];//re-init
 	console.log(my_import_data);
-	my_import_data.forEach(function(track_name,id_spotify,array){
+	
+	for (var id_spotify in my_import_data){
+		track_name = my_import_data[id_spotify];
 		console.log(track_name);
 		//debut de la recherche sur youtube
 		var cur_elem = $('#track_spotify_'+id_spotify);
