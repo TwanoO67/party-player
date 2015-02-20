@@ -24,7 +24,6 @@ function convertSpotify(){
 		            duree = element['media$group']['media$content'][0]['duration'];
 		        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
 		        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-		            nb_result++;
 		            var id_youtube = element['media$group']['yt$videoid']['$t'];
 		            cur_elem.find('.loader').hide();
 		            cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
