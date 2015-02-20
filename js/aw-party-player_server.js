@@ -5,13 +5,11 @@ function convertSpotify(){
 	console.log(my_import_data);
 	
 	for (var id_spotify in my_import_data){
-		track_name = my_import_data[id_spotify];
+		var track_name = my_import_data[id_spotify];
 		console.log(track_name);
 		//debut de la recherche sur youtube
-		var cur_elem = $('#track_spotify_'+id_spotify);
-		cur_elem.append('&nbsp;<img src="/img/ajax_loader.gif" class="loader" width="20px" />');
+		$('#track_spotify_'+id_spotify).append('&nbsp;<img src="/img/ajax_loader.gif" class="loader" width="20px" />');
 		var cb = function(data){
-			console.log(track_name+" callback");
 			var duree = 0;
 			var cur_elem = $('#track_spotify_'+id_spotify);
 			//que faire avec le resultat de la requete
