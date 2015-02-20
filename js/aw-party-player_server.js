@@ -41,6 +41,7 @@ function convertSpotify(){
 
 //Listing des chasnons d'une playlist spotify
 function importSpotifyPlaylist(href) {
+	BB.hide();
     $.getJSON(serverURL, {
 	    'mode': 'convert_spotify',
 	    'custom': href,
@@ -56,7 +57,7 @@ function importSpotifyPlaylist(href) {
 			if (element.track.name != "" && element.track.id != ""){
 		    	var track_name = element.track.artists[0].name+" "+element.track.name;
 		    	var id= element.track.id;
-		    	message += "<li> <a href='#' id='track_spotify_"+id+"'>"+track_name+"</a></li>";
+		    	message += "<a href='#' id='track_spotify_"+id+"'>"+track_name+"</a>";
 		    	my_import_data[id] = track_name;
 		    }
 		});
