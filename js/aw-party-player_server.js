@@ -21,7 +21,7 @@ function convertSpotify(){
 			var duree = 0;
 			var cur_elem = $('#track_spotify_'+cur_id_spotify);
 			//que faire avec le resultat de la requete
-			if(typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
+			if(data != null && typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
 				var element = data.feed.entry[0];
 		        if( typeof(element['media$group']) !== 'undefined' 
 		        && typeof(element['media$group']['media$content']) !== 'undefined' 
