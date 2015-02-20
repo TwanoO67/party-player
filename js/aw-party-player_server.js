@@ -9,9 +9,10 @@ function convertSpotify(){
 		console.log(track_name);
 		//debut de la recherche sur youtube
 		$('#track_spotify_'+id_spotify).append('&nbsp;<img src="/img/ajax_loader.gif" class="loader" width="20px" />');
-		var cb = function(data){
+		var cb = function(data,params){
+			var cur_id_spotify = params;
 			var duree = 0;
-			var cur_elem = $('#track_spotify_'+id_spotify);
+			var cur_elem = $('#track_spotify_'+cur_id_spotify);
 			//que faire avec le resultat de la requete
 			if(typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
 				var element = data.feed.entry[0];
@@ -25,7 +26,7 @@ function convertSpotify(){
 		            var id_youtube = element['media$group']['yt$videoid']['$t'];
 		            cur_elem.find('.loader').hide();
 		            cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
-		            my_convert_data[id_spotify] = id_youtube;
+		            my_convert_data[cur_id_spotify] = id_youtube;
 	            }
 	            
 			}
@@ -36,7 +37,7 @@ function convertSpotify(){
 			
 		}
 		
-		searchTrackOnYoutube(track_name,cb);
+		searchTrackOnYoutube(track_name,cb,id_spotify);
 	}
 }
 

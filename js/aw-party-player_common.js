@@ -239,7 +239,7 @@ function buildLocalPlaylistRecursive(tab_element,cb){
     }
 }
 
-function searchTrackOnYoutube(query,callback){
+function searchTrackOnYoutube(query,callback,cb_params){
 	var youtube_url = "https://gdata.youtube.com/feeds/api/videos?q="+encodeURI(query)+"&v=2&alt=json";
     $.getJSON(youtube_url, function (data) {
         //si aucun resultat, on corrige l'orthographe
@@ -262,7 +262,10 @@ function searchTrackOnYoutube(query,callback){
         }
         //sinon on affiche les resultat dans le tableau
         else{
-            if(typeof callback !== 'undefined'){
+            if(typeof callback !== 'undefined' && typeof cb_params !== 'undefined'){
+	            callback(data,cb_params);
+            }
+            else if(typeof callback !== 'undefined' ){
 	            callback(data);
             }
         }
