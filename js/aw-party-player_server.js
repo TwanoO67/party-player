@@ -39,9 +39,7 @@ function convertSpotify(){
 		}
 		
 		searchTrackOnYoutube(track_name,cb);
-	});
-	
-	
+	}
 }
 
 //Listing des chasnons d'une playlist spotify
