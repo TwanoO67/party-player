@@ -2,11 +2,14 @@
 //conversion vers youtube
 function convertSpotify(){
 	my_convert_data = [];//re-init
+	console.log(my_import_data);
 	my_import_data.forEach(function(track_name,id_spotify,array){
+		console.log(track_name);
 		//debut de la recherche sur youtube
 		var cur_elem = $('#track_spotify_'+id_spotify);
 		cur_elem.append('<img src="/img/ajax_loader.gif" class="loader" width="25px" />');
 		var cb = function(data){
+			console.log(track_name+" callback");
 			var duree = 0;
 			var cur_elem = $('#track_spotify_'+id_spotify);
 			//que faire avec le resultat de la requete
@@ -49,13 +52,12 @@ function importSpotifyPlaylist(href) {
 	    'user': username
 	}, function (data) {
 		//Construction de la présentation de la playlist
-		console.log(data);
 		my_import_data = [];
 		var message = "<ul>";
 		data.content.tracks.items.forEach(function(element,index,array){
 			
 			if (element.track.name != "" && element.track.id != ""){
-		    	var track_name = element.track.artists[0].name+" "+element.track.name;
+		    	var track_name = element.track.artists[0].name+" - "+element.track.name;
 		    	var id= element.track.id;
 		    	message += "<li href='#' id='track_spotify_"+id+"'>"+track_name+"</li>";
 		    	my_import_data[id] = track_name;
