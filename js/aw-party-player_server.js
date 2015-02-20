@@ -87,12 +87,12 @@ function importSpotifyPlaylist(href) {
 		      },
 		      success: {
 				label: "Ajouter à la playlist",
-				className: "btn-primary",
+				className: "btn-success",
 				callback: function() {
 				    addSpotifyPlaylistToActualPlaylist();
 				    return false;
 				}
-			      }
+			  }
 		    }
 		  });
 		
