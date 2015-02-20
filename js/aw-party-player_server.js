@@ -1,8 +1,15 @@
 
 function addSpotifyPlaylistToActualPlaylist(){
-	for(var id_spotify in my_convert_data){
-		var id_youtube = my_convert_data[id_spotify];
-		addToPlaylistOnServer(id_youtube);
+	if(my_convert_data.length > 0){
+		for(var id_spotify in my_convert_data){
+			var id_youtube = my_convert_data[id_spotify];
+			addToPlaylistOnServer(id_youtube);
+		}
+		return true;
+	}
+	else{
+		alert('Aucune chansons trouvées... Pas de conversion possible.');
+		return false;
 	}
 }
 
@@ -77,25 +84,18 @@ function importSpotifyPlaylist(href) {
 		    title: "Playlist : "+data.content.name,
 		    closeButton: true,
 		    buttons: {
-		      main: {
-				label: "Commencer la conversion",
-				className: "btn-primary",
-				callback: function() {
-				    convertSpotify();
-				    return false;
-				}
-		      },
 		      success: {
-				label: "Ajouter à la playlist",
+				label: "Ajouter les chansons à la playlist",
 				className: "btn-success",
 				callback: function() {
-				    addSpotifyPlaylistToActualPlaylist();
-				    return false;
+				    return addSpotifyPlaylistToActualPlaylist();
 				}
 			  }
 		    }
 		  });
-		
+		  
+		  //lancement de la conversion
+		  convertSpotify();
 		
 	}
     );
