@@ -31,8 +31,7 @@
 	 
     vote_token = $.cookie('vote_token');
 	 
-	minDurationSearchTrack = 120;//2min
-	maxDurationSearchTrack = 480;//8min
+	
 	 
 </script>
 <style>

@@ -200,6 +200,14 @@
         mediaPlayer = null;
         mediaPlayer_id = null;
         
+        minDurationSearchTrack = 120;//2min
+		maxDurationSearchTrack = 480;//8min
+		
+		//pour import spotify
+		my_import_data = {};//denrieres infos de playlist d'import
+		my_convert_data = {};//liste des id youtube a convertir
+		BB = null; //derniere bootbox
+        
         voteEnCours = {};
         mode = '';
         base_url= '<?php echo $base_url; ?>';

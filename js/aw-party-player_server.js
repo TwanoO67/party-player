@@ -1,6 +1,3 @@
-my_import_data = {};//denrieres infos de playlist d'import
-my_convert_data = {};//liste des id youtube a convertir
-BB = null; //derniere bootbox
 
 //conversion vers youtube
 function convertSpotify(){
