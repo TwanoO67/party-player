@@ -2,7 +2,7 @@
 function addSpotifyPlaylistToActualPlaylist(){
 	for(var id_spotify in my_convert_data){
 		var id_youtube = my_convert_data[id_spotify];
-		loadByYoutubeId(id_youtube);
+		addToPlaylistOnServer(id_youtube);
 	}
 }
 

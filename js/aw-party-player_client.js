@@ -270,37 +270,6 @@ function cible(element){
     }, 1000);
 }
 
-function addToPlaylistOnServer(id){
-    $.getJSON(serverURL, {
-        'mode': 'add',
-        'sessid': sessid,
-        'id': id,
-        'user': username
-    }, function (data) { 
-        if(data.result == 'error'){
-            if(data.error=='no_file'){
-		        jQuery.getJSON(serverURL, {
-    		        'mode': 'create',
-    		        'sessid': sessid
-    		    },function(data){
-        		    //que faire aprés la création?
-    		    });
-	        }
-	        else{
-		        bootbox.alert(data.error);
-	        }
-        }
-        else{
-            var cb = function(){
-                cible('#'+id);
-                $('#'+id).find(".playlist_item_title").css('font-weight','bold');
-            }
-            loadPlaylistFromServer(cb);
-        }
-    });
-
-}
-
 //permet d'ajouter un vote sur une chanson
 function vote(id,vote){
     jQuery.getJSON(serverURL, {

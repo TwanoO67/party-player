@@ -34,6 +34,37 @@ function afficheVote(id){
     });
 }
 
+function addToPlaylistOnServer(id){
+    $.getJSON(serverURL, {
+        'mode': 'add',
+        'sessid': sessid,
+        'id': id,
+        'user': username
+    }, function (data) { 
+        if(data.result == 'error'){
+            if(data.error=='no_file'){
+		        jQuery.getJSON(serverURL, {
+    		        'mode': 'create',
+    		        'sessid': sessid
+    		    },function(data){
+        		    //que faire aprés la création?
+    		    });
+	        }
+	        else{
+		        bootbox.alert(data.error);
+	        }
+        }
+        else{
+            var cb = function(){
+                cible('#'+id);
+                $('#'+id).find(".playlist_item_title").css('font-weight','bold');
+            }
+            loadPlaylistFromServer(cb);
+        }
+    });
+
+}
+
 function indicateurLecture(id){
     //activation de la bonne ligne dans la playlist
     $('#playlist .glyphicon-play-circle').remove();
