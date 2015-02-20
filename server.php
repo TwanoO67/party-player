@@ -374,17 +374,6 @@
                 
                 $id = $_REQUEST['id_spotify'];
                 
-                include './includes/spotify-web-api/Request.php';
-                include './includes/spotify-web-api/Session.php';
-                include './includes/spotify-web-api/SpotifyWebAPI.php';
-                include './includes/spotify-web-api/SpotifyWebAPIException.php';
-
-                
-                $request = new SpotifyWebAPI\Request();
-                $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
-                $api = new SpotifyWebAPI\SpotifyWebAPI();
-                
-               
                 $token = '';
                 //si spotify m'envoi un token de connexion
                 if (isset($_GET['code'])) {
@@ -398,45 +387,64 @@
                 elseif(isset($_COOKIE["spotify_token"])){
                     $token = $_COOKIE["spotify_token"];
                 }
-                
-                //si une connexion est valide
-                if($token!=''){
-                    $api->setAccessToken($token);
-                    
-                    
-                    if($_REQUEST['get_track_list']!=''){
-                        $data = $api->getUserPlaylistTracks($api->me()->id,$_REQUEST['get_track']);
-                        $reponse['content'] = $data;
-                        $reponse['result'] = 'success';
-                    }
-                    elseif($_REQUEST['custom']!=''){
-                        $data = $api->getCustomRequest($_REQUEST['custom']);
-                        $reponse['content'] = $data;
-                        $reponse['result'] = 'success';
-                    }
-                    //sinon on renvoi la list des playlist
-                    else{
-                        $response = $api->getUserPlaylists($api->me()->id);
-                        $playlist = array();
-                        foreach($response->items as $pl){
-                            $cur_pl = array();
-                            $cur_pl['id'] = $pl->id;
-                            $cur_pl['name'] = $pl->name;
-                            $cur_pl['href'] = $pl->href;
-                            $cur_pl['tracks_num'] = $pl->tracks->total;
-                            $cur_pl['owner_id'] = $pl->owner->id;
-                            $playlist[] = $cur_pl;
-                        }
-                        
-                        $reponse['content'] = $playlist;
-                        $reponse['result'] = 'success';
-                    }
-                }
                 //sinon je propose une connexion à spotify
                 else {
                     header('Location: ' . $session->getAuthorizeUrl(array(
                         'scope' => array('user-read-email', 'user-library-modify')
                     )));
+                }
+                
+                include './includes/spotify-web-api/Request.php';
+                include './includes/spotify-web-api/Session.php';
+                include './includes/spotify-web-api/SpotifyWebAPI.php';
+                include './includes/spotify-web-api/SpotifyWebAPIException.php';
+
+                try{
+	                $request = new SpotifyWebAPI\Request();
+	                $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
+	                $api = new SpotifyWebAPI\SpotifyWebAPI();
+	                
+	                //si une connexion est valide
+	                if($token!=''){
+	                    $api->setAccessToken($token);
+	                    
+	                    if($_REQUEST['get_track_list']!=''){
+	                        $data = $api->getUserPlaylistTracks($api->me()->id,$_REQUEST['get_track']);
+	                        $reponse['content'] = $data;
+	                        $reponse['result'] = 'success';
+	                    }
+	                    elseif($_REQUEST['custom']!=''){
+	                        $data = $api->getCustomRequest($_REQUEST['custom']);
+	                        $reponse['content'] = $data;
+	                        $reponse['result'] = 'success';
+	                    }
+	                    //sinon on renvoi la list des playlist
+	                    else{
+	                        $response = $api->getUserPlaylists($api->me()->id);
+	                        $playlist = array();
+	                        foreach($response->items as $pl){
+	                            $cur_pl = array();
+	                            $cur_pl['id'] = $pl->id;
+	                            $cur_pl['name'] = $pl->name;
+	                            $cur_pl['href'] = $pl->href;
+	                            $cur_pl['tracks_num'] = $pl->tracks->total;
+	                            $cur_pl['owner_id'] = $pl->owner->id;
+	                            $playlist[] = $cur_pl;
+	                        }
+	                        
+	                        $reponse['content'] = $playlist;
+	                        $reponse['result'] = 'success';
+	                    }
+	                }
+                }
+                catch(Exception $e){
+	                $msg = $e->getMessage();
+	                if( strpos($msg,"The access token expired") ){
+		                setcookie("spotify_token",'');
+		                header('Location: ' . $session->getAuthorizeUrl(array(
+	                        'scope' => array('user-read-email', 'user-library-modify')
+	                    )));
+	                }
                 }
                 
             }
