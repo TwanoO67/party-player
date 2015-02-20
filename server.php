@@ -374,6 +374,15 @@
                 
                 $id = $_REQUEST['id_spotify'];
                 
+                include './includes/spotify-web-api/Request.php';
+                include './includes/spotify-web-api/Session.php';
+                include './includes/spotify-web-api/SpotifyWebAPI.php';
+                include './includes/spotify-web-api/SpotifyWebAPIException.php';
+                
+                $request = new SpotifyWebAPI\Request();
+	            $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
+	            $api = new SpotifyWebAPI\SpotifyWebAPI();
+                
                 $token = '';
                 //si spotify m'envoi un token de connexion
                 if (isset($_GET['code'])) {
@@ -395,16 +404,7 @@
                     exit;
                 }
                 
-                include './includes/spotify-web-api/Request.php';
-                include './includes/spotify-web-api/Session.php';
-                include './includes/spotify-web-api/SpotifyWebAPI.php';
-                include './includes/spotify-web-api/SpotifyWebAPIException.php';
-
                 try{
-	                $request = new SpotifyWebAPI\Request();
-	                $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
-	                $api = new SpotifyWebAPI\SpotifyWebAPI();
-	                
 	                //si une connexion est valide
 	                if($token!=''){
 	                    $api->setAccessToken($token);
