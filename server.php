@@ -392,6 +392,7 @@
                     header('Location: ' . $session->getAuthorizeUrl(array(
                         'scope' => array('user-read-email', 'user-library-modify')
                     )));
+                    exit;
                 }
                 
                 include './includes/spotify-web-api/Request.php';
@@ -441,9 +442,11 @@
 	                $msg = $e->getMessage();
 	                if( strpos($msg,"The access token expired") ){
 		                setcookie("spotify_token",'');
+		                $reponse['content'] = "The access token expired";
 		                header('Location: ' . $session->getAuthorizeUrl(array(
 	                        'scope' => array('user-read-email', 'user-library-modify')
 	                    )));
+	                    exit;
 	                }
                 }
                 
