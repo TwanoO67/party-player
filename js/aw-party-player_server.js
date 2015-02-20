@@ -54,7 +54,7 @@ function importSpotifyPlaylist(href) {
 		data.content.tracks.items.forEach(function(element,index,array){
 			
 			if (element.track.name != "" && element.track.id != ""){
-		    	var track_name = element.track.artist.0.name+" "element.track.name;
+		    	var track_name = element.track.artist[0].name+" "element.track.name;
 		    	var id= element.track.id;
 		    	message += "<li> <a href='#' id='track_spotify_"+id+"'>"+track_name+"</a></li>";
 		    	my_import_data[id] = track_name;
