@@ -85,8 +85,8 @@ function importSpotifyPlaylist(href) {
 				    return false;
 				}
 		      },
-		      second: {
-				label: "Step 2",
+		      success: {
+				label: "Ajouter à la playlist",
 				className: "btn-primary",
 				callback: function() {
 				    addSpotifyPlaylistToActualPlaylist();
