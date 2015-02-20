@@ -1,8 +1,7 @@
 
 //conversion vers youtube
 function convertSpotify(){
-	my_convert_data = {};//re-init
-	console.log(my_import_data);
+	my_convert_data = [];//re-init
 	my_import_data.forEach(function(track_name,id_spotify,array){
 		//debut de la recherche sur youtube
 		var cur_elem = $('#track_spotify_'+id_spotify);
@@ -51,14 +50,14 @@ function importSpotifyPlaylist(href) {
 	}, function (data) {
 		//Construction de la présentation de la playlist
 		console.log(data);
-		my_import_data = {}
+		my_import_data = [];
 		var message = "<ul>";
 		data.content.tracks.items.forEach(function(element,index,array){
 			
 			if (element.track.name != "" && element.track.id != ""){
 		    	var track_name = element.track.artists[0].name+" "+element.track.name;
 		    	var id= element.track.id;
-		    	message += "<a href='#' id='track_spotify_"+id+"'>"+track_name+"</a>";
+		    	message += "<li href='#' id='track_spotify_"+id+"'>"+track_name+"</li>";
 		    	my_import_data[id] = track_name;
 		    }
 		});

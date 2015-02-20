@@ -204,8 +204,8 @@
 		maxDurationSearchTrack = 480;//8min
 		
 		//pour import spotify
-		my_import_data = {};//denrieres infos de playlist d'import
-		my_convert_data = {};//liste des id youtube a convertir
+		my_import_data = [];//denrieres infos de playlist d'import
+		my_convert_data = [];//liste des id youtube a convertir
 		BB = null; //derniere bootbox
         
         voteEnCours = {};
