@@ -75,6 +75,7 @@ function importSpotifyPlaylist(href) {
 			className: "btn-primary",
 			callback: function() {
 			    convertSpotify();
+			    return false;
 			}
 		      }
 		    }
