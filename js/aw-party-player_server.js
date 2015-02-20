@@ -1,10 +1,12 @@
 
 function addSpotifyPlaylistToActualPlaylist(){
-	if(my_convert_data.length > 0){
-		for(var id_spotify in my_convert_data){
-			var id_youtube = my_convert_data[id_spotify];
-			addToPlaylistOnServer(id_youtube);
-		}
+	var nb = 0;
+	for(var id_spotify in my_convert_data){
+		var id_youtube = my_convert_data[id_spotify];
+		addToPlaylistOnServer(id_youtube);
+		nb++;
+	}
+	if(nb>0){
 		return true;
 	}
 	else{
