@@ -204,74 +204,55 @@ function searchPlaylistOnYoutube(query){
 };
 
 function searchYoutube(query){
-    var youtube_url = "https://gdata.youtube.com/feeds/api/videos?q="+encodeURI(query)+"&v=2&alt=json";
-    $.getJSON(youtube_url, function (data) {
-        $('#result').html('');
-        $('#result_more_content').html('')
-        $('#research-result-title').html("Résultat: "+query);
-        //si aucun resultat, on corrige l'orthographe
-        if(typeof data.feed.entry == 'undefined' ){
-            var spell = '';
-            var title = '';
-            data.feed.link.forEach(function(element,index,array){
-                if(element.rel == "http://schemas.google.com/g/2006#spellcorrection"){
-                    spell = element.href;
-                    title = element.title;
-                }
-            });
-            if(spell != ''){
-                $('#recherche').val(title);
-                searchYoutubeUrl(spell);
+	
+	var my_callback = function(data){
+	$('#result').html('');
+    $('#result_more_content').html('')
+    $('#research-result-title').html("Résultat: "+query);
+    var nb_result = 0;
+    var nb_refus = 0;
+    //pour chaque resultat venant de youtube
+    data.feed.entry.forEach(function(element,index,array){
+        var duree = 0;
+        
+        if( typeof(element['media$group']) !== 'undefined' 
+        && typeof(element['media$group']['media$content']) !== 'undefined' 
+        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+        )
+            duree = element['media$group']['media$content'][0]['duration'];
+        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
+        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+            nb_result++;
+            var id = element['media$group']['yt$videoid']['$t'];
+            
+            var ligne = buildHTMLResultatTrackItem(
+                nb_result,
+                element['media$group']['media$thumbnail'][0].url,
+                element.title['$t'],
+                id
+            );
+            //premier resultat
+            if(nb_result <= 4){
+                $('#result').append(ligne);
             }
+            //tableau de resultat supplémentaire
             else{
-                videResultat();
+                $('#result_more').show();
+                $('#result_more_content').hide();
+                $('#result_more_content').append(ligne);
             }
         }
-        //sinon on affiche les resultat dans le tableau
         else{
-            
-            var nb_result = 0;
-            var nb_refus = 0;
-            //pour chaque resultat venant de youtube
-            data.feed.entry.forEach(function(element,index,array){
-                var duree = 0;
-                
-                if( typeof(element['media$group']) !== 'undefined' 
-                && typeof(element['media$group']['media$content']) !== 'undefined' 
-                && typeof(element['media$group']['media$content'][0]) !== 'undefined'
-                )
-                    duree = element['media$group']['media$content'][0]['duration'];
-                //si le resultat ne contient pas des trucs trop court ou trop long (spam)
-                if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-                    nb_result++;
-                    var id = element['media$group']['yt$videoid']['$t'];
-                    
-                    var ligne = buildHTMLResultatTrackItem(
-                        nb_result,
-                        element['media$group']['media$thumbnail'][0].url,
-                        element.title['$t'],
-                        id
-                    );
-                    //premier resultat
-                    if(nb_result <= 4){
-                        $('#result').append(ligne);
-                    }
-                    //tableau de resultat supplémentaire
-                    else{
-                        $('#result_more').show();
-                        $('#result_more_content').hide();
-                        $('#result_more_content').append(ligne);
-                    }
-                }
-                else{
-	                nb_refus++;
-                }
-            });
-            console.log(" Nombre de recherche exclue: "+nb_refus);
-            $('#search-result').show();
-            cible('#search-result');
+            nb_refus++;
         }
     });
+    console.log(" Nombre de recherche exclue: "+nb_refus);
+    $('#search-result').show();
+    cible('#search-result');
+	};
+	
+	searchTrackOnYoutube(query,my_callback);
+	
 }
 
 /*function changeModeAudio(){

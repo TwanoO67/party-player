@@ -239,6 +239,36 @@ function buildLocalPlaylistRecursive(tab_element,cb){
     }
 }
 
+function searchTrackOnYoutube(query,callback){
+	var youtube_url = "https://gdata.youtube.com/feeds/api/videos?q="+encodeURI(query)+"&v=2&alt=json";
+    $.getJSON(youtube_url, function (data) {
+        //si aucun resultat, on corrige l'orthographe
+        if(typeof data.feed.entry == 'undefined' ){
+            var spell = '';
+            var title = '';
+            data.feed.link.forEach(function(element,index,array){
+                if(element.rel == "http://schemas.google.com/g/2006#spellcorrection"){
+                    spell = element.href;
+                    title = element.title;
+                }
+            });
+            if(spell != ''){
+                $('#recherche').val(title);
+                searchYoutubeUrl(spell);
+            }
+            else{
+                videResultat();
+            }
+        }
+        //sinon on affiche les resultat dans le tableau
+        else{
+            if(typeof callback !== 'undefined'){
+	            callback(data);
+            }
+        }
+    });
+}
+
 function getYoutubeTrackInfo(id,callback,callback_error){
     //si on a deja les informations en local
     if(typeof youtubeTrackInfo[id] != 'undefined'){

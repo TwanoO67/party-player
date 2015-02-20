@@ -1,3 +1,48 @@
+my_import_data = {};//denrieres infos de playlist d'import
+my_convert_data = {};//liste des id youtube a convertir
+BB = null; //derniere bootbox
+
+//conversion vers youtube
+function convertSpotify(){
+	my_convert_data = {};//re-init
+	my_import_data.forEach(function(track_name,id_spotify,array){
+		//debut de la recherche sur youtube
+		var cur_elem = $('#track_spotify_'+id_spotify);
+		cur_elem.append('<img src="/img/ajax_loader.gif" class="loader" width="25px" />');
+		var cb = function(data){
+			var duree = 0;
+			var cur_elem = $('#track_spotify_'+id_spotify);
+			//que faire avec le resultat de la requete
+			if(typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
+		        if( typeof(element['media$group']) !== 'undefined' 
+		        && typeof(element['media$group']['media$content']) !== 'undefined' 
+		        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+		        )
+		            duree = element['media$group']['media$content'][0]['duration'];
+		        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
+		        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+		            nb_result++;
+		            var id_youtube = element['media$group']['yt$videoid']['$t'];
+		            cur_elem.find('.loader').hide();
+		            cur_elem.append('<img src="/img/check.gif" class="check" width="25px" />');
+		            my_convert_data[id_spotify] = id_youtube;
+	            }
+	            
+			}
+			//si rien n'est trouvé
+			if(duree == 0){
+				cur_elem.append('<img src="/img/fail.gif" class="fail" width="25px" />');
+			}
+			
+		}
+		
+		searchTrackOnYoutube(track_name,cb);
+	});
+	
+	
+}
+
+//Listing des chasnons d'une playlist spotify
 function importSpotifyPlaylist(href) {
     $.getJSON(serverURL, {
 	    'mode': 'convert_spotify',
@@ -5,13 +50,44 @@ function importSpotifyPlaylist(href) {
 	    'sessid': sessid,
 	    'user': username
 	}, function (data) {
+		//Construction de la présentation de la playlist
 		console.log(data);
+		my_import_data = {}
+		var message = "<ul>";
+		data.content.tracks.items.forEach(function(element,index,array){
+			
+			if (element.track.name != "" && element.track.id != ""){
+		    	var track_name = element.track.artist.0.name+" "element.track.name;
+		    	var id= element.track.id;
+		    	message += "<li> <a href='#' id='track_spotify_"+id+"'>"+track_name+"</a></li>";
+		    	my_import_data[id] = track_name;
+		    }
+		});
+		message += "</ul>";
+		
+		BB = bootbox.dialog({
+		    message: message,
+		    title: "Playlist : "+data.content.name,
+		    closeButton: true,
+		    buttons: {
+		      main: {
+			label: "Commencer la conversion",
+			className: "btn-primary",
+			callback: function() {
+			    convertSpotify();
+			}
+		      }
+		    }
+		  });
+		
+		
 	}
     );
     
     
 }
 
+//Listing des playlist importable depuis spotify
 function importSpotify(){
     if(jQuery.cookie("spotify_token") != ""){
         $.getJSON(serverURL, {
@@ -32,11 +108,11 @@ function importSpotify(){
 		
 		BB = bootbox.dialog({
 		    message: message,
-		    title: "Voulez vous importer depuis une de vos playlist spotify?",
+		    title: "Vos playlists sur Spotify",
 		    closeButton: true,
 		    buttons: {
 		      main: {
-			label: "Non merci",
+			label: "Fermer",
 			className: "btn-primary",
 			callback: function() {
 			    BB.hide();
