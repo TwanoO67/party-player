@@ -1,4 +1,11 @@
 
+function addSpotifyPlaylistToActualPlaylist(){
+	for(var id_spotify in my_convert_data){
+		var id_youtube = my_convert_data[id_spotify];
+		loadByYoutubeId(id_youtube);
+	}
+}
+
 //conversion vers youtube
 function convertSpotify(){
 	my_convert_data = [];//re-init
@@ -20,7 +27,7 @@ function convertSpotify(){
 		        && typeof(element['media$group']['media$content']) !== 'undefined' 
 		        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
 		        )
-		            duree = element['media$group']['media$content'][0]['duration'];
+		        duree = element['media$group']['media$content'][0]['duration'];
 		        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
 		        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
 		            var id_youtube = element['media$group']['yt$videoid']['$t'];
@@ -32,6 +39,7 @@ function convertSpotify(){
 			}
 			//si rien n'est trouvé
 			if(duree == 0){
+				cur_elem.find('.loader').hide();
 				cur_elem.append('&nbsp;<img src="/img/fail.svg" class="fail" width="20px" />');
 			}
 			
@@ -70,13 +78,21 @@ function importSpotifyPlaylist(href) {
 		    closeButton: true,
 		    buttons: {
 		      main: {
-			label: "Commencer la conversion",
-			className: "btn-primary",
-			callback: function() {
-			    convertSpotify();
-			    return false;
-			}
-		      }
+				label: "Commencer la conversion",
+				className: "btn-primary",
+				callback: function() {
+				    convertSpotify();
+				    return false;
+				}
+		      },
+		      second: {
+				label: "Step 2",
+				className: "btn-primary",
+				callback: function() {
+				    addSpotifyPlaylistToActualPlaylist();
+				    return false;
+				}
+			      }
 		    }
 		  });
 		
