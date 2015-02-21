@@ -22,14 +22,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Party Player">
     <meta name="author" content="WEBER Antoine">
-    <script src="build/jquery.js" type="text/javascript"></script>
+    <script src="/js/build/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/css/bootstrap-theme.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
     <script src="/js/aw-party-player_common.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/bootbox.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/bootbox.min.js" type="text/javascript"></script>
     <link rel="icon" type="image/png" href="/css/favicon.png" />
     <title>Party Player - le JukeBox collaboratif de vos soirées!</title>
 </head>
