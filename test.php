@@ -22,7 +22,7 @@
     <div class="container">
 	    <div class="row">
 		    <video id="player1" width="640"  height="360" >
-			    <source type="video/youtube" src="http://www.youtube.com/watch?v=nfWlot6h_JM&list=PLvFYFNbi-IBFeP5ALr50hoOmKiYRMvzUq" />
+			    <source src="http://www.youtube.com/watch?v=nfWlot6h_JM" type="video/youtube" />
 			</video>
 	    </div>
     </div>
