@@ -448,6 +448,9 @@
 	                    )));
 	                    exit;
 	                }
+	                else{
+		                throw $e;
+	                }
                 }
                 
             }
