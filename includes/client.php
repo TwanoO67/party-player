@@ -1,7 +1,7 @@
 <script src="/js/aw-party-player_client.js"></script>
 <script>
 <?php 
-    if(isset($_COOKIE['username'])){
+    if(isset($_COOKIE['username']) && strpos($_COOKIE['username'],'Serveur') === false){
         echo "setUsername('".$_COOKIE['username']."');";
     }else{
         echo "changeUsername();";    

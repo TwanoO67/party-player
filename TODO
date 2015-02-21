@@ -3,18 +3,11 @@
 - ajouter un partage du lien de participation facebook/twitter/email
 - enregistrer les ID de playlist créer dans le localStorage pour retrouver plus tard (voir tous le json)
 - client: tester l'existance d'une playlist si ID fournie
-- mot de passe pour les admins sur le mode serveur
-- refaire les explications avec des logo et phrase simple
-    Pour commencer, il vous faut au moins 2 appareils
-    le 1er, lira la music, c'est le serveur
-        donner un nom a votre room
-    les autres, ajouteront de la music, ce sont les clients
-        a quel room vous connecter
-        
+- mot de passe pour les admins sur le mode serveur      
 - room privé/public avec pass?
--gérer des nom au choix, plutot que des id (attention à la disponibilité)
--proposer les dernières playlist modifié en accés rapide
--ne plus mettre le playlist antiflood si on a pas eu de data [Normalement c'est ok, mais a verifier si pas d'appel trop frequent]
--faire un fondu enchainé des musics
--integrer un flux rss de next.dj pour pré-remplir les playlists
--recuperation playlist deezer, spotify, soundcloud, youtube etc...
+- gérer des nom au choix, plutot que des id (attention à la disponibilité)
+- proposer les dernières playlist modifié en accés rapide
+- ne plus mettre le playlist antiflood si on a pas eu de data [Normalement c'est ok, mais a verifier si pas d'appel trop frequent]
+- faire un fondu enchainé des musics
+- integrer un flux rss de next.dj pour pré-remplir les playlists
+- recuperation playlist deezer, soundcloud, youtube etc...

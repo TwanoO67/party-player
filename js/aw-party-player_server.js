@@ -1,8 +1,8 @@
 
 function addSpotifyPlaylistToActualPlaylist(){
 	var nb = 0;
-	for(var id_spotify in my_convert_data){
-		var id_youtube = my_convert_data[id_spotify];
+	for(var index in my_convert_data){
+		var id_youtube = my_convert_data[index];
 		addToPlaylistOnServer(id_youtube);
 		nb++;
 	}
@@ -31,20 +31,28 @@ function convertSpotify(){
 			var cur_elem = $('#track_spotify_'+cur_id_spotify);
 			//que faire avec le resultat de la requete
 			if(data != null && typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
-				var element = data.feed.entry[0];
-		        if( typeof(element['media$group']) !== 'undefined' 
-		        && typeof(element['media$group']['media$content']) !== 'undefined' 
-		        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
-		        )
-		        duree = element['media$group']['media$content'][0]['duration'];
-		        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
-		        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-		            var id_youtube = element['media$group']['yt$videoid']['$t'];
-		            cur_elem.find('.loader').hide();
-		            cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
-		            my_convert_data[cur_id_spotify] = id_youtube;
-	            }
-	            
+				try {
+				    data.feed.entry.forEach(function(element,index,array){
+				        var element = data.feed.entry[0];
+				        if( typeof(element['media$group']) !== 'undefined' 
+				        && typeof(element['media$group']['media$content']) !== 'undefined' 
+				        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+				        )
+				        duree = element['media$group']['media$content'][0]['duration'];
+				        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
+				        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+				            var id_youtube = element['media$group']['yt$videoid']['$t'];
+				            cur_elem.find('.loader').hide();
+				            cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
+				            my_convert_data.push(id_youtube);
+				            throw BreakException;
+			            } 
+				    });
+				} 
+				//si une chanson assez longue est trouvé, on break le foreach
+				catch(e) {
+				    if (e!==BreakException) throw e;
+				}
 			}
 			//si rien n'est trouvé
 			if(duree == 0){
