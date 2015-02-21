@@ -1,6 +1,6 @@
 <script src="/js/aw-party-player_server.js"></script>
-<script src="build/mediaelement-and-player.min.js" type="text/javascript"></script>
-<link rel="stylesheet" href="build/mediaelementplayer.css" type="text/css">
+<script src="/js/build/mediaelement-and-player.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/js/build/mediaelementplayer.css" type="text/css">
 <script>
 <?php 
     if(isset($_COOKIE['username'])){
