@@ -335,7 +335,7 @@ function load(url){
         });*/
         
         
-        mediaPlayer = new MediaElementPlayer("#audio-player",{
+        /*mediaPlayer = new MediaElementPlayer("#audio-player",{
             // if set, overrides <video width>
             videoWidth: -1,
             // if set, overrides <video height>
@@ -378,31 +378,13 @@ function load(url){
                mediaElement.addEventListener('canplay', function() {
                     mediaPlayer.play();
                }, false);
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
+           
                
             }
         });
         
-        mediaPlayer.play();
-    /*}
-    else{
-       mediaPlayer.pause();
-       mediaPlayer.setSrc({src: url, type:'video/youtube'});
-       mediaPlayer.load();
-       mediaPlayer.play();
-    }*/
-    //cible('#player-wrapper');
+        mediaPlayer.play();*/
+
 };
 
 
