@@ -22,7 +22,7 @@
     <div class="container">
 	    <div class="row">
 		    <video id="audio-player" width="640"  height="360" >
-			    <source type="video/youtube" src="https://www.youtube.com/embed/nfWlot6h_JM?list=PLvFYFNbi-IBFeP5ALr50hoOmKiYRMvzUq" />
+			    <source type="video/youtube" src="https://www.youtube.com/watch?v=nfWlot6h_JM&list=PLvFYFNbi-IBFeP5ALr50hoOmKiYRMvzUq" />
 			</video>
 	    </div>
     </div>
