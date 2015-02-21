@@ -287,7 +287,7 @@ function loadByYoutubeId(id){
         var url = "http://youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v="+id;
     }
     else{
-        var url = "https://www.youtube.com/watch?v="+id+"&feature=youtube_gdata";
+        var url = "http://www.youtube.com/watch?v="+id;
     }
     load(url);
     
@@ -317,9 +317,7 @@ function load(url){
     
     jQuery('#player-wrapper').html(htmlin);
     
-    mediaPlayer = new MediaElementPlayer("#audio-player");
-        
-    /*mediaPlayer = new MediaElementPlayer("#audio-player",{
+    mediaPlayer = new MediaElementPlayer("#audio-player",{
         // if set, overrides <video width>
         videoWidth: -1,
         // if set, overrides <video height>
@@ -367,7 +365,7 @@ function load(url){
         }
     });
     
-    mediaPlayer.play();*/
+    mediaPlayer.play();
 
 };
 
