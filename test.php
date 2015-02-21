@@ -31,6 +31,9 @@
     <script src="/js/jquery.cookie.js"></script>
     <script src="/js/bootbox.min.js" type="text/javascript"></script>
     <link rel="icon" type="image/png" href="/css/favicon.png" />
+
+<script src="/js/build/mediaelement-and-player.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/js/build/mediaelementplayer.css" type="text/css">
     <title>Party Player - le JukeBox collaboratif de vos soirées!</title>
 </head>
 
@@ -121,6 +124,8 @@
     </div>
     
     <script>
+        
+        mediaPlayer = new MediaElementPlayer("#audio-player");
         
         /*TODO:
         - ajoutez les controles de clavier multimedia sur le player   
