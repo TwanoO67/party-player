@@ -6,6 +6,10 @@
 
 	<meta charset="UTF-8" />
 	<meta http-equiv="content-language" content="en" />
+	
+	<meta name="viewport" content="width=1000, user-scalable=yes" />
+	<meta name="description" content="HTML5 video player with Flash and Silverlight fallbacks making it compatible with any browser." />
+	<meta name="keywords" content="HTML5, video, H.264, Javascript, media, mp3, mp4" />
     
     <script src="/js/build/jquery.js" type="text/javascript"></script>
 	<script src="/js/build/mediaelement-and-player.min.js" type="text/javascript"></script>
