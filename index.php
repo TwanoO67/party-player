@@ -151,7 +151,7 @@
 			 - se connecte à http://partyplayer.fr <br/>
 			 - et participe à la playlist, en tapant le CODE de votre JukeBox<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">C'est facile! On Commence?</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok! On Commence!</a></p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo4" style="display:none;">
@@ -226,25 +226,19 @@
 	        
 	    function loadIntro(){
 		      Intro = bootbox.dialog({
-				  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> Participer à une playlist existante ? </div>",
+				  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
 				  title: "Bienvenue sur Party-Player!",
 				  buttons: {
 				    success: {
-				      label: "Nouvelle playlist",
+				      label: "Nouveau Jukebox",
 				      className: "btn-success",
 				      callback: function() {
 				        mode = 'server';
-				        bootbox.confirm("<b>Attention</b>: <br/>Pour créer une playlist, vous devez être sur l'ordinateur qui va servir de jukebox.<br/> <i>Par exemple: Une ordinateur branché à une chaine hifi...</i>", function(result){
-					        if(result)
-					        	window.location.href = '/?mode=server&sessid='+rand_sessid;
-					        else
-					        	document.location.reload();
-				        });
-				        
+				        window.location.href = '/?mode=server&sessid='+rand_sessid;
 				      }
 				    },
 				    main: {
-				      label: "Participer à une playlist",
+				      label: "Participer à un Jukebox",
 				      className: "btn-primary",
 				      callback: function() {
 				        mode = 'client';
@@ -256,7 +250,7 @@
 				
 				Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
 					console.log('on hide');
-			        bootbox.alert("Vous devez choisir de participer à une playlist, ou d'en creer une nouvelle...",function(){
+			        bootbox.alert("Vous devez choisir de participer à un jukebox, ou d'en creer un nouveau...",function(){
 				        console.log('callback');
 				        document.location.reload();
 			        });
