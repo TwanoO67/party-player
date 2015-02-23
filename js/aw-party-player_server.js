@@ -337,11 +337,11 @@ function load(url){
         // Hide controls when playing and mouse is not over the video
         alwaysShowControls: false,
         // force iPad's native controls
-        iPadUseNativeControls: false,
+        iPadUseNativeControls: true,
         // force iPhone's native controls
-        iPhoneUseNativeControls: false, 
+        iPhoneUseNativeControls: true, 
         // force Android's native controls
-        AndroidUseNativeControls: false,
+        AndroidUseNativeControls: true,
         // forces the hour marker (##:00:00)
         alwaysShowHours: false,
         // show framecount in timecode (##:00:00:00)
