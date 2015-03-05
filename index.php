@@ -1,3 +1,8 @@
+<?php
+	if(!file_exists('api.php') || !file_exists('config.php')){
+		echo "Probleme de déploiement, config.php ou api.php manquant!";exit;
+	}
+?>
 <!DOCTYPE html>
 <html lang='fr'>
 <?php
@@ -10,7 +15,7 @@
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
     $session_url =  $base_url."?mode=client&sessid=".$sessid;
-    $serveur_url = "server.php";
+    $serveur_url = "api.php";
     
     $marge_header = '70';
     $boostrapversion = "3.3.2";
@@ -263,7 +268,7 @@
 	        	echo " <script>
 	        	    mode = '".$mode."';
                     </script>";
-	        	include_once('./includes/'.$mode.'.php');
+	        	include_once('./includes/_mode_'.$mode.'.php');
 	        } ?>
         
         
