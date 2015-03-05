@@ -27,7 +27,7 @@ elseif (isset($_GET['code'])) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 } 
 //si je suis deja connecté à spotify
-elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) ){
+elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){
     $token = $_COOKIE["spotify_token"];
 }
 //sinon je propose une connexion à spotify
