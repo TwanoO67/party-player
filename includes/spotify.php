@@ -1,7 +1,7 @@
 <?php
 //SPOTIFY API
+header('Access-Control-Allow-Origin: *');
 require_once('../config.php');
-
 include './spotify-web-api/Request.php';
 include './spotify-web-api/Session.php';
 include './spotify-web-api/SpotifyWebAPI.php';
