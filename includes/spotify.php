@@ -13,7 +13,7 @@ $api = new SpotifyWebAPI\SpotifyWebAPI();
 
 $token = '';
 //si je veux me deconnecter
-if (isset($_GET['disconnet'])) {
+if (isset($_GET['disconnect'])) {
 	setcookie("spotify_token","");
 	echo "Vous avez été déconnecté de spotify";
 	exit;
