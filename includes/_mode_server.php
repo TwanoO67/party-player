@@ -10,7 +10,7 @@
 	<?php }
 		else{
 			echo "sessid = '".$sessid."';loadPlaylistFromServer();";
-			echo "setUsername('Jukebox".$sessid.."');";
+			echo "setUsername('Jukebox".$sessid."');";
 		}
 	 ?>
 	 
