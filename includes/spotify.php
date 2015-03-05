@@ -1,6 +1,5 @@
 <?php
 //SPOTIFY API
-$id = $_REQUEST['id_spotify'];
 require_once('../config.php');
 
 include './spotify-web-api/Request.php';
@@ -13,8 +12,14 @@ $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, S
 $api = new SpotifyWebAPI\SpotifyWebAPI();
 
 $token = '';
+//si je veux me deconnecter
+if (isset($_GET['disconnet'])) {
+	setcookie("spotify_token","");
+	echo "Vous avez été déconnecté de spotify";
+	exit;
+}
 //si spotify m'envoi un token de connexion
-if (isset($_GET['code'])) {
+elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
     setcookie("spotify_token",$token);
