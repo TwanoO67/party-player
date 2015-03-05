@@ -23,7 +23,7 @@
 		    <?php if(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){ ?>
                     <a role="menuitem" tabindex="-1" onclick='importSpotify();'>Import depuis Spotify</a>
 		    <?php }else{ ?>
-		    <a role="menuitem" tabindex="-1" target='_blank' href="<?php echo $serveur_url; ?>?mode=convert_spotify&sessid=<?php echo $sessid; ?>">Connexion à Spotify</a>
+		    <a role="menuitem" tabindex="-1" href="<?php echo $spotify_api_url; ?>">Connexion à Spotify</a>
 		    <?php } ?>
                 </li>
                 <!--<li role="presentation" class="divider"></li>
