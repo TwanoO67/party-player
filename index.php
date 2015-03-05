@@ -16,6 +16,7 @@
     $base_url = "http://".$_SERVER['SERVER_NAME'];
     $session_url =  $base_url."?mode=client&sessid=".$sessid;
     $serveur_url = "api.php";
+    $spotify_api_url = "/includes/spotify.php";
     
     $marge_header = '70';
     $boostrapversion = "3.3.2";
@@ -196,6 +197,7 @@
         rand_sessid = "<?php echo $rand_sessid; ?>";
         session_url = "<?php echo $session_url; ?>";
         serverURL = "<?php echo $serveur_url; ?>";
+        spotifyApiURL = "<?php echo $spotify_api_url; ?>";
         modeAudio = false;
         lastPlaylistLoading = 0;
         lastUpdateTime = 0;

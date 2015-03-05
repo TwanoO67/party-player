@@ -215,9 +215,9 @@ function loadPlaylistFromServer(callback){
     				            if(mode == 'server'){
         				            //ajout des separateur pour les listes deja lus ou non
         				            if($('#playlist-container .list-group-item:not(.alreadyRead)').length > 0)
-        				                $('#playlist-container .list-group-item:not(.alreadyRead):first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Prochain(s) titre(s) à lire</span>');
+        				                $('#playlist-container .list-group-item:not(.alreadyRead):first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Prochain titre:</span>');
         				            if($('#playlist-container .list-group-item.alreadyRead').length > 0)
-        				                $('#playlist-container .list-group-item.alreadyRead:first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Déja lu(s)</span>');
+        				                $('#playlist-container .list-group-item.alreadyRead:first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Déjà lu:</span>');
     				            }
     				            
     				            if(typeof callback !== 'undefined'){
