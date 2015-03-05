@@ -3,18 +3,14 @@
 <link rel="stylesheet" href="/js/build/mediaelementplayer.css" type="text/css">
 <script>
 <?php 
-    if(isset($_COOKIE['username'])){
-        echo "setUsername('".$_COOKIE['username']."');";
-    }else{
-        echo "setUsername('Serveur".substr(md5(rand()), 0, 3)."');";
-    } 
+    
 	//Si l'url ne contient pas les infos necessaire on relance l'accueil step2
 	if($sessid == ''){ ?>
-		//AccueilStep2();
 		window.location.href = '/?mode=server&sessid='+rand_sessid;
 	<?php }
 		else{
 			echo "sessid = '".$sessid."';loadPlaylistFromServer();";
+			echo "setUsername('Jukebox".$sessid.."');";
 		}
 	 ?>
 	 
