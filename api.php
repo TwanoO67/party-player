@@ -440,7 +440,7 @@
                 }
                 catch(Exception $e){
 	                $msg = $e->getMessage();
-	                if( strpos($msg,"The access token expired") ){
+	                if( strpos($msg,'expired') !== false ){
 		                setcookie("spotify_token",'');
 		                $reponse['content'] = "The access token expired";
 		                header('Location: ' . $session->getAuthorizeUrl(array(
