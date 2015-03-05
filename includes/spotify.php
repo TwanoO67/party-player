@@ -48,7 +48,7 @@ try{
             $reponse['content'] = $data;
             $reponse['result'] = 'success';
         }
-        //sinon on renvoi la list des playlist
+        //sinon on renvoi la liste des playlist = get_playlists
         else{
             $response = $api->getUserPlaylists($api->me()->id);
             $playlist = array();

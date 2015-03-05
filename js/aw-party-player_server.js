@@ -87,11 +87,10 @@ function convertSpotify(){
 //Listing des chasnons d'une playlist spotify
 function importSpotifyPlaylist(href) {
 	BB.hide();
-    $.getJSON(serverURL, {
-	    'mode': 'convert_spotify',
+    $.getJSON(spotifyApiURL, {
 	    'custom': href,
-	    'sessid': sessid,
-	    'user': username
+	    //'sessid': sessid,
+	    //'user': username
 	}, function (data) {
 		//Construction de la présentation de la playlist
 		my_import_data = [];
@@ -134,10 +133,10 @@ function importSpotifyPlaylist(href) {
 //Listing des playlist importable depuis spotify
 function importSpotify(){
     if(jQuery.cookie("spotify_token") != ""){
-        $.getJSON(serverURL, {
-	    'mode': 'convert_spotify',
-	    'sessid': sessid,
-	    'user': username
+        $.getJSON(spotifyApiURL, {
+	    'get_playlists': 'true',
+	    //'sessid': sessid,
+	    //'user': username
 	}, function (data) { 
 	    if(data.result == 'error'){
 		bootbox.alert(data.error);
