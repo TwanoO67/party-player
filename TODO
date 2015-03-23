@@ -1,5 +1,6 @@
+- mode serveur multiple pour partager une playlist sur plusieurs ordi/pieces
 - renommé serveur en Jukebox, et client en Invité ou Participant
-- rendre compatible le mode serveur avec android/ios
+- rendre compatible le mode serveur avec android/ios (taille de la frame)
 - ajouter un partage du lien de participation facebook/twitter/email
 - enregistrer les ID de playlist créer dans le localStorage pour retrouver plus tard (voir tous le json)
 - client: tester l'existance d'une playlist si ID fournie

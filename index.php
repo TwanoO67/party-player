@@ -149,13 +149,13 @@
 		<div class="jumbotron" id="jumbo3" style="display:none;">
 		  <h1>Ajouter des musiques, c'est facile!</h1>
 		  <p>Avec leur smartphone <img src="/img/phone.svg" width='100px'/> ou tablette <img src="/img/tablet.svg" width='100px'/><br/>
-			 Les participants:<br/>
-			 - Scan le QRCode de votre JukeBox pour s'y connecter<br/>
+			 les participants:<br/>
+			 - Scannent le QRCode de votre JukeBox<br/>
 			 <br/>
 			 ou<br/>
 			 <br/>
-			 - se connecte à http://partyplayer.fr <br/>
-			 - et participe à la playlist, en tapant le CODE de votre JukeBox<br/>
+			 - se connectent à http://partyplayer.fr <br/>
+			 - et participent à la playlist, en tapant le CODE de votre JukeBox<br/>
 			 </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok! On Commence!</a></p>
 		</div>
@@ -167,7 +167,7 @@
 		  - Cliquez sur "Nouvelle Playlist"
 		  </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo4').hide();" role="button">Ok, je change d'ordi!</a>
-		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Je suis déja sur le bon ordi!</a>
+		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Je suis déjà sur le bon ordi!</a>
 		  </p>
 		</div>
 		
