@@ -241,7 +241,6 @@
                     '<label class="col-md-4 control-label" for="name">Pseudo</label> ' +
                     '<div class="col-md-4"> ' +
                     '<input id="name" name="name" type="text" placeholder="'+username+'" class="form-control input-md"> ' +
-                    '<span class="help-block">Choisissez votre pseudo</span> </div> ' +
                     '</div> ' +
                     '<div class="form-group"> ' +
                     '<label class="col-md-4 control-label" for="awesomeness">Comment commencer</label> ' +
@@ -249,8 +248,9 @@
                     '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
                     'Nouveau Jukebox </label> ' +
                     '</div><div class="radio"> <label for="mode-client"> ' +
-                    '<input type="radio" name="mode" id="mode-client" value="client" onChange="$(\'#code\').toggle()"> Rejoindre un JukeBox </label> ' +
-                    '<input type="text" value="CODE" name="code"/>'+
+                    '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox </label> ' +
+                    '<script>$("input[name=\'mode\']").change(function(){ $(\'#code\').toggle(); });</script>'+
+                    '<input type="text" value="CODE" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
@@ -260,7 +260,7 @@
                         className: "btn-success",
                         callback: function () {
                             setUsername($('#name').val());
-                            var answer = $("input[name='mode']:checked").val();
+                            var mode = $("input[name='mode']:checked").val();
                             if(mode=='client'){
 	                            var code = $('#code').val();
 	                            if(code=="CODE" || code==''){
