@@ -41,14 +41,14 @@
 	    <div class='well placeholders'>
 	        <h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-		        Laissez cette page ouverte pour écouter la musique.
+		        Laissez cette page ouverte pour écouter la musique.<br/>
 	            Depuis votre smartphone<br/>
 	            <img src='/img/phone.svg' width='100px' /><br/>
 	            Flashez le QRCode  ==><br/>
 	            <br/>
 	            ou<br/>
 	            <br/>
-	            Aller sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
+	            Allez sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
 	            <!--Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>-->
 	        </div>
 	        <div id='vote-area-ph'></div>
