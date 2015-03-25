@@ -449,7 +449,7 @@ function loadYoutubePlaylist(playlistId){
     var callback = function (data) { 
         data.feed.entry.forEach(function(element,index,array){
              var id = element['media$group']['yt$videoid']['$t'];
-             addPlaylistItem(id,element.title['$t']);       
+             addToPlaylistOnServer(id);     
         });
     };
     getYoutubePlaylistInfo(playlistId,callback);
