@@ -254,7 +254,7 @@
                     'Nouveau Jukebox </label> ' +
                     '</div><div class="radio"> <label for="mode-client"> ' +
                     '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
-                    '<input type="text" value="'+code_default+'" id="code" name="code" style="display:none" />'+
+                    '<input type="text" placeholder="'+code_default+'" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',

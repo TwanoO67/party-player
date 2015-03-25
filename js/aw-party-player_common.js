@@ -470,6 +470,7 @@ function downloadById(id){
 
 $(document).ready(function(){
     //récupération du username si existant
+    username = "";
     if($.cookie('username') != undefined){
         username = $.cookie('username');
     }
