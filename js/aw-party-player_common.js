@@ -157,9 +157,10 @@ function message(type,titre,message){
 		contenu += " <strong>"+titre+"</strong> ";
 	}
 	
-	contenu += message+"</div>";
+	contenu += message+"</div><span onclick='$(\"#message\").hide();' style='float:right;cursor:pointer;'>X</span>";
 	
 	$("#message").html(contenu);
+	$("#message").show();
 }
 
 function loadPlaylistFromServer(callback){
