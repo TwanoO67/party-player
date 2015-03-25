@@ -15,7 +15,8 @@
     }
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
-    $session_url =  $base_url."/JukeBox".$sessid;
+    $client_base_url = $base_url."/JukeBox";
+    $session_url =  $client_base_url.$sessid;
     $serveur_url = "api.php";
     $spotify_api_url = "/includes/spotify.php";
     
@@ -270,7 +271,7 @@
 		                            return false;
 	                            }
 	                            else{
-		                            window.location.href = '/?mode=client&sessid='+code;
+		                            window.location.href = '<?php echo $client_base_url; ?>'+code;
 	                            }
 	                            
                             }
