@@ -15,6 +15,11 @@ function addSpotifyPlaylistToActualPlaylist(){
 	}
 }
 
+function FoundYoutubeIDException(data){
+	this.message = data;
+	this.name = "FoundYoutubeIDException";
+}
+
 //conversion vers youtube
 function convertSpotify(){
 	my_convert_data = [];//re-init
@@ -29,7 +34,7 @@ function convertSpotify(){
 			var cur_id_spotify = params;
 			var duree = 0;
 			var cur_elem = $('#track_spotify_'+cur_id_spotify);
-			var id_youtube_selected = null;
+			
 			//que faire avec le resultat de la requete
 			if(data != null && typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
 				try {
@@ -44,7 +49,7 @@ function convertSpotify(){
 				        //si le resultat vient de VEVO et ne contient pas des trucs trop court ou trop long (spam)
 				        if(element['author'][0]['name'].indexOf('VEVO') !== false && duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
 					        id_youtube_selected = element['media$group']['yt$videoid']['$t'];
-				            throw BreakException;
+				            throw FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
 			            } 
 				    });
 					
@@ -58,15 +63,15 @@ function convertSpotify(){
 				        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
 				        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
 					        id_youtube_selected = element['media$group']['yt$videoid']['$t'];
-				            throw BreakException;
+				            throw FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
 			            } 
 				    });
 				} 
 				//si une chanson assez longue est trouvé, on break le foreach, et on l'ajoute à la liste
-				catch(e) {
+				catch(e if e.name = "FoundYoutubeIDException") {
 				    cur_elem.find('.loader').hide();
 			        cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
-			        my_convert_data.push(id_youtube_selected);
+			        my_convert_data.push(e.message);
 				}
 			}
 			//si rien n'est trouvé
