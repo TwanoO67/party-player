@@ -71,32 +71,23 @@ function buildHTMLPlaylistItem(element,title){
     html += '" ';
     html += 'style="float: left; width: 100%;" ';;
     html += '>';
-    
-    html += '<div class="playlist_item_title">'+title+'</div>';
-    
-    /*//ligne de date
-    html += '<div class="playlist_item_ligne" style="float:left" >';
-        html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
-        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
-    html += '</div>';*/
-    
     var alreadyVoted = false;
     $.each(element.votes,function(index,elem){
         if(elem.user == username || elem.token == vote_token){
             alreadyVoted = true;
         }
     });
-        
+    
     //bouton de vote
     if(!alreadyVoted){
-        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:left" >';
-            html += '<div class="playlist_item_votebutton"><button type="button" class="btn btn-success" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button></div>';//element.vote
+        html += '<div id="vote_ligne_'+id+'" >';
+            html += '<button type="button" class="btn btn-success playlist_item_votebutton" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger playlist_item_votebutton" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button>';//element.vote
         html += '</div>';
     }
     else{
-        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:left" >';
+        html += '<div id="vote_ligne_'+id+'" >';
         //bouton de resultat des votes
-        html += '<button type="button" style="padding: 4px 8px;" class="btn btn-default" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
+        html += '<button type="button" class="btn btn-default playlist_item_voteresult" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
         if(element.vote >= 0){
             html += 'glyphicon-thumbs-up';
         }
@@ -106,7 +97,17 @@ function buildHTMLPlaylistItem(element,title){
         html += '"></span>&nbsp;'+element.vote+'</button>&nbsp;';
         html += '</div>';
     }
-        
+    
+    html += '<div class="playlist_item_title">'+title+'</div>';
+    
+    /*//ligne de date
+    html += '<div class="playlist_item_ligne" style="float:left" >';
+        html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
+        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
+    html += '</div>';*/
+    
+    
+     
     html += '</div>';
     
     

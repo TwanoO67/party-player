@@ -64,9 +64,13 @@
         .playlist_item_user{
             display: inline;
         }
-        .playlist_item_votebutton button{
+        button.playlist_item_votebutton {
 	        padding: 0;
 	        width: 25px;
+	        height: 25px;
+        }
+        button.playlist_item_voteresult{
+	        padding: 4px 8px;
 	        height: 25px;
         }
         .big-glyph{
