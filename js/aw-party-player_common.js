@@ -87,7 +87,7 @@ function playlistVide(){
 }
 
 function messagePartage(){
-	message('success',"Partagez!","Envoyez votre playlist à vos amis! Avec le lien: <a href='"+session_url+"' target='_new' >"+session_url+"</a> ou le CODE <b> <a target='_new' href='https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl="+encodeURI(session_url)+"&choe=UTF-8'>"+sessid+"</a></b> ");
+	message('success',"Partagez avec vos amis!","Lien: <a href='"+session_url+"' target='_new' >"+session_url+"</a> ou le JukeBox CODE <b> <a target='_new' href='"+session_url+"' >"+sessid+"</a></b> ");
 }
 
 function cible(element){

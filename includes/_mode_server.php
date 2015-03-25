@@ -39,16 +39,16 @@
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
 	    
 	    <div class='well placeholders'>
-	        <h2 id='main-title'>Votre JukeBox est prêt!</h2>
+	        <h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-	            Demandez à vos amis d'ajouter des musique!<br/>
+	            Depuis votre smartphone<br/>
 	            <img src='/img/phone.svg' width='100px' /><br/>
-	            Flashez le QRCode situé à droite ==><br/>
+	            Flashez le QRCode  ==><br/>
 	            <br/>
 	            ou<br/>
 	            <br/>
 	            Aller sur <b>http://partyplayer.fr</b><br/>
-	            Participer au JukeBox: <b><? echo $sessid ?></b><br/>
+	            Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>
 	        </div>
 	        <div id='vote-area-ph'></div>
 	    </div>
@@ -57,16 +57,13 @@
 	
 	<!-- Colonne de droite -->
 	<div class='col-xs-12 col-sm-4' id='colonne_droite'>
-	    
-	    
 	    <div class="panel panel-warning" id='share_panel'>
 	        <div class="panel-heading">
-	            <h3 class="panel-title" style="display:inline">Participer à la playlist
+	            <h3 class="panel-title" style="display:inline">JukeBox: <b><?php echo $sessid ?></b>
 	            </h3>
 	            <span onclick='$("#share_panel").hide();' style='float:right;cursor:pointer;'>X</span>
 	        </div>
 	        <div class="panel-body placeholders">
-	             Votre JukeBox : <b><?php echo $sessid ?> <br/></b>
 	             <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=<?php echo urlencode($session_url); ?>&choe=UTF-8" /><br/>
 	      </div>
 	    </div>
