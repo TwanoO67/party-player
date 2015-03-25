@@ -232,7 +232,7 @@
         <script>
 	        
 	    function loadIntro(){
-		    code_default = "CODE du JukeBox";
+		    code_default = "CODE";
 		    code_invalid = "CODE invalide!";
 		    Intro = bootbox.dialog({
                 title: "La soirée peut commencer!",
@@ -240,25 +240,25 @@
                     '<div class="col-md-12"> ' +
                     '<form class="form-horizontal"> ' +
                     '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="name">Pseudo</label> ' +
-                    '<div class="col-md-4"> ' +
+                    '<label class="col-md-6 control-label" for="name">Pseudo</label> ' +
+                    '<div class="col-md-6"> ' +
                     '<input id="name" name="name" type="text" placeholder="'+username+
                     '" class="form-control input-md" /> </div>' +
                     '</div> ' +
                     '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label">&nbsp;</label> ' +
-                    '<div class="col-md-4"> <div class="radio"> <label for="mode-server"> ' +
+                    '<label class="col-md-6 control-label">&nbsp;</label> ' +
+                    '<div class="col-md-6"> <div class="radio"> <label for="mode-server"> ' +
                     '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
                     'Nouveau Jukebox </label> ' +
                     '</div><div class="radio"> <label for="mode-client"> ' +
-                    '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox </label> ' +
+                    '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
                     '<input type="text" value="'+code_default+'" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
                 buttons: {
                     success: {
-                        label: "Commencer!",
+                        label: "Ok",
                         className: "btn-success",
                         callback: function () {
                             setUsername($('#name').val());
