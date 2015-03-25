@@ -222,7 +222,7 @@ function buildHTMLPlaylistItem(element,title,user,vote,date){
     html += '</div>';
     
     
-    html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
+    html += '<div class="playlist_item_ligne" style="float:right" >';
     //bouton lecture
     html += '<button type="button" class="btn btn-success" title="Lire ce titre" onclick="loadByYoutubeId(\''+id+'\')"><span class="glyphicon glyphicon-play"></span></button>&nbsp;';
     //bouton de suppression

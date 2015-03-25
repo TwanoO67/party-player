@@ -80,14 +80,11 @@ function buildHTMLPlaylistItem(element,title){
     
     //bouton de vote
     if(!alreadyVoted){
-        html += '<div id="vote_ligne_'+id+'" >';
-            html += '<button type="button" class="btn btn-success playlist_item_votebutton" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger playlist_item_votebutton" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button>';//element.vote
-        html += '</div>';
+        html += '<button type="button" class="btn btn-success playlist_item_votebutton vote_ligne_'+id+'" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger playlist_item_votebutton vote_ligne_'+id+'" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button>&nbsp;';//element.vote
     }
     else{
-        html += '<div id="vote_ligne_'+id+'" >';
         //bouton de resultat des votes
-        html += '<button type="button" class="btn btn-default playlist_item_voteresult" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
+        html += '<button type="button" class="btn btn-default playlist_item_voteresult vote_ligne_'+id+'" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
         if(element.vote >= 0){
             html += 'glyphicon-thumbs-up';
         }
@@ -95,7 +92,6 @@ function buildHTMLPlaylistItem(element,title){
             html += 'glyphicon-thumbs-down';
         }
         html += '"></span>&nbsp;'+element.vote+'</button>&nbsp;';
-        html += '</div>';
     }
     
     html += '<div class="playlist_item_title">'+title+'</div>';
@@ -287,7 +283,7 @@ function vote(id,vote){
             bootbox.alert(data.error);
         }
         else{
-            jQuery("#vote_ligne_"+id).hide();
+            jQuery(".vote_ligne_"+id).hide();
             loadPlaylistFromServer();
         }
     });
