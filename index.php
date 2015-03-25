@@ -250,7 +250,7 @@
                     '</div><div class="radio"> <label for="mode-client"> ' +
                     '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox </label> ' +
                     '<script>$("input[name=\'mode\']").change(function(){ $(\'#code\').toggle(); });</script>'+
-                    '<input type="text" value="CODE" name="code" style="display:none" />'+
+                    '<input type="text" value="CODE" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
