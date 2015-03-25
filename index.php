@@ -1,4 +1,5 @@
 <?php
+	header('Access-Control-Allow-Origin: *');
 	if(!file_exists('api.php') || !file_exists('config.php')){
 		echo "Probleme de déploiement, config.php ou api.php manquant!";exit;
 	}
