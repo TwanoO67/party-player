@@ -232,6 +232,8 @@
         <script>
 	        
 	    function loadIntro(){
+		    code_default = "CODE du JukeBox";
+		    code_invalid = "CODE invalide!";
 		    Intro = bootbox.dialog({
                 title: "La soirée peut commencer!",
                 message: '<div class="row">  ' +
@@ -250,7 +252,7 @@
                     'Nouveau Jukebox </label> ' +
                     '</div><div class="radio"> <label for="mode-client"> ' +
                     '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox </label> ' +
-                    '<input type="text" value="CODE" id="code" name="code" style="display:none" />'+
+                    '<input type="text" value="'+code_default+'" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
@@ -263,8 +265,8 @@
                             var mode = $("input[name='mode']:checked").val();
                             if(mode=='client'){
 	                            var code = $('#code').val();
-	                            if(code=="CODE" || code==''){
-		                            $('#code').val("CODE invalide!");
+	                            if(code=="CODE" || code=='' || code==code_default || code==code_invalid){
+		                            $('#code').val(code_invalid);
 		                            return false;
 	                            }
 	                            else{
