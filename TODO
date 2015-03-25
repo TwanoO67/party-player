@@ -1,4 +1,5 @@
 - Tester la connexion à spotify et expiration du token, mieux placer les boutons d'import
+- Nom des jukebox à modifier, nom des client ne dois pas contenir jukebox
 - onglet connexion avec compte sur partyplayer, lié a facebook, spotify etc...
 - mode serveur multiple pour partager une playlist sur plusieurs ordi/pieces
 - renommé serveur en Jukebox, et client en Invité ou Participant
