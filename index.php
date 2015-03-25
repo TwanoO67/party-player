@@ -56,26 +56,12 @@
             margin-right: auto;
             margin-left: auto;
         }
-        div.playlist_item_title{
-	        display: inline;
-        }
         .playlist_item_ligne{
             font-size: 10px;
             display: inline;
         }
         .playlist_item_user{
             display: inline;
-        }
-        button.playlist_item_votebutton {
-	        padding: 0;
-	        width: 25px;
-	        height: 25px;
-        }
-        button.playlist_item_voteresult{
-	        padding: 0;
-	        padding-left: 3px;
-	        padding-right: 3px;
-	        height: 25px;
         }
         .big-glyph{
             font-size: 30px;

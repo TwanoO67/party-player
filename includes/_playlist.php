@@ -36,7 +36,7 @@
             </ul>
         </div>
         <?php }else{
-                echo "Chansons suivantes...";
+                echo "Playlist partagée&nbsp;(triée par vote...)";
             } ?>
         </h3>
     </div>

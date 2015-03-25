@@ -35,8 +35,23 @@
 	 
 </script>
 <style>
+	/* STYLE DU MODE CLIENT*/
     .alreadyRead{
         display: none;
+    }
+    div.playlist_item_title{
+        display: inline;
+    }
+    button.playlist_item_votebutton {
+        padding: 0;
+        width: 25px;
+        height: 25px;
+    }
+    button.playlist_item_voteresult{
+        padding: 0;
+        padding-left: 3px;
+        padding-right: 3px;
+        height: 25px;
     }
 </style>
 
@@ -101,7 +116,7 @@
     	
     	<div class="panel panel-success" id='last_play_wrapper' style='display:none'>
             <div class="panel-heading" style='float:left;width:100%;'>
-                <h3 class="panel-title">Dernière lecture</h3>
+                <h3 class="panel-title">Lecture en cours</h3>
             </div>
             <div class="panel-body" style='padding:0;'>
                 <div class="list-group" id='last_play_content'>
