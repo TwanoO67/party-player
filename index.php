@@ -232,8 +232,61 @@
         <script>
 	        
 	    function loadIntro(){
-		      Intro = bootbox.dialog({
-				  //message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
+		    Intro = bootbox.dialog({
+                title: "La soirée peut commencer!",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Pseudo</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input id="name" name="name" type="text" placeholder="'+username+'" class="form-control input-md"> ' +
+                    '<span class="help-block">Choisissez votre pseudo</span> </div> ' +
+                    '</div> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="awesomeness">Comment commencer</label> ' +
+                    '<div class="col-md-4"> <div class="radio"> <label for="mode-server"> ' +
+                    '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
+                    'Nouveau Jukebox </label> ' +
+                    '</div><div class="radio"> <label for="mode-client"> ' +
+                    '<input type="radio" name="mode" id="mode-client" value="client" onChange="$(\'#code\').toggle()"> Rejoindre un JukeBox </label> ' +
+                    '<input type="text" value="CODE" name="code"/>'+
+                    '</div> ' +
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                buttons: {
+                    success: {
+                        label: "Commencer!",
+                        className: "btn-success",
+                        callback: function () {
+                            setUsername($('#name').val());
+                            var answer = $("input[name='mode']:checked").val();
+                            if(mode=='client'){
+	                            var code = $('#code').val();
+	                            if(code=="CODE" || code==''){
+		                            return false;
+	                            }
+	                            else{
+		                            window.location.href = '/?mode=client&sessid='+code;
+	                            }
+	                            
+                            }
+                            else{
+	                            window.location.href = '/?mode=server&sessid='+rand_sessid;
+                            }
+                        }
+                    }
+                }
+            }
+        );
+		    
+		    
+		    
+		    
+		    
+		    
+		      /*Intro = bootbox.dialog({
+				  message: "<div style='text-align: center;'> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
 				  title: "Bienvenue sur Party-Player!",
 				  buttons: {
 				    success: {
@@ -253,7 +306,7 @@
 				      }
 				    }
 				  }
-				});
+				});*/
 				
 				Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
 					console.log('on hide');
