@@ -16,8 +16,10 @@ function addSpotifyPlaylistToActualPlaylist(){
 }
 
 function FoundYoutubeIDException(data){
-	this.message = data;
-	this.name = "FoundYoutubeIDException";
+	throw{
+		name: "FoundYoutubeIDException",
+		message: data
+	}
 }
 
 //conversion vers youtube
@@ -48,7 +50,7 @@ function convertSpotify(){
 				        duree = element['media$group']['media$content'][0]['duration'];
 				        //si le resultat vient de VEVO et ne contient pas des trucs trop court ou trop long (spam)
 				        if(element['author'][0]['name']['$t'].indexOf('VEVO') !== false && duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-				            throw FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
+				            FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
 			            } 
 				    });
 					
@@ -61,7 +63,7 @@ function convertSpotify(){
 				        duree = element['media$group']['media$content'][0]['duration'];
 				        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
 				        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-				            throw FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
+				            FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
 			            } 
 				    });
 				} 
