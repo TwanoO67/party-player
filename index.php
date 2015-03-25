@@ -241,7 +241,7 @@
                     '<label class="col-md-4 control-label" for="name">Pseudo</label> ' +
                     '<div class="col-md-4"> ' +
                     '<input id="name" name="name" type="text" placeholder="'+username+
-                    '" class="form-control input-md"> ' +
+                    '" class="form-control input-md" /> ' +
                     '</div> ' +
                     '<div class="form-group"> ' +
                     '<label class="col-md-4 control-label" for="awesomeness">Comment commencer</label> ' +
@@ -251,8 +251,11 @@
                     '</div><div class="radio"> <label for="mode-client"> ' +
                     '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox </label> ' +
                     '<script>'+
-                    '$("input[name=\'mode\']").change(function(){ $(\'#code\').toggle(); });'+
-                    '</script>'+
+	                    '$("input[name=\'mode\']").change('+
+	                    	'function(){ '+
+	                    		'$(\'#code\').toggle();'+
+	                    	' });'+
+	                    '</script>'+
                     '<input type="text" value="CODE" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
