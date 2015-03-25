@@ -246,7 +246,6 @@
                     '" class="form-control input-md" /> </div>' +
                     '</div> ' +
                     '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="awesomeness">Comment commencer</label> ' +
                     '<div class="col-md-4"> <div class="radio"> <label for="mode-server"> ' +
                     '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
                     'Nouveau Jukebox </label> ' +
