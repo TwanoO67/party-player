@@ -54,7 +54,7 @@ try{
             $reponse['result'] = 'success';
         }
         //sinon on renvoi la liste des playlist = get_playlists
-        elseif($_REQUEST['get_playlists']!=''){{
+        elseif($_REQUEST['get_playlists']!=''){
             $response = $api->getUserPlaylists($api->me()->id);
             $playlist = array();
             foreach($response->items as $pl){
