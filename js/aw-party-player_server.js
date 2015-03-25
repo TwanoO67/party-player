@@ -66,10 +66,14 @@ function convertSpotify(){
 				    });
 				} 
 				//si une chanson assez longue est trouvé, on break le foreach, et on l'ajoute à la liste
-				catch(e if e.name = "FoundYoutubeIDException") {
-				    cur_elem.find('.loader').hide();
-			        cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
-			        my_convert_data.push(e.message);
+				catch(e){
+					if ( e.name == "FoundYoutubeIDException") {
+					    cur_elem.find('.loader').hide();
+				        cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
+				        my_convert_data.push(e.message);
+			        }
+			        else
+			        	throw e;
 				}
 			}
 			//si rien n'est trouvé
