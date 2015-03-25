@@ -56,7 +56,9 @@
             margin-right: auto;
             margin-left: auto;
         }
-        
+        div.playlist_item_title{
+	        display: inline;
+        }
         .playlist_item_ligne{
             font-size: 10px;
             display: inline;
@@ -70,7 +72,9 @@
 	        height: 25px;
         }
         button.playlist_item_voteresult{
-	        padding: 4px 8px;
+	        padding: 0;
+	        padding-left: 3px;
+	        padding-right: 3px;
 	        height: 25px;
         }
         .big-glyph{
