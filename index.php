@@ -16,6 +16,7 @@
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
     $client_base_url = $base_url."/JukeBox";
+    $server_base_url = $base_url."/?mode=server&sessid=";
     $session_url =  $client_base_url.$sessid;
     $serveur_url = "api.php";
     $spotify_api_url = "/includes/spotify.php";
@@ -168,7 +169,7 @@
 		  - Cliquez sur "Créer un JukeBox"
 		  </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo4').hide();" role="button">Ok, je change d'ordi!</a>
-		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Créer un JukeBox</a>
+		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;" role="button">Créer un JukeBox</a>
 		  </p>
 		</div>
 		
@@ -276,7 +277,7 @@
 	                            
                             }
                             else{
-	                            window.location.href = '/?mode=server&sessid='+rand_sessid;
+	                            window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;
                             }
                         }
                     }
