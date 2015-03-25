@@ -250,12 +250,6 @@
                     'Nouveau Jukebox </label> ' +
                     '</div><div class="radio"> <label for="mode-client"> ' +
                     '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox </label> ' +
-                    '<script>'+
-	                    '$("input[name=\'mode\']").change('+
-	                    	'function(){ '+
-	                    		'$(\'#code\').toggle();'+
-	                    	' });'+
-	                    '</script>'+
                     '<input type="text" value="CODE" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
@@ -285,12 +279,11 @@
                 }
             }
         );
-		    
-		    
-		    
-		    
-		    
-		    
+        
+        //ouverture de la boite CODE au select du radiobutton
+        $("input[name='mode']").change(function(){ $('#code').toggle();});
+        
+        
 		      /*Intro = bootbox.dialog({
 				  message: "<div style='text-align: center;'> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
 				  title: "Bienvenue sur Party-Player!",
