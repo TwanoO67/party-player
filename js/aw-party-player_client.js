@@ -74,11 +74,11 @@ function buildHTMLPlaylistItem(element,title){
     
     html += '<div class="playlist_item_title">'+title+'</div>';
     
-    //ligne de date
+    /*//ligne de date
     html += '<div class="playlist_item_ligne" style="float:left" >';
         html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
         html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
-    html += '</div>';
+    html += '</div>';*/
     
     var alreadyVoted = false;
     $.each(element.votes,function(index,elem){
@@ -89,12 +89,12 @@ function buildHTMLPlaylistItem(element,title){
         
     //bouton de vote
     if(!alreadyVoted){
-        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
-            html += '<div class="playlist_item_votebutton"><button type="button" class="btn btn-success" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button> '+element.vote+' <button type="button" class="btn btn-danger" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button></div>';
+        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:left" >';
+            html += '<div class="playlist_item_votebutton"><button type="button" class="btn btn-success" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button><button type="button" class="btn btn-danger" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button></div>';//element.vote
         html += '</div>';
     }
     else{
-        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
+        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:left" >';
         //bouton de resultat des votes
         html += '<button type="button" style="padding: 4px 8px;" class="btn btn-default" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
         if(element.vote >= 0){
