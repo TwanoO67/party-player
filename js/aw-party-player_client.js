@@ -265,9 +265,11 @@ function searchYoutube(query){
 
 //permet de positionner le champ visible sur un element
 function cible(element){
-    jQuery('html, body').animate({
-        scrollTop: (jQuery(element).offset().top - marge_header)
-    }, 1000);
+	if(jQuery(element).length > 0 ){
+	    jQuery('html, body').animate({
+	        scrollTop: (jQuery(element).offset().top - marge_header)
+	    }, 1000);
+    }
 }
 
 //permet d'ajouter un vote sur une chanson
