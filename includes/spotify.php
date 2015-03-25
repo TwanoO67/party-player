@@ -24,7 +24,8 @@ elseif (isset($_GET['code'])) {
     $token = $session->getAccessToken();
     setcookie("spotify_token",$token,0,'/');
     //je redirige vers le referer
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    header('Location: http://'.$_SERVER['SERVER_NAME']);
+    exit;
 } 
 //si je suis deja connecté à spotify
 elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){
