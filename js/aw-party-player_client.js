@@ -41,7 +41,7 @@ function buildHTMLResultatPlaylistItem(index,image,titre,id){
         index,
         image,
         titre,
-        "<span class='glyphicon glyphicon-plus-sign big-glyph' onclick='loadYoutubePlaylist(\""+id+"\")' title='Ajouter toute la playlist à la suite'></span> <span class='glyphicon glyphicon-list-alt big-glyph' onclick='getPlaylistDetails(\""+id+"\")' title='Détail de la playlist'></span>"
+        "<span class='glyphicon glyphicon-plus-sign big-glyph' onclick='loadYoutubePlaylist(\""+id+"\");$(\"#search-result\").hide();' title='Ajouter toute la playlist à la suite'></span> <span class='glyphicon glyphicon-list-alt big-glyph' onclick='getPlaylistDetails(\""+id+"\")' title='Détail de la playlist'></span>"
     );
 
 };
