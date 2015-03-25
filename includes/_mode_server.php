@@ -47,7 +47,7 @@
 	            <br/>
 	            ou<br/>
 	            <br/>
-	            Aller sur <b>http://partyplayer.fr</b><br/>
+	            Aller sur <b><?php echo $base_url; ?></b><br/>
 	            Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>
 	        </div>
 	        <div id='vote-area-ph'></div>
@@ -59,8 +59,7 @@
 	<div class='col-xs-12 col-sm-4' id='colonne_droite'>
 	    <div class="panel panel-warning" id='share_panel'>
 	        <div class="panel-heading">
-	            <h3 class="panel-title" style="display:inline">JukeBox: <b><?php echo $sessid ?></b>
-	            </h3>
+	            <h3 class="panel-title" style="display:inline">JukeBox <b><?php echo $sessid ?></b></h3>
 	            <span onclick='$("#share_panel").hide();' style='float:right;cursor:pointer;'>X</span>
 	        </div>
 	        <div class="panel-body placeholders">
