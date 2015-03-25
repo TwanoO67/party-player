@@ -65,6 +65,10 @@ function buildHTMLPlaylistItem(element,title){
     html += 'data-vote="'+element.vote+'" ';
     html += 'data-user="'+element.addUser+'" ';
     html += 'class="list-group-item ';
+    
+    html += 'data-toggle="tooltip" data-placement="top" title=" Ajouté par '+element.addUser+" \n";
+    html += ' le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'" ';
+    
     if(element.alreadyRead){
         html += 'alreadyRead';
     }
