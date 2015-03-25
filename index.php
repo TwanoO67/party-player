@@ -241,7 +241,7 @@
                     '<label class="col-md-4 control-label" for="name">Pseudo</label> ' +
                     '<div class="col-md-4"> ' +
                     '<input id="name" name="name" type="text" placeholder="'+username+
-                    '" class="form-control input-md" /> ' +
+                    '" class="form-control input-md" /> </div>' +
                     '</div> ' +
                     '<div class="form-group"> ' +
                     '<label class="col-md-4 control-label" for="awesomeness">Comment commencer</label> ' +
@@ -264,6 +264,7 @@
                             if(mode=='client'){
 	                            var code = $('#code').val();
 	                            if(code=="CODE" || code==''){
+		                            $('#code').val("CODE invalide!");
 		                            return false;
 	                            }
 	                            else{
@@ -277,45 +278,19 @@
                         }
                     }
                 }
-            }
-        );
+            });
         
-        //ouverture de la boite CODE au select du radiobutton
-        $("input[name='mode']").change(function(){ $('#code').toggle();});
+	        //ouverture de la boite CODE au select du radiobutton
+	        $("input[name='mode']").change(function(){ $('#code').toggle();});
         
-        
-		      /*Intro = bootbox.dialog({
-				  message: "<div style='text-align: center;'> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
-				  title: "Bienvenue sur Party-Player!",
-				  buttons: {
-				    success: {
-				      label: "Nouveau Jukebox",
-				      className: "btn-success",
-				      callback: function() {
-				        mode = 'server';
-				        window.location.href = '/?mode=server&sessid='+rand_sessid;
-				      }
-				    },
-				    main: {
-				      label: "Participer à un Jukebox",
-				      className: "btn-primary",
-				      callback: function() {
-				        mode = 'client';
-				        window.location.href = '/?mode=client';
-				      }
-				    }
-				  }
-				});*/
-				
-				Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
-					console.log('on hide');
-			        bootbox.alert("Vous devez choisir de participer à un jukebox, ou d'en creer un nouveau...",function(){
-				        console.log('callback');
-				        document.location.reload();
-			        });
-			        
-			    });
-		    }
+			Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
+				console.log('on hide');
+		        bootbox.alert("Vous devez choisir de participer à un jukebox, ou d'en creer un nouveau...",function(){
+			        console.log('callback');
+			        document.location.reload();
+		        });
+		    });
+	    }
 		</script>
         <?php }else{
                 $mode = $_REQUEST['mode'];
