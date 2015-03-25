@@ -48,7 +48,6 @@ function convertSpotify(){
 				        duree = element['media$group']['media$content'][0]['duration'];
 				        //si le resultat vient de VEVO et ne contient pas des trucs trop court ou trop long (spam)
 				        if(element['author'][0]['name'].indexOf('VEVO') !== false && duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-					        id_youtube_selected = element['media$group']['yt$videoid']['$t'];
 				            throw FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
 			            } 
 				    });
@@ -62,7 +61,6 @@ function convertSpotify(){
 				        duree = element['media$group']['media$content'][0]['duration'];
 				        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
 				        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-					        id_youtube_selected = element['media$group']['yt$videoid']['$t'];
 				            throw FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
 			            } 
 				    });
