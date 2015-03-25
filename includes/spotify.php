@@ -39,6 +39,9 @@ else {
 }
 
 try{
+	$reponse = array();
+    $reponse['result'] = 'error';
+    
     //si une connexion est valide
     if($token!=''){
         $api->setAccessToken($token);
@@ -70,6 +73,9 @@ try{
             $reponse['content'] = $playlist;
             $reponse['result'] = 'success';
         }
+        
+        echo json_encode($reponse);
+		exit;
     }
 }
 catch(Exception $e){
