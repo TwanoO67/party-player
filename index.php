@@ -16,6 +16,7 @@
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
     $client_base_url = $base_url."/JukeBox";
+    $server_base_url = $base_url."/?mode=server&sessid=";
     $session_url =  $client_base_url.$sessid;
     $serveur_url = "api.php";
     $spotify_api_url = "/includes/spotify.php";
@@ -137,38 +138,38 @@
 		</div>
 		
 		<div class="jumbotron" id="jumbo2" style="display:none;">
-		  <h1><img src="/img/computer.svg" width='100px'/> Ordi + <img src="/img/audio.svg" width='100px'/> Enceinte = JukeBox!</h1>
+		  <h1><img src="/img/computer.svg" width='100px'/> + <img src="/img/audio.svg" width='100px'/> = JukeBox!</h1>
 		  <p>Avec un ordinateur vous allez pouvoir créer votre jukebox.<br/>
 			  <br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
 			 - Afficher les clips, et lire la musique sur ces enceintes<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Et comment ajouter des musiques?</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Comment ajouter des musiques?</a></p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo3" style="display:none;">
-		  <h1>Ajouter des musiques, c'est facile!</h1>
+		  <h1>Ajouter vos musiques</h1>
 		  <p>Avec votre smartphone <img src="/img/phone.svg" width='100px'/><br/>
 			 <br/>
-			 Scannez le QRCode de votre JukeBox<br/>
+			 Scannez le QRCode<br/>
 			 <br/>
 			 ou<br/>
 			 <br/>
-			 - Allez sur http://partyplayer.fr <br/>
+			 - Allez sur <?php echo $base_url; ?> <br/>
 			 - Participez à la playlist, en tapant le CODE de votre JukeBox<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok! On Commence!</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok!</a></p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo4" style="display:none;">
 		  <h1>Comment commencer?</h1>
 		  <p>- Allez sur l'ordinateur <img src="/img/computer.svg" width='100px'/> qui va servir de JukeBox (pas sur un smartphone)<br/>
-		  - Ouvrez le site http://partyplayer.fr<br/>
-		  - Cliquez sur "Nouvelle Playlist"
+		  - Ouvrez le site <?php echo $base_url; ?><br/>
+		  - Cliquez sur "Créer un JukeBox"
 		  </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo4').hide();" role="button">Ok, je change d'ordi!</a>
-		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Je suis déjà sur le bon ordi!</a>
+		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;" role="button">Créer un JukeBox</a>
 		  </p>
 		</div>
 		
@@ -276,7 +277,7 @@
 	                            
                             }
                             else{
-	                            window.location.href = '/?mode=server&sessid='+rand_sessid;
+	                            window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;
                             }
                         }
                     }

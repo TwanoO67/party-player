@@ -6,7 +6,7 @@
     
 	//Si l'url ne contient pas les infos necessaire on relance l'accueil step2
 	if($sessid == ''){ ?>
-		window.location.href = '/?mode=server&sessid='+rand_sessid;
+		window.location.href = <?php echo $server_base_url; ?>+rand_sessid;
 	<?php }
 		else{
 			echo "sessid = '".$sessid."';loadPlaylistFromServer();";
