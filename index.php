@@ -15,7 +15,7 @@
     }
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
-    $session_url =  $base_url."?mode=client&sessid=".$sessid;
+    $session_url =  $base_url."/JukeBox".$sessid;
     $serveur_url = "api.php";
     $spotify_api_url = "/includes/spotify.php";
     
