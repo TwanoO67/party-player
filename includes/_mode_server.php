@@ -47,8 +47,8 @@
 	            <br/>
 	            ou<br/>
 	            <br/>
-	            Aller sur <b><?php echo $base_url; ?></b><br/>
-	            Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>
+	            Aller sur <a href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
+	            <!--Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>-->
 	        </div>
 	        <div id='vote-area-ph'></div>
 	    </div>

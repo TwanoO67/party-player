@@ -1,5 +1,5 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 
-	RewriteRule ^JukeBox(.*)$ /?mode=client&sessid=$1 [L]
+	RewriteRule ^JukeBox(.*)$ /?mode=client&sessid=$1 [NC,QSA,L]
 </IfModule>
