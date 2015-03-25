@@ -242,7 +242,7 @@
                     '<div class="form-group"> ' +
                     '<label class="col-md-2 control-label" for="name">Pseudo</label> ' +
                     '<div class="col-md-6"> ' +
-                    '<input id="name" name="name" type="text" placeholder="'+username+
+                    '<input id="name" name="name" type="text" value="'+username+
                     '" class="form-control input-md" /> </div>' +
                     '</div> ' +
                     '<div class="form-group"> ' +
