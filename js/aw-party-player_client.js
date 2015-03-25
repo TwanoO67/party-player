@@ -90,7 +90,7 @@ function buildHTMLPlaylistItem(element,title){
     //bouton de vote
     if(!alreadyVoted){
         html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:left" >';
-            html += '<div class="playlist_item_votebutton"><button type="button" class="btn btn-success" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button><button type="button" class="btn btn-danger" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button></div>';//element.vote
+            html += '<div class="playlist_item_votebutton"><button type="button" class="btn btn-success" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button></div>';//element.vote
         html += '</div>';
     }
     else{

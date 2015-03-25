@@ -64,6 +64,11 @@
         .playlist_item_user{
             display: inline;
         }
+        .playlist_item_votebutton button{
+	        padding: 0;
+	        width: 25px;
+	        height: 25px;
+        }
         .big-glyph{
             font-size: 30px;
             line-height: 1.33;
