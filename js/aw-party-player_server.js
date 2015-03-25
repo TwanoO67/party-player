@@ -1,56 +1,185 @@
-/*function AccueilStep2(){
-	//suppression de l'accueil step2
-	Intro = bootbox.dialog({
-	  message: "<div style='text-align: center;'>Vous voici dans le <b>'mode serveur'</b> <br/> Votre ordinateur doit donc etre branché sur des enceintes, <br/> Faites profiter vos amis de la musique! <br/><br/> Pour commencer, choisissez une des options suivantes: <br/> <br/><b>Nouvelle Playlist</b>, pour commencer à vide :)<br/><b>Ouvrir une playlist</b>, si vous avez une playlist enregistré d'une ancienne session<br/><b>Connexion par ID</b>, pour ré-ouvrir une playlist dont vous avez le numéro<br/> <br/> </div>",
-	  title: "uTube Party Player",
-	  buttons: {
-	    success: {
-	      label: "Nouvelle Playlist",
-	      className: "btn-success",
-	      callback: function() {
-		    //creation d'une nouvelle playlist
-		    jQuery.getJSON(serverURL, {
-		        'mode': 'create',
-		        'sessid': rand_sessid
-		    }, function (data) { 
-		        if(data.result == 'error'){
-		            bootbox.alert(data.error);
-		        }
-		        else{
-			        window.location.href = '/?mode=server&sessid='+rand_sessid;
-		        }
-		    });  
-		      
-	        
-	      }
-	    },
-	    //danger: {
-	    //  label: "Ouvrir une playlist",
-	    //  className: "btn-danger",
-	    //  callback: function() {
-	    //    bootbox.alert("ce mode n'existe pas encore...");
-	    //  }
-	    //},
-	    main: {
-	      label: "Connexion par ID",
-	      className: "btn-primary",
-	      callback: function() {
-	        bootbox.prompt("Quel est le numéro ID de votre playlist?",function(retour){
-		        if(retour != ''){
-			        window.location.href = '/?mode=server&sessid='+retour;
-		        }
-		        else{
-			        bootbox.confirm("Si vous n'avez pas de numéro ID, commencez une nouvelle playlist",function(){
-				        window.location.href = '/?mode=server';
-			        });
-		        }
-	        });
-	      }
-	    }
-	  }
-	});
+
+function addSpotifyPlaylistToActualPlaylist(){
+	var nb = 0;
+	for(var index in my_convert_data){
+		var id_youtube = my_convert_data[index];
+		addToPlaylistOnServer(id_youtube);
+		nb++;
+	}
+	if(nb>0){
+		return true;
+	}
+	else{
+		alert('Aucune chansons trouvées... Pas de conversion possible.');
+		return false;
+	}
 }
-*/
+
+function FoundYoutubeIDException(data){
+	throw{
+		name: "FoundYoutubeIDException",
+		message: data
+	}
+}
+
+//conversion vers youtube
+function convertSpotify(){
+	my_convert_data = [];//re-init
+	console.log(my_import_data);
+	
+	for (var id_spotify in my_import_data){
+		var track_name = my_import_data[id_spotify];
+		console.log(track_name);
+		//debut de la recherche sur youtube
+		$('#track_spotify_'+id_spotify).append('&nbsp;<img src="/img/ajax_loader.gif" class="loader" width="20px" />');
+		var cb = function(data,params){
+			var cur_id_spotify = params;
+			var duree = 0;
+			var cur_elem = $('#track_spotify_'+cur_id_spotify);
+			
+			//que faire avec le resultat de la requete
+			if(data != null && typeof data.feed.entry !== 'undefined' && data.feed.entry.length > 0){
+				try {
+					
+					//on recherche d'abord les video venant de VEVO
+					data.feed.entry.forEach(function(element,index,array){
+				        if( typeof(element['media$group']) !== 'undefined' 
+				        && typeof(element['media$group']['media$content']) !== 'undefined' 
+				        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+				        )
+				        duree = element['media$group']['media$content'][0]['duration'];
+				        //si le resultat vient de VEVO et ne contient pas des trucs trop court ou trop long (spam)
+				        if(element['author'][0]['name']['$t'].indexOf('VEVO') !== false && duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+				            FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
+			            } 
+				    });
+					
+					//ensuite les autres chaine de video
+				    data.feed.entry.forEach(function(element,index,array){
+				        if( typeof(element['media$group']) !== 'undefined' 
+				        && typeof(element['media$group']['media$content']) !== 'undefined' 
+				        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+				        )
+				        duree = element['media$group']['media$content'][0]['duration'];
+				        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
+				        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+				            FoundYoutubeIDException(element['media$group']['yt$videoid']['$t']);
+			            } 
+				    });
+				} 
+				//si une chanson assez longue est trouvé, on break le foreach, et on l'ajoute à la liste
+				catch(e){
+					if ( e.name == "FoundYoutubeIDException") {
+					    cur_elem.find('.loader').hide();
+				        cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
+				        my_convert_data.push(e.message);
+			        }
+			        else
+			        	throw e;
+				}
+			}
+			//si rien n'est trouvé
+			if(duree == 0){
+				cur_elem.find('.loader').hide();
+				cur_elem.append('&nbsp;<img src="/img/fail.svg" class="fail" width="20px" />');
+			}
+			
+		}
+		
+		searchTrackOnYoutube(track_name,cb,id_spotify);
+	}
+}
+
+//Listing des chasnons d'une playlist spotify
+function importSpotifyPlaylist(href) {
+	BB.hide();
+    $.getJSON(spotifyApiURL, {
+	    'custom': href,
+	    //'sessid': sessid,
+	    //'user': username
+	}, function (data) {
+		//Construction de la présentation de la playlist
+		my_import_data = [];
+		var message = "<ul>";
+		data.content.tracks.items.forEach(function(element,index,array){
+			
+			if (element.track.name != "" && element.track.id != ""){
+		    	var track_name = element.track.artists[0].name+" - "+element.track.name;
+		    	var id= element.track.id;
+		    	message += "<li href='#' id='track_spotify_"+id+"'>"+track_name+"</li>";
+		    	my_import_data[id] = track_name;
+		    }
+		});
+		message += "</ul>";
+		
+		BB = bootbox.dialog({
+		    message: message,
+		    title: "Playlist : "+data.content.name,
+		    closeButton: true,
+		    buttons: {
+		      success: {
+				label: "Ajouter les chansons à la playlist",
+				className: "btn-success",
+				callback: function() {
+				    return addSpotifyPlaylistToActualPlaylist();
+				}
+			  }
+		    }
+		  });
+		  
+		  //lancement de la conversion
+		  convertSpotify();
+		
+	}
+    );
+    
+    
+}
+
+//Listing des playlist importable depuis spotify
+function importSpotify(){
+    if(jQuery.cookie("spotify_token") != ""){
+        $.getJSON(spotifyApiURL, {
+	    'get_playlists': 'true',
+	    //'sessid': sessid,
+	    //'user': username
+	}, function (data) { 
+	    if(data.result == 'error'){
+		bootbox.alert(data.error);
+	    }
+	    else{
+		var message = "<ul>";
+		data.content.forEach(function(element,index,array){
+		    if (element.name != "" && element.tracks_num > 0)
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks_num+" titres)</li>";
+		});
+		message += "</ul>";
+		
+		BB = bootbox.dialog({
+		    message: message,
+		    title: "Vos playlists sur Spotify",
+		    closeButton: true,
+		    buttons: {
+		      main: {
+			label: "Fermer",
+			className: "btn-primary",
+			callback: function() {
+			    BB.hide();
+			  //Example.show("Primary button");
+			}
+		      }
+		    }
+		  });
+		
+	    }
+	});
+    }
+    else{
+	//on rafraichis la page pour afficher le lien de connexion spotify
+	window.location.href.reload;
+    }
+}
+
 function markAllAsUnread(){
     $.getJSON(serverURL, {
         'mode': 'unread_all',
@@ -93,7 +222,7 @@ function buildHTMLPlaylistItem(element,title,user,vote,date){
     html += '</div>';
     
     
-    html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
+    html += '<div class="playlist_item_ligne" style="float:right" >';
     //bouton lecture
     html += '<button type="button" class="btn btn-success" title="Lire ce titre" onclick="loadByYoutubeId(\''+id+'\')"><span class="glyphicon glyphicon-play"></span></button>&nbsp;';
     //bouton de suppression
@@ -181,7 +310,7 @@ function loadByYoutubeId(id){
         var url = "http://youtubeinmp3.com/fetch/?video=http://www.youtube.com/watch?v="+id;
     }
     else{
-        var url = "https://www.youtube.com/watch?v="+id+"&feature=youtube_gdata";
+        var url = "http://www.youtube.com/watch?v="+id;
     }
     load(url);
     
@@ -209,94 +338,58 @@ function load(url){
         htmlin = '<audio id="audio-player" autoplay="true" preload="none" src="'+url+'" type="audio/mp3" controls="controls"/></audio>';
     }
     
-   //if(mediaPlayer.pluginType == 'flash'){
-        jQuery('#player-wrapper').html(htmlin);
-        /*mediaPlayer = new MediaElementPlayer("#audio-player",
+    jQuery('#player-wrapper').html(htmlin);
+    
+    mediaPlayer = new MediaElementPlayer("#audio-player",{
+        // if set, overrides <video width>
+        videoWidth: -1,
+        // if set, overrides <video height>
+        videoHeight: -1,
+        // width of audio player
+        audioWidth: '100%',
+        // height of audio player
+        audioHeight: 30,
+        // initial volume when the player starts
+        startVolume: 1,
+        // useful for <audio> player loops
+        loop: false,
+        // enables Flash and Silverlight to resize to content size
+        enableAutosize: true,
+        // the order of controls you want on the control bar (and other plugins below)
+        features: ['playpause','progress','current','duration','tracks','volume','fullscreen'],
+        // Hide controls when playing and mouse is not over the video
+        alwaysShowControls: false,
+        // force iPad's native controls
+        iPadUseNativeControls: false,
+        // force iPhone's native controls
+        iPhoneUseNativeControls: false, 
+        // force Android's native controls
+        AndroidUseNativeControls: false,
+        // forces the hour marker (##:00:00)
+        alwaysShowHours: false,
+        // show framecount in timecode (##:00:00:00)
+        showTimecodeFrameCount: false,
+        // used when showTimecodeFrameCount is set to true
+        framesPerSecond: 25,
+        // turns keyboard support on and off for this instance
+        enableKeyboard: true,
+        // when this player starts, it will pause other players
+        pauseOtherPlayers: true,
+        // array of keyboard commands
+        keyActions: [],
+        success: function(mediaElement, domObject)
         {
-           alwaysShowControls: true,
-           features: ['playpause','volume','progress','fullscreen'],
-           audioVolume: 'horizontal',
-           audioWidth: player_width,
-           audioHeight: player_height,
-           success: function(mediaElement, domObject)
-           {
-               mediaElement.addEventListener('ended', loadNextTrack, false);
-               mediaElement.addEventListener('canplay', function() {
-                    mediaPlayer.play();
-               }, false);
-                
-           }
-        });*/
-        
-        
-        mediaPlayer = new MediaElementPlayer("#audio-player",{
-            // if set, overrides <video width>
-            videoWidth: -1,
-            // if set, overrides <video height>
-            videoHeight: -1,
-            // width of audio player
-            audioWidth: '100%',
-            // height of audio player
-            audioHeight: 30,
-            // initial volume when the player starts
-            startVolume: 1,
-            // useful for <audio> player loops
-            loop: false,
-            // enables Flash and Silverlight to resize to content size
-            enableAutosize: true,
-            // the order of controls you want on the control bar (and other plugins below)
-            features: ['playpause','progress','current','duration','tracks','volume','fullscreen'],
-            // Hide controls when playing and mouse is not over the video
-            alwaysShowControls: false,
-            // force iPad's native controls
-            iPadUseNativeControls: false,
-            // force iPhone's native controls
-            iPhoneUseNativeControls: false, 
-            // force Android's native controls
-            AndroidUseNativeControls: false,
-            // forces the hour marker (##:00:00)
-            alwaysShowHours: false,
-            // show framecount in timecode (##:00:00:00)
-            showTimecodeFrameCount: false,
-            // used when showTimecodeFrameCount is set to true
-            framesPerSecond: 25,
-            // turns keyboard support on and off for this instance
-            enableKeyboard: true,
-            // when this player starts, it will pause other players
-            pauseOtherPlayers: true,
-            // array of keyboard commands
-            keyActions: [],
-            success: function(mediaElement, domObject)
-            {
-               mediaElement.addEventListener('ended', loadNextTrack, false);
-               mediaElement.addEventListener('canplay', function() {
-                    mediaPlayer.play();
-               }, false);
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-            }
-        });
-        
-        mediaPlayer.play();
-    /*}
-    else{
-       mediaPlayer.pause();
-       mediaPlayer.setSrc({src: url, type:'video/youtube'});
-       mediaPlayer.load();
-       mediaPlayer.play();
-    }*/
-    //cible('#player-wrapper');
+           mediaElement.addEventListener('ended', loadNextTrack, false);
+           mediaElement.addEventListener('canplay', function() {
+                mediaPlayer.play();
+           }, false);
+       
+           
+        }
+    });
+    
+    mediaPlayer.play();
+
 };
 
 

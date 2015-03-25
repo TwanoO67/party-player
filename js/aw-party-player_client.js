@@ -41,7 +41,7 @@ function buildHTMLResultatPlaylistItem(index,image,titre,id){
         index,
         image,
         titre,
-        "<span class='glyphicon glyphicon-plus-sign big-glyph' onclick='loadYoutubePlaylist(\""+id+"\")' title='Ajouter toute la playlist à la suite'></span> <span class='glyphicon glyphicon-list-alt big-glyph' onclick='getPlaylistDetails(\""+id+"\")' title='Détail de la playlist'></span>"
+        "<span class='glyphicon glyphicon-plus-sign big-glyph' onclick='loadYoutubePlaylist(\""+id+"\");$(\"#search-result\").hide();' title='Ajouter toute la playlist à la suite'></span> <span class='glyphicon glyphicon-list-alt big-glyph' onclick='getPlaylistDetails(\""+id+"\")' title='Détail de la playlist'></span>"
     );
 
 };
@@ -65,38 +65,30 @@ function buildHTMLPlaylistItem(element,title){
     html += 'data-vote="'+element.vote+'" ';
     html += 'data-user="'+element.addUser+'" ';
     html += 'class="list-group-item ';
+    
+    html += 'data-toggle="tooltip" data-placement="top" title=" Ajouté par '+element.addUser+" \n";
+    html += ' le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'" ';
+    
     if(element.alreadyRead){
         html += 'alreadyRead';
     }
     html += '" ';
     html += 'style="float: left; width: 100%;" ';;
     html += '>';
-    
-    html += '<div class="playlist_item_title">'+title+'</div>';
-    
-    //ligne de date
-    html += '<div class="playlist_item_ligne" style="float:left" >';
-        html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
-        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
-    html += '</div>';
-    
     var alreadyVoted = false;
     $.each(element.votes,function(index,elem){
         if(elem.user == username || elem.token == vote_token){
             alreadyVoted = true;
         }
     });
-        
+    
     //bouton de vote
     if(!alreadyVoted){
-        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
-            html += '<div class="playlist_item_votebutton"><button type="button" class="btn btn-success" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button> '+element.vote+' <button type="button" class="btn btn-danger" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button></div>';
-        html += '</div>';
+        html += '<button type="button" class="btn btn-success playlist_item_votebutton vote_ligne_'+id+'" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger playlist_item_votebutton vote_ligne_'+id+'" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button>&nbsp;';//element.vote
     }
     else{
-        html += '<div class="playlist_item_ligne" id="vote_ligne_'+id+'" style="float:right" >';
         //bouton de resultat des votes
-        html += '<button type="button" style="padding: 4px 8px;" class="btn btn-default" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
+        html += '<button type="button" class="btn btn-default playlist_item_voteresult vote_ligne_'+id+'" title="Qui a voté?" onclick="afficheVote(\''+id+'\')"><span class="glyphicon ';
         if(element.vote >= 0){
             html += 'glyphicon-thumbs-up';
         }
@@ -104,9 +96,18 @@ function buildHTMLPlaylistItem(element,title){
             html += 'glyphicon-thumbs-down';
         }
         html += '"></span>&nbsp;'+element.vote+'</button>&nbsp;';
-        html += '</div>';
     }
-        
+    
+    html += '<div class="playlist_item_title">'+title+'</div>';
+    
+    /*//ligne de date
+    html += '<div class="playlist_item_ligne" style="float:left" >';
+        html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
+        html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
+    html += '</div>';*/
+    
+    
+     
     html += '</div>';
     
     
@@ -204,74 +205,55 @@ function searchPlaylistOnYoutube(query){
 };
 
 function searchYoutube(query){
-    var youtube_url = "https://gdata.youtube.com/feeds/api/videos?q="+encodeURI(query)+"&v=2&alt=json";
-    $.getJSON(youtube_url, function (data) {
-        $('#result').html('');
-        $('#result_more_content').html('')
-        $('#research-result-title').html("Résultat: "+query);
-        //si aucun resultat, on corrige l'orthographe
-        if(typeof data.feed.entry == 'undefined' ){
-            var spell = '';
-            var title = '';
-            data.feed.link.forEach(function(element,index,array){
-                if(element.rel == "http://schemas.google.com/g/2006#spellcorrection"){
-                    spell = element.href;
-                    title = element.title;
-                }
-            });
-            if(spell != ''){
-                $('#recherche').val(title);
-                searchYoutubeUrl(spell);
+	
+	var my_callback = function(data){
+	$('#result').html('');
+    $('#result_more_content').html('')
+    $('#research-result-title').html("Résultat: "+query);
+    var nb_result = 0;
+    var nb_refus = 0;
+    //pour chaque resultat venant de youtube
+    data.feed.entry.forEach(function(element,index,array){
+        var duree = 0;
+        
+        if( typeof(element['media$group']) !== 'undefined' 
+        && typeof(element['media$group']['media$content']) !== 'undefined' 
+        && typeof(element['media$group']['media$content'][0]) !== 'undefined'
+        )
+            duree = element['media$group']['media$content'][0]['duration'];
+        //si le resultat ne contient pas des trucs trop court ou trop long (spam)
+        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+            nb_result++;
+            var id = element['media$group']['yt$videoid']['$t'];
+            
+            var ligne = buildHTMLResultatTrackItem(
+                nb_result,
+                element['media$group']['media$thumbnail'][0].url,
+                element.title['$t'],
+                id
+            );
+            //premier resultat
+            if(nb_result <= 4){
+                $('#result').append(ligne);
             }
+            //tableau de resultat supplémentaire
             else{
-                videResultat();
+                $('#result_more').show();
+                $('#result_more_content').hide();
+                $('#result_more_content').append(ligne);
             }
         }
-        //sinon on affiche les resultat dans le tableau
         else{
-            
-            var nb_result = 0;
-            var nb_refus = 0;
-            //pour chaque resultat venant de youtube
-            data.feed.entry.forEach(function(element,index,array){
-                var duree = 0;
-                
-                if( typeof(element['media$group']) !== 'undefined' 
-                && typeof(element['media$group']['media$content']) !== 'undefined' 
-                && typeof(element['media$group']['media$content'][0]) !== 'undefined'
-                )
-                    duree = element['media$group']['media$content'][0]['duration'];
-                //si le resultat ne contient pas des trucs trop court ou trop long (spam)
-                if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
-                    nb_result++;
-                    var id = element['media$group']['yt$videoid']['$t'];
-                    
-                    var ligne = buildHTMLResultatTrackItem(
-                        nb_result,
-                        element['media$group']['media$thumbnail'][0].url,
-                        element.title['$t'],
-                        id
-                    );
-                    //premier resultat
-                    if(nb_result <= 4){
-                        $('#result').append(ligne);
-                    }
-                    //tableau de resultat supplémentaire
-                    else{
-                        $('#result_more').show();
-                        $('#result_more_content').hide();
-                        $('#result_more_content').append(ligne);
-                    }
-                }
-                else{
-	                nb_refus++;
-                }
-            });
-            console.log(" Nombre de recherche exclue: "+nb_refus);
-            $('#search-result').show();
-            cible('#search-result');
+            nb_refus++;
         }
     });
+    console.log(" Nombre de recherche exclue: "+nb_refus);
+    $('#search-result').show();
+    cible('#search-result');
+	};
+	
+	searchTrackOnYoutube(query,my_callback);
+	
 }
 
 /*function changeModeAudio(){
@@ -284,40 +266,11 @@ function searchYoutube(query){
 
 //permet de positionner le champ visible sur un element
 function cible(element){
-    jQuery('html, body').animate({
-        scrollTop: (jQuery(element).offset().top - marge_header)
-    }, 1000);
-}
-
-function addToPlaylistOnServer(id){
-    $.getJSON(serverURL, {
-        'mode': 'add',
-        'sessid': sessid,
-        'id': id,
-        'user': username
-    }, function (data) { 
-        if(data.result == 'error'){
-            if(data.error=='no_file'){
-		        jQuery.getJSON(serverURL, {
-    		        'mode': 'create',
-    		        'sessid': sessid
-    		    },function(data){
-        		    //que faire aprés la création?
-    		    });
-	        }
-	        else{
-		        bootbox.alert(data.error);
-	        }
-        }
-        else{
-            var cb = function(){
-                cible('#'+id);
-                $('#'+id).find(".playlist_item_title").css('font-weight','bold');
-            }
-            loadPlaylistFromServer(cb);
-        }
-    });
-
+	if(jQuery(element).length > 0 ){
+	    jQuery('html, body').animate({
+	        scrollTop: (jQuery(element).offset().top - marge_header)
+	    }, 1000);
+    }
 }
 
 //permet d'ajouter un vote sur une chanson
@@ -334,7 +287,7 @@ function vote(id,vote){
             bootbox.alert(data.error);
         }
         else{
-            jQuery("#vote_ligne_"+id).hide();
+            jQuery(".vote_ligne_"+id).hide();
             loadPlaylistFromServer();
         }
     });

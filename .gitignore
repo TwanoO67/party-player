@@ -1,2 +1,4 @@
 .htaccess
 config.php
+_playlists/*.json
+.DS_Store

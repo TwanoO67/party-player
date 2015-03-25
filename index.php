@@ -1,3 +1,9 @@
+<?php
+	header('Access-Control-Allow-Origin: *');
+	if(!file_exists('api.php') || !file_exists('config.php')){
+		echo "Probleme de déploiement, config.php ou api.php manquant!";exit;
+	}
+?>
 <!DOCTYPE html>
 <html lang='fr'>
 <?php
@@ -9,25 +15,29 @@
     }
     
     $base_url = "http://".$_SERVER['SERVER_NAME'];
-    $session_url =  $base_url."?mode=client&sessid=".$sessid;
+    $client_base_url = $base_url."/JukeBox";
+    $session_url =  $client_base_url.$sessid;
+    $serveur_url = "api.php";
+    $spotify_api_url = "/includes/spotify.php";
     
     $marge_header = '70';
     $boostrapversion = "3.3.2";
 ?>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Party Player">
     <meta name="author" content="WEBER Antoine">
-    <script src="build/jquery.js" type="text/javascript"></script>
+    <script src="/js/build/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/css/bootstrap-theme.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/<?php echo $boostrapversion; ?>/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
     <script src="/js/aw-party-player_common.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/bootbox.min.js" type="text/javascript"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/bootbox.min.js" type="text/javascript"></script>
     <link rel="icon" type="image/png" href="/css/favicon.png" />
     <title>Party Player - le JukeBox collaboratif de vos soirées!</title>
 </head>
@@ -48,7 +58,6 @@
             margin-right: auto;
             margin-left: auto;
         }
-        
         .playlist_item_ligne{
             font-size: 10px;
             display: inline;
@@ -98,7 +107,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>-->
-          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /> Party Player <span style='color:red;font-style:italic;'>beta</span><span id="subtitle">&nbsp;- le JukeBox collaboratif de vos soirées!</span></a>
+          <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /><span style='color:red;font-style:italic;'> Party Player </span><span id="subtitle">&nbsp;le JukeBox collaboratif de vos soirées!</span></a>
           <!--<div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>-->
         </div>
         
@@ -113,13 +122,13 @@
 	    <div class='row first_row'>
 		    
 	    <div class="jumbotron" id="jumbo1">
-		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Bienvenue, sur PartyPlayer!</h1>
-		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
+		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Partagez votre musique!</h1>
+		  <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
 			 <br/>
 			 Le concept:<br/>
 			 - Vos amis peuvent ajouter des musiques/clips<br/>
-			 - Voter pour/contre les musiques de vos amis<br/>
-			 - Le jukebox lira en continue les musiques les mieux notées<br/>
+			 - Voter pour/contre les musiques<br/>
+			 - Le jukebox lit en continue les musiques les mieux notées<br/>
 			 - La soirée peut commencer!!!<br/>
 			 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>
 			 
@@ -129,7 +138,7 @@
 		
 		<div class="jumbotron" id="jumbo2" style="display:none;">
 		  <h1><img src="/img/computer.svg" width='100px'/> Ordi + <img src="/img/audio.svg" width='100px'/> Enceinte = JukeBox!</h1>
-		  <p>Avec un ordinateur connecté à internet, vous allez pouvoir créer votre jukebox.<br/>
+		  <p>Avec un ordinateur vous allez pouvoir créer votre jukebox.<br/>
 			  <br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
@@ -140,16 +149,16 @@
 		
 		<div class="jumbotron" id="jumbo3" style="display:none;">
 		  <h1>Ajouter des musiques, c'est facile!</h1>
-		  <p>Avec leur smartphone <img src="/img/phone.svg" width='100px'/> ou tablette <img src="/img/tablet.svg" width='100px'/><br/>
-			 Les participants:<br/>
-			 - Scan le QRCode de votre JukeBox pour s'y connecter<br/>
+		  <p>Avec votre smartphone <img src="/img/phone.svg" width='100px'/><br/>
+			 <br/>
+			 Scannez le QRCode de votre JukeBox<br/>
 			 <br/>
 			 ou<br/>
 			 <br/>
-			 - se connecte à http://partyplayer.fr <br/>
-			 - et participe à la playlist, en tapant le CODE de votre JukeBox<br/>
+			 - Allez sur http://partyplayer.fr <br/>
+			 - Participez à la playlist, en tapant le CODE de votre JukeBox<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">C'est facile! On Commence?</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok! On Commence!</a></p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo4" style="display:none;">
@@ -159,7 +168,7 @@
 		  - Cliquez sur "Nouvelle Playlist"
 		  </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo4').hide();" role="button">Ok, je change d'ordi!</a>
-		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Je suis déja sur le bon ordi!</a>
+		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '/?mode=server&sessid='+rand_sessid;" role="button">Je suis déjà sur le bon ordi!</a>
 		  </p>
 		</div>
 		
@@ -188,7 +197,8 @@
         sessid = "<?php echo $sessid; ?>";
         rand_sessid = "<?php echo $rand_sessid; ?>";
         session_url = "<?php echo $session_url; ?>";
-        serverURL = "server.php";
+        serverURL = "<?php echo $serveur_url; ?>";
+        spotifyApiURL = "<?php echo $spotify_api_url; ?>";
         modeAudio = false;
         lastPlaylistLoading = 0;
         lastUpdateTime = 0;
@@ -198,8 +208,17 @@
         mediaPlayer = null;
         mediaPlayer_id = null;
         
+        minDurationSearchTrack = 120;//2min
+		maxDurationSearchTrack = 480;//8min
+		
+		//pour import spotify
+		my_import_data = [];//denrieres infos de playlist d'import
+		my_convert_data = [];//liste des id youtube a convertir
+		BB = null; //derniere bootbox
+        
         voteEnCours = {};
         mode = '';
+        base_url= '<?php echo $base_url; ?>';
         
         //on cache le sous titre si le header est trop petit (mobile)
         if($('.navbar-header').outerWidth() < 530){
@@ -214,51 +233,74 @@
         <script>
 	        
 	    function loadIntro(){
-		      Intro = bootbox.dialog({
-				  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer une nouvelle playlist  <br/><br/> ou <br/><br/> Participer à une playlist existante ? </div>",
-				  title: "Bienvenue sur Party-Player!",
-				  buttons: {
-				    success: {
-				      label: "Nouvelle playlist",
-				      className: "btn-success",
-				      callback: function() {
-				        mode = 'server';
-				        bootbox.confirm("<b>Attention</b>: <br/>Pour créer une playlist, vous devez être sur l'ordinateur qui va servir de jukebox.<br/> <i>Par exemple: Une ordinateur branché à une chaine hifi...</i>", function(result){
-					        if(result)
-					        	window.location.href = '/?mode=server&sessid='+rand_sessid;
-					        else
-					        	document.location.reload();
-				        });
-				        
-				      }
-				    },
-				    main: {
-				      label: "Participer à une playlist",
-				      className: "btn-primary",
-				      callback: function() {
-				        mode = 'client';
-				        window.location.href = '/?mode=client';
-				      }
-				    }
-				  }
-				});
-				
-				Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
-					console.log('on hide');
-			        bootbox.alert("Vous devez choisir de participer à une playlist, ou d'en creer une nouvelle...",function(){
-				        console.log('callback');
-				        document.location.reload();
-			        });
-			        
-			    });
-		    }
+		    code_default = "CODE";
+		    code_invalid = "CODE invalide!";
+		    Intro = bootbox.dialog({
+                title: "La soirée peut commencer!",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-2 control-label" for="name">Pseudo</label> ' +
+                    '<div class="col-md-6"> ' +
+                    '<input id="name" name="name" type="text" value="'+username+
+                    '" class="form-control input-md" /> </div>' +
+                    '</div> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-2 control-label">&nbsp;</label> ' +
+                    '<div class="col-md-6"> <div class="radio"> <label for="mode-server"> ' +
+                    '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
+                    'Nouveau Jukebox </label> ' +
+                    '</div><div class="radio"> <label for="mode-client"> ' +
+                    '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
+                    '<input type="text" value="'+code_default+'" id="code" name="code" style="display:none" />'+
+                    '</div> ' +
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                buttons: {
+                    success: {
+                        label: "Ok",
+                        className: "btn-success",
+                        callback: function () {
+                            setUsername($('#name').val());
+                            var mode = $("input[name='mode']:checked").val();
+                            if(mode=='client'){
+	                            var code = $('#code').val();
+	                            if(code=="CODE" || code=='' || code==code_default || code==code_invalid){
+		                            $('#code').val(code_invalid);
+		                            return false;
+	                            }
+	                            else{
+		                            window.location.href = '<?php echo $client_base_url; ?>'+code;
+	                            }
+	                            
+                            }
+                            else{
+	                            window.location.href = '/?mode=server&sessid='+rand_sessid;
+                            }
+                        }
+                    }
+                }
+            });
+        
+	        //ouverture de la boite CODE au select du radiobutton
+	        $("input[name='mode']").change(function(){ $('#code').toggle();});
+        
+			Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
+				console.log('on hide');
+		        bootbox.alert("Vous devez choisir de participer à un jukebox, ou d'en creer un nouveau...",function(){
+			        console.log('callback');
+			        document.location.reload();
+		        });
+		    });
+	    }
 		</script>
         <?php }else{
                 $mode = $_REQUEST['mode'];
 	        	echo " <script>
 	        	    mode = '".$mode."';
                     </script>";
-	        	include_once('./includes/'.$mode.'.php');
+	        	include_once('./includes/_mode_'.$mode.'.php');
 	        } ?>
         
         

@@ -34,6 +34,42 @@ function afficheVote(id){
     });
 }
 
+function addToPlaylistOnServer(id,hide_message){
+	var hide = false;
+	if(typeof hide_message !== 'undefined' && hide_message == true){
+		hide = true;
+	}
+    $.getJSON(serverURL, {
+        'mode': 'add',
+        'sessid': sessid,
+        'id': id,
+        'user': username
+    }, function (data) { 
+        if(data.result == 'error'){
+            if(data.error=='no_file'){
+		        jQuery.getJSON(serverURL, {
+    		        'mode': 'create',
+    		        'sessid': sessid
+    		    },function(data){
+        		    //que faire aprés la création?
+    		    });
+	        }
+	        else{
+		        if(!hide)
+		        bootbox.alert(data.error);
+	        }
+        }
+        else{
+            var cb = function(){
+                cible('#'+id);
+                $('#'+id).find(".playlist_item_title").css('font-weight','bold');
+            }
+            loadPlaylistFromServer(cb);
+        }
+    });
+
+}
+
 function indicateurLecture(id){
     //activation de la bonne ligne dans la playlist
     $('#playlist .glyphicon-play-circle').remove();
@@ -51,7 +87,7 @@ function playlistVide(){
 }
 
 function messagePartage(){
-	message('success',"Partagez!","Envoyez votre playlist à vos amis! Avec le lien: <a href='"+session_url+"' target='_new' >"+session_url+"</a> ou le CODE <b> <a target='_new' href='https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl="+encodeURI(session_url)+"&choe=UTF-8'>"+sessid+"</a></b> ");
+	message('success',"Partagez avec vos amis!","Lien: <a href='"+session_url+"' target='_new' >"+session_url+"</a> ou le JukeBox CODE <b> <a target='_new' href='"+session_url+"' >"+sessid+"</a></b> ");
 }
 
 function cible(element){
@@ -121,9 +157,10 @@ function message(type,titre,message){
 		contenu += " <strong>"+titre+"</strong> ";
 	}
 	
-	contenu += message+"</div>";
+	contenu += message+"<span onclick='$(\"#message\").hide();' style='float:right;cursor:pointer;'>X</span></div>";
 	
 	$("#message").html(contenu);
+	$("#message").show();
 }
 
 function loadPlaylistFromServer(callback){
@@ -184,9 +221,9 @@ function loadPlaylistFromServer(callback){
     				            if(mode == 'server'){
         				            //ajout des separateur pour les listes deja lus ou non
         				            if($('#playlist-container .list-group-item:not(.alreadyRead)').length > 0)
-        				                $('#playlist-container .list-group-item:not(.alreadyRead):first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Prochain(s) titre(s) à lire</span>');
+        				                $('#playlist-container .list-group-item:not(.alreadyRead):first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Prochain titre:</span>');
         				            if($('#playlist-container .list-group-item.alreadyRead').length > 0)
-        				                $('#playlist-container .list-group-item.alreadyRead:first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Déja lu(s)</span>');
+        				                $('#playlist-container .list-group-item.alreadyRead:first').before('<span style="width:100%; background-color:grey;text-align:center;float:left;color:white;"> Déjà lu:</span>');
     				            }
     				            
     				            if(typeof callback !== 'undefined'){
@@ -237,6 +274,50 @@ function buildLocalPlaylistRecursive(tab_element,cb){
             cb();
         }
     }
+}
+
+function searchTrackOnYoutube(query,callback,cb_params){
+	var youtube_url = "https://gdata.youtube.com/feeds/api/videos?q="+encodeURI(query)+"&v=2&alt=json";
+    $.ajax(youtube_url, {
+	    dataType: "json",
+	    error: function(){
+		    if(typeof callback !== 'undefined' && typeof cb_params !== 'undefined'){
+		            callback(null,cb_params);
+	            }
+	            else if(typeof callback !== 'undefined' ){
+		            callback(null);
+	            }
+	    },
+	    success: function (data) {
+	        //si aucun resultat, on corrige l'orthographe
+	        if(typeof data.feed.entry == 'undefined' ){
+	            var spell = '';
+	            var title = '';
+	            data.feed.link.forEach(function(element,index,array){
+	                if(element.rel == "http://schemas.google.com/g/2006#spellcorrection"){
+	                    spell = element.href;
+	                    title = element.title;
+	                }
+	            });
+	            if(spell != ''){
+	                $('#recherche').val(title);
+	                searchYoutubeUrl(spell);
+	            }
+	            else{
+	                videResultat();
+	            }
+	        }
+	        //sinon on affiche les resultat dans le tableau
+	        else{
+	            if(typeof callback !== 'undefined' && typeof cb_params !== 'undefined'){
+		            callback(data,cb_params);
+	            }
+	            else if(typeof callback !== 'undefined' ){
+		            callback(data);
+	            }
+	        }
+    	}
+    });
 }
 
 function getYoutubeTrackInfo(id,callback,callback_error){
@@ -374,7 +455,7 @@ function loadYoutubePlaylist(playlistId){
     var callback = function (data) { 
         data.feed.entry.forEach(function(element,index,array){
              var id = element['media$group']['yt$videoid']['$t'];
-             addPlaylistItem(id,element.title['$t']);       
+             addToPlaylistOnServer(id,true);     
         });
     };
     getYoutubePlaylistInfo(playlistId,callback);
