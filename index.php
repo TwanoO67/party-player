@@ -121,13 +121,13 @@
 	    <div class='row first_row'>
 		    
 	    <div class="jumbotron" id="jumbo1">
-		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Bienvenue, sur PartyPlayer!</h1>
-		  <p>Ce site vous permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
+		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Partagez votre musique!</h1>
+		  <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
 			 <br/>
 			 Le concept:<br/>
 			 - Vos amis peuvent ajouter des musiques/clips<br/>
-			 - Voter pour/contre les musiques de vos amis<br/>
-			 - Le jukebox lira en continue les musiques les mieux notées<br/>
+			 - Voter pour/contre les musiques<br/>
+			 - Le jukebox lit en continue les musiques les mieux notées<br/>
 			 - La soirée peut commencer!!!<br/>
 			 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>
 			 
@@ -137,7 +137,7 @@
 		
 		<div class="jumbotron" id="jumbo2" style="display:none;">
 		  <h1><img src="/img/computer.svg" width='100px'/> Ordi + <img src="/img/audio.svg" width='100px'/> Enceinte = JukeBox!</h1>
-		  <p>Avec un ordinateur connecté à internet, vous allez pouvoir créer votre jukebox.<br/>
+		  <p>Avec un ordinateur vous allez pouvoir créer votre jukebox.<br/>
 			  <br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
@@ -148,14 +148,14 @@
 		
 		<div class="jumbotron" id="jumbo3" style="display:none;">
 		  <h1>Ajouter des musiques, c'est facile!</h1>
-		  <p>Avec leur smartphone <img src="/img/phone.svg" width='100px'/> ou tablette <img src="/img/tablet.svg" width='100px'/><br/>
-			 les participants:<br/>
-			 - Scannent le QRCode de votre JukeBox<br/>
+		  <p>Avec votre smartphone <img src="/img/phone.svg" width='100px'/><br/>
+			 <br/>
+			 Scannez le QRCode de votre JukeBox<br/>
 			 <br/>
 			 ou<br/>
 			 <br/>
-			 - se connectent à http://partyplayer.fr <br/>
-			 - et participent à la playlist, en tapant le CODE de votre JukeBox<br/>
+			 - Allez sur http://partyplayer.fr <br/>
+			 - Participez à la playlist, en tapant le CODE de votre JukeBox<br/>
 			 </p>
 		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok! On Commence!</a></p>
 		</div>
@@ -233,7 +233,7 @@
 	        
 	    function loadIntro(){
 		      Intro = bootbox.dialog({
-				  message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
+				  //message: "<div style='text-align: center;'> Le site de playlist collaborative, pour animer vos soirées! <br/> Pour commencer vous souhaitez: <br/><br/>  Creer un jukebox  <br/><br/> ou <br/><br/> se connecter à un existant ? </div>",
 				  title: "Bienvenue sur Party-Player!",
 				  buttons: {
 				    success: {
