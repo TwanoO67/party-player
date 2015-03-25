@@ -34,7 +34,11 @@ function afficheVote(id){
     });
 }
 
-function addToPlaylistOnServer(id){
+function addToPlaylistOnServer(id,hide_message){
+	var hide = false;
+	if(typeof hide_message !== 'undefined' && hide_message == true){
+		hide = true;
+	}
     $.getJSON(serverURL, {
         'mode': 'add',
         'sessid': sessid,
@@ -51,6 +55,7 @@ function addToPlaylistOnServer(id){
     		    });
 	        }
 	        else{
+		        if(!hide)
 		        bootbox.alert(data.error);
 	        }
         }
@@ -449,7 +454,7 @@ function loadYoutubePlaylist(playlistId){
     var callback = function (data) { 
         data.feed.entry.forEach(function(element,index,array){
              var id = element['media$group']['yt$videoid']['$t'];
-             addToPlaylistOnServer(id);     
+             addToPlaylistOnServer(id,true);     
         });
     };
     getYoutubePlaylistInfo(playlistId,callback);
