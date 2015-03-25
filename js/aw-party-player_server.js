@@ -63,13 +63,10 @@ function convertSpotify(){
 				} 
 				//si une chanson assez longue est trouvé, on break le foreach, et on l'ajoute à la liste
 				catch(e) {
-				    if (e!==BreakException) throw e;
-				    else{
-					    var id_youtube = element['media$group']['yt$videoid']['$t'];
-					    cur_elem.find('.loader').hide();
-				        cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
-				        my_convert_data.push(id_youtube);
-				    }
+				    var id_youtube = element['media$group']['yt$videoid']['$t'];
+				    cur_elem.find('.loader').hide();
+			        cur_elem.append('&nbsp;<img src="/img/check.svg" class="check" width="20px" />');
+			        my_convert_data.push(id_youtube);
 				}
 			}
 			//si rien n'est trouvé
