@@ -44,7 +44,7 @@
 	
 	<div id='message'></div>
 	
-	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
+	<div class='col-xs-12 col-sm-6' id='colonne_gauche'>
         
         <div class='well placeholders'>
             <h2 id='main-title'>Bienvenue sur Party Player!</h2>
@@ -97,9 +97,7 @@
     </div>
 
 	<!-- Colonne de droite -->
-	<div class='col-xs-12 col-sm-4'>
-    	
-    	
+	<div class='col-xs-12 col-sm-6'>
     	
     	<div class="panel panel-success" id='last_play_wrapper' style='display:none'>
             <div class="panel-heading" style='float:left;width:100%;'>
@@ -110,8 +108,6 @@
                 </div> 
           </div>
         </div>
-    	
-    	
     	
     	<?php include_once('_playlist.php'); ?>
 	</div>
