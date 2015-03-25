@@ -62,10 +62,8 @@
 	<div class='col-xs-12 col-sm-6' id='colonne_gauche'>
         
         <div class='well placeholders'>
-            <h2 id='main-title'>Bienvenue sur Party Player!</h2>
+            <h2 id='main-title'>Ajoutez vos musiques au Jukebox</h2>
             <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
-                Rechercher une musique pour l'ajouter à la playlist du Jukebox<br/>
-                <br/>
                 Rechercher:<br/><br/>
 	            <form>
 		            <input type="text" class="form-control" placeholder="Artiste ou titre..." id='recherche' style='width:auto;display:inline'></input>
