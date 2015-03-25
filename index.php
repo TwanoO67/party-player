@@ -240,13 +240,13 @@
                     '<div class="col-md-12"> ' +
                     '<form class="form-horizontal"> ' +
                     '<div class="form-group"> ' +
-                    '<label class="col-md-6 control-label" for="name">Pseudo</label> ' +
+                    '<label class="col-md-2 control-label" for="name">Pseudo</label> ' +
                     '<div class="col-md-6"> ' +
                     '<input id="name" name="name" type="text" placeholder="'+username+
                     '" class="form-control input-md" /> </div>' +
                     '</div> ' +
                     '<div class="form-group"> ' +
-                    '<label class="col-md-6 control-label">&nbsp;</label> ' +
+                    '<label class="col-md-2 control-label">&nbsp;</label> ' +
                     '<div class="col-md-6"> <div class="radio"> <label for="mode-server"> ' +
                     '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
                     'Nouveau Jukebox </label> ' +
