@@ -236,6 +236,7 @@
 	    function loadIntro(){
 		    code_default = "CODE";
 		    code_invalid = "CODE invalide!";
+		    name_invalid = "Choisissez un pseudo!";
 		    Intro = bootbox.dialog({
                 title: "La soirée peut commencer!",
                 message: '<div class="row">  ' +
@@ -254,7 +255,7 @@
                     'Nouveau Jukebox </label> ' +
                     '</div><div class="radio"> <label for="mode-client"> ' +
                     '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
-                    '<input type="text" value="'+code_default+'" id="code" name="code" style="display:none" />'+
+                    '<input type="text" placeholder="'+code_default+'" id="code" name="code" style="display:none" />'+
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
@@ -263,7 +264,14 @@
                         label: "Ok",
                         className: "btn-success",
                         callback: function () {
-                            setUsername($('#name').val());
+                        	var name = $('#name').val();
+                        	if(name == "" || name == name_invalid){
+                        		$('#name').val(name_invalid);
+                        		return false;
+                        	}
+                            else{
+                            	setUsername(name);
+                            }
                             var mode = $("input[name='mode']:checked").val();
                             if(mode=='client'){
 	                            var code = $('#code').val();
