@@ -232,38 +232,51 @@
                 message: '<div class="row">  ' +
                     '<div class="col-md-12"> ' +
                     '<form class="form-horizontal"> ' +
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-2 control-label" for="name">Pseudo</label> ' +
-                    '<div class="col-md-6"> ' +
-                    '<input id="name" name="name" type="text" value="'+username+
-                    '" class="form-control input-md" /> </div>' +
-                    '</div> ' +
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-2 control-label">&nbsp;</label> ' +
-                    '<div class="col-md-6"> <div class="radio"> <label for="mode-server"> ' +
-                    '<input type="radio" name="mode" id="mode-server" value="server" checked="checked"> ' +
-                    'Nouveau Jukebox </label> ' +
-                    '</div><div class="radio"> <label for="mode-client"> ' +
-                    '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
-                    '<input type="text" placeholder="'+code_default+'" id="code" name="code" style="display:none" />'+
-                    '</div> ' +
-                    '</div> </div>' +
+
+                        '<div class="form-group"> ' +
+                            '<label class="col-md-2 control-label">&nbsp;</label> ' +
+                            '<div class="col-md-6">'+
+                                '<div class="radio"> <label for="mode-server"> ' +
+                                    '<input type="radio" name="mode" id="mode-server" value="server" checked="checked" /> ' +
+                                    'Nouveau Jukebox </label> ' +
+                                '</div><div class="radio"> '+
+                                    '<label for="mode-client"> ' +
+                                    '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
+                                '</div> ' +
+                            '</div> ' +
+                        '</div> ' +
+
+                        '<div class="form-group" id="client_form" style="display:none"> ' +
+                            '<label class="col-md-2 control-label" for="name">Pseudo</label> ' +
+                            '<div class="col-md-6"> ' +
+                                '<input id="name" name="name" type="text" value="'+username+'" class="form-control input-md" />'+
+                            '</div>' +
+                            '<div class="col-md-4"></div>'+
+
+                            '<label class="col-md-2 control-label" for="code">Jukebox</label> ' +
+                            '<div class="col-md-6"> ' +
+                                '<input type="text" placeholder="'+code_default+'" id="code" name="code"  />'+
+                            '</div>' +
+                            '<div class="col-md-4"></div>'+
+                        '</div> ' +
+
                     '</form> </div>  </div>',
                 buttons: {
                     success: {
                         label: "Ok",
                         className: "btn-success",
                         callback: function () {
-                        	var name = $('#name').val();
-                        	if(name == "" || name == name_invalid){
-                        		$('#name').val(name_invalid);
-                        		return false;
-                        	}
-                            else{
-                            	setUsername(name);
-                            }
                             var mode = $("input[name='mode']:checked").val();
                             if(mode=='client'){
+                                var name = $('#name').val();
+                                if(name == "" || name == name_invalid){
+                                    $('#name').val(name_invalid);
+                                    return false;
+                                }
+                                else{
+                                    setUsername(name);
+                                }
+
 	                            var code = $('#code').val();
 	                            if(code=="CODE" || code=='' || code==code_default || code==code_invalid){
 		                            $('#code').val(code_invalid);
@@ -275,6 +288,7 @@
 	                            
                             }
                             else{
+                                setUsername("Jukebox"+rand_sessid);
 	                            window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;
                             }
                         }
@@ -283,7 +297,7 @@
             });
         
 	        //ouverture de la boite CODE au select du radiobutton
-	        $("input[name='mode']").change(function(){ $('#code').toggle();});
+	        $("#client_form").change(function(){ $('#code').toggle();});
         
 			Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
 				console.log('on hide');
