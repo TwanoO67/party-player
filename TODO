@@ -1,3 +1,6 @@
+- ajoutez les controles de clavier multimedia sur le player
+- essayer de mixer 2 chansons pour les transitions
+- afficher le nombre de personne connecté
 - Tester la connexion à spotify et expiration du token, mieux placer les boutons d'import
 - Nom des jukebox à modifier, nom des client ne dois pas contenir jukebox
 - onglet connexion avec compte sur partyplayer, lié a facebook, spotify etc...

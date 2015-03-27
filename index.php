@@ -134,22 +134,24 @@
 			 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>
 			 
 		  </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo1').hide();$('#jumbo2').show()" role="button">Comment ça marche?</a> <a class="btn btn-warning btn-lg" href="#" onclick="loadIntro()" role="button">Je connais déjà!</a></p>
+		  <p>
+              <a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo1').hide();$('#jumbo2').show()" role="button">Tutoriel</a>
+              <a class="btn btn-warning btn-lg" href="#" onclick="loadIntro()" role="button">Commencer</a>
+          </p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo2" style="display:none;">
 		  <h1><img src="/img/computer.svg" width='100px'/> + <img src="/img/audio.svg" width='100px'/> = JukeBox!</h1>
-		  <p>Avec un ordinateur vous allez pouvoir créer votre jukebox.<br/>
-			  <br/>
+		  <p> <br/>
 			 Le JukeBox va:<br/>
 			 - Recevoir les musiques de vos amis<br/>
 			 - Afficher les clips, et lire la musique sur ces enceintes<br/>
 			 </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Comment ajouter des musiques?</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Ok</a></p>
 		</div>
 		
 		<div class="jumbotron" id="jumbo3" style="display:none;">
-		  <h1>Ajouter vos musiques</h1>
+		  <h1>Comment ajouter des musiques?</h1>
 		  <p>Avec votre smartphone <img src="/img/phone.svg" width='100px'/><br/>
 			 <br/>
 			 Scannez le QRCode<br/>
@@ -164,11 +166,11 @@
 		
 		<div class="jumbotron" id="jumbo4" style="display:none;">
 		  <h1>Comment commencer?</h1>
-		  <p>- Allez sur l'ordinateur <img src="/img/computer.svg" width='100px'/> qui va servir de JukeBox (pas sur un smartphone)<br/>
-		  - Ouvrez le site <?php echo $base_url; ?><br/>
-		  - Cliquez sur "Créer un JukeBox"
+		  - Ouvrez le site <?php echo $base_url; ?><br/> sur l'ordinateur qui va servir de JukeBox
+		  - Cliquez sur "Créer un JukeBox", puis laissez la page ouverte
+          - Utilisez vos smartphones pour ajouter des musiques
 		  </p>
-		  <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo4').hide();" role="button">Ok, je change d'ordi!</a>
+		  <p>
 		  <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;" role="button">Créer un JukeBox</a>
 		  </p>
 		</div>
@@ -178,19 +180,7 @@
     <?php } ?>
     
     <script>
-        
-        /*TODO:
-        - ajoutez les controles de clavier multimedia sur le player   
-        - essayer de mixer 2 chansons pour les transitions
-        - systeme de vote
-        - systeme de déja lu 
-        - mettre du cache dans loadPlaylistFromServer pour l'appeler régulierement
-        - hit pour verifier les connectés, et supprimés automatiquement cron?
-        - sauvegarder charge playlist
-        - afficher la personne qui a ajouté et la date
-        - afficher le nombre de personne connecté
-        */
-        
+
         //GLOBALE
         youtubeTrackInfo = {};
         youtubePlaylistInfo = {};
