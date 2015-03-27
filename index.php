@@ -288,7 +288,8 @@
 	                            
                             }
                             else{
-                                setUsername("Jukebox"+rand_sessid);
+                                if(username == '')
+                                    setUsername("Jukebox"+rand_sessid);
 	                            window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;
                             }
                         }
