@@ -3,7 +3,7 @@ function addSpotifyPlaylistToActualPlaylist(){
 	var nb = 0;
 	for(var index in my_convert_data){
 		var id_youtube = my_convert_data[index];
-		addToPlaylistOnServer(id_youtube);
+		addToPlaylistOnServer(id_youtube,true);
 		nb++;
 	}
 	if(nb>0){

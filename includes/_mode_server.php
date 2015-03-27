@@ -10,7 +10,7 @@
 	<?php }
 		else{
 			echo "sessid = '".$sessid."';loadPlaylistFromServer();";
-			echo "setUsername('Jukebox".$sessid."');";
+			echo "if(username == ""){setUsername('Jukebox".$sessid."');}";
 		}
 	 ?>
 	 
@@ -42,7 +42,7 @@
 	        <h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
 	        <div id='player-wrapper' width="50%" style="width:100%;position:relative;">
 		        Laissez cette page ouverte pour écouter la musique.<br/>
-	            Depuis votre smartphone<br/>
+	            Ajouter des musiques depuis vos smartphones<br/>
 	            <img src='/img/phone.svg' width='100px' /><br/>
 	            Flashez le QRCode  ==><br/>
 	            <br/>

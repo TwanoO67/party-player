@@ -23,8 +23,11 @@ elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
     setcookie("spotify_token",$token,0,'/');
-    //je redirige vers le referer
-    header('Location: '.$_SERVER['HTTP_REFERER']);
+    //on redirige vers l'url de depart
+    if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '')
+        header('Location: '.$_SERVER['HTTP_REFERER']);
+    else
+        header('Location: '.$_SESSION['call_url']);
     exit;
 } 
 //si je suis deja connecté à spotify
@@ -33,6 +36,7 @@ elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && 
 }
 //sinon je propose une connexion à spotify
 else {
+    $_SESSION['call_url'] = $_SERVER['HTTP_REFERER';
 	header('Location: ' . $session->getAuthorizeUrl(array(
         'scope' => array('user-read-email', 'user-library-modify')
     )));

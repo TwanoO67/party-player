@@ -124,7 +124,7 @@
 		    
 	    <div class="jumbotron" id="jumbo1">
 		  <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Partagez votre musique!</h1>
-		  <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées!<br/>
+		  <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées.<br/>
 			 <br/>
 			 Le concept:<br/>
 			 - Vos amis peuvent ajouter des musiques/clips<br/>

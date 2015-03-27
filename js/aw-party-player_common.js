@@ -467,7 +467,6 @@ function downloadById(id){
     return false;
 }
 
-
 $(document).ready(function(){
     //récupération du username si existant
     username = "";
