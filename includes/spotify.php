@@ -18,6 +18,10 @@ if (isset($_GET['disconnect'])) {
 	echo "Vous avez été déconnecté de spotify";
 	exit;
 }
+//si je suis deja connecté à spotify
+elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){
+    $token = $_COOKIE["spotify_token"];
+}
 //si spotify m'envoi un token de connexion
 elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
@@ -29,10 +33,6 @@ elseif (isset($_GET['code'])) {
     else
         header('Location: '.$_SESSION['call_url']);
     exit;
-} 
-//si je suis deja connecté à spotify
-elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){
-    $token = $_COOKIE["spotify_token"];
 }
 //sinon je propose une connexion à spotify
 else {
