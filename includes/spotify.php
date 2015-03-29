@@ -20,7 +20,7 @@ function redirectToWeb(){
     }
     else{
         //au pire redirection vers la home
-        header('Location: ' . $_SERVER['SERVER_NAME']);
+        header('Location: http://' . $_SERVER['SERVER_NAME']);
     }
     die();
 }
