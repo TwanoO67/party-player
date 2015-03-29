@@ -36,7 +36,7 @@ elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && 
 }
 //sinon je propose une connexion à spotify
 else {
-    $_SESSION['call_url'] = $_SERVER['HTTP_REFERER';
+    $_SESSION['call_url'] = $_SERVER['HTTP_REFERER'];
 	header('Location: ' . $session->getAuthorizeUrl(array(
         'scope' => array('user-read-email', 'user-library-modify')
     )));
