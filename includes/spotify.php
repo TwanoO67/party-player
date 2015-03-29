@@ -11,6 +11,14 @@ $request = new SpotifyWebAPI\Request();
 $session = new SpotifyWebAPI\Session(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI);
 $api = new SpotifyWebAPI\SpotifyWebAPI();
 
+function redirectToWeb(){
+    //on redirige vers l'url de depart
+    if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '')
+        header('Location: '.$_SERVER['HTTP_REFERER']);
+    else
+        header('Location: '.$_SESSION['call_url']);
+}
+
 $token = '';
 //si je veux me deconnecter
 if (isset($_GET['disconnect'])) {
@@ -27,11 +35,7 @@ elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
     setcookie("spotify_token",$token,0,'/');
-    //on redirige vers l'url de depart
-    if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '')
-        header('Location: '.$_SERVER['HTTP_REFERER']);
-    else
-        header('Location: '.$_SESSION['call_url']);
+    redirectToWeb();
     exit;
 }
 //sinon je propose une connexion à spotify
@@ -77,6 +81,11 @@ try{
             
             $reponse['content'] = $playlist;
             $reponse['result'] = 'success';
+        }
+        else{
+            //si aucun mode choisis, c'est une connexion spotify depuis facebook
+            redirectToWeb();
+            exit;
         }
         
         echo json_encode($reponse);
