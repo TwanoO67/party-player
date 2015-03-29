@@ -24,9 +24,9 @@ start:
 $token = '';
 //si je veux me deconnecter
 if (isset($_GET['disconnect'])) {
-	setcookie("spotify_token","",0,'/');
-	echo "Vous avez été déconnecté de spotify";
-	exit;
+    setcookie("spotify_token","",0,'/');
+    echo "Vous avez été déconnecté de spotify";
+    exit;
 }
 //si je suis deja connecté à spotify
 elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){
@@ -37,26 +37,26 @@ elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
     $_SESSION['spotify_refresh_token'] = $session->getRefreshToken();
-    setcookie("spotify_token",$token,$session->getExpires(),'/');
+    setcookie("spotify_token",$token,0,'/');
     redirectToWeb();
 }
 //sinon je propose une connexion à spotify
 else {
     $_SESSION['call_url'] = $_SERVER['HTTP_REFERER'];
-	header('Location: ' . $session->getAuthorizeUrl(array(
-        'scope' => array('user-read-email', 'user-library-modify')
-    )));
+    header('Location: ' . $session->getAuthorizeUrl(array(
+            'scope' => array('user-read-email', 'user-library-modify')
+        )));
     exit;
 }
 
 try{
-	$reponse = array();
+    $reponse = array();
     $reponse['result'] = 'error';
-    
+
     //si une connexion est valide
     if($token!=''){
         $api->setAccessToken($token);
-        
+
         if($_REQUEST['get_track_list']!=''){
             $data = $api->getUserPlaylistTracks($api->me()->id,$_REQUEST['get_track']);
             $reponse['content'] = $data;
@@ -80,7 +80,7 @@ try{
                 $cur_pl['owner_id'] = $pl->owner->id;
                 $playlist[] = $cur_pl;
             }
-            
+
             $reponse['content'] = $playlist;
             $reponse['result'] = 'success';
         }
@@ -100,7 +100,7 @@ catch(Exception $e){
             $session->refreshToken();
 
             $accessToken = $session->getAccessToken();
-            setcookie("spotify_token",$accessToken,$session->getExpires(),'/');
+            setcookie("spotify_token",$accessToken,0,'/');
             $api->setAccessToken($accessToken);
 
             goto start;
@@ -108,8 +108,8 @@ catch(Exception $e){
         else{
             $reponse['content'] = "The access token expired";
             header('Location: ' . $session->getAuthorizeUrl(array(
-                'scope' => array('user-read-email', 'user-library-modify')
-            )));
+                    'scope' => array('user-read-email', 'user-library-modify')
+                )));
             exit;
         }
     }
