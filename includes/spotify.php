@@ -17,8 +17,10 @@ function redirectToWeb(){
         header('Location: '.$_SERVER['HTTP_REFERER']);
     else
         header('Location: '.$_SESSION['call_url']);
+    die();
 }
 
+start:
 $token = '';
 //si je veux me deconnecter
 if (isset($_GET['disconnect'])) {
@@ -34,9 +36,9 @@ elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && 
 elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
-    setcookie("spotify_token",$token,0,'/');
+    $_SESSION['spotify_refresh_token'] = $session->getRefreshToken();
+    setcookie("spotify_token",$token,$session->expires,'/');
     redirectToWeb();
-    exit;
 }
 //sinon je propose une connexion à spotify
 else {
@@ -85,11 +87,7 @@ try{
         else{
             //si aucun mode choisis, c'est une connexion spotify depuis facebook
             redirectToWeb();
-            exit;
         }
-        
-        echo json_encode($reponse);
-		exit;
     }
 }
 catch(Exception $e){
@@ -97,12 +95,28 @@ catch(Exception $e){
     if( strpos($msg,'expired') !== false ){
         setcookie("spotify_token",'',0,'/');
         $reponse['content'] = "The access token expired";
-        header('Location: ' . $session->getAuthorizeUrl(array(
-            'scope' => array('user-read-email', 'user-library-modify')
-        )));
-        exit;
+        if(isset($_SESSION['spotify_refresh_token']) &&  !empty($_SESSION['spotify_refresh_token']) ){
+            $session->setRefreshToken($_SESSION['spotify_refresh_token']);
+            $session->refreshToken();
+
+            $accessToken = $session->getAccessToken();
+            setcookie("spotify_token",$accessToken,$session->getExpires(),'/');
+            $api->setAccessToken($accessToken);
+
+            goto start;
+        }
+        else{
+            $reponse['content'] = "The access token expired";
+            header('Location: ' . $session->getAuthorizeUrl(array(
+                'scope' => array('user-read-email', 'user-library-modify')
+            )));
+            exit;
+        }
     }
     else{
         throw $e;
     }
 }
+
+echo json_encode($reponse);
+exit;
