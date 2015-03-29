@@ -13,10 +13,15 @@ $api = new SpotifyWebAPI\SpotifyWebAPI();
 
 function redirectToWeb(){
     //on redirige vers l'url de depart
-    if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '')
-        header('Location: '.$_SERVER['HTTP_REFERER']);
-    else
-        header('Location: '.$_SESSION['call_url']);
+    if(isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }elseif(isset($_SESSION['call_url']) && !empty($_SESSION['call_url'])) {
+        header('Location: ' . $_SESSION['call_url']);
+    }
+    else{
+        //au pire redirection vers la home
+        header('Location: ' . $_SERVER['SERVER_NAME']);
+    }
     die();
 }
 
@@ -36,7 +41,7 @@ elseif(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && 
 elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
-    $_SESSION['spotify_refresh_token'] = $session->getRefreshToken();
+    setcookie('spotify_refresh_token',$session->getRefreshToken(),0,'/');
     setcookie("spotify_token",$token,0,'/');
     redirectToWeb();
 }
@@ -95,7 +100,7 @@ catch(Exception $e){
     if( strpos($msg,'expired') !== false ){
         setcookie("spotify_token",'',0,'/');
         $reponse['content'] = "The access token expired";
-        if(isset($_SESSION['spotify_refresh_token']) &&  !empty($_SESSION['spotify_refresh_token']) ){
+        if(isset($_COOKIE['spotify_refresh_token']) &&  !empty($_COOKIE['spotify_refresh_token']) ){
             $session->setRefreshToken($_SESSION['spotify_refresh_token']);
             $session->refreshToken();
 
