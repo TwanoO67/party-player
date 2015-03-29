@@ -37,7 +37,7 @@ elseif (isset($_GET['code'])) {
     $session->requestToken($_GET['code']);
     $token = $session->getAccessToken();
     $_SESSION['spotify_refresh_token'] = $session->getRefreshToken();
-    setcookie("spotify_token",$token,$session->expires,'/');
+    setcookie("spotify_token",$token,$session->getExpires(),'/');
     redirectToWeb();
 }
 //sinon je propose une connexion à spotify
