@@ -1,10 +1,10 @@
 //TODO LIST
 - ajoutez les controles de clavier multimedia sur le player
 - essayer de mixer 2 chansons pour les transitions
-- afficher le nombre de personne connecté
 - Tester la connexion à spotify et expiration du token, mieux placer les boutons d'import
+- Ajouter un mode d'import depuis twitter (mode public ) permettant de rajouter une chanson en  postant un tweet
 - Nom des jukebox à modifier, nom des client ne dois pas contenir jukebox
-- onglet connexion avec compte sur partyplayer, lié a facebook, spotify etc...
+- onglet connexion avec compte sur partyplayer, lié a facebook, spotify, twitter etc...
 - mode serveur multiple pour partager une playlist sur plusieurs ordi/pieces
 - renommé serveur en Jukebox, et client en Invité ou Participant
 - rendre compatible le mode serveur avec android/ios (taille de la frame)
