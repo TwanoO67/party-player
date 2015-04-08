@@ -10,9 +10,8 @@ function info(msg) {
     $("#info").text(msg);
 }
 function authorizeUser() {
-    var client_id = 'fe46ef0a9b384db28ceafb9f16343ece';
-    var redirect_uri = 'http://static.echonest.com/MySavedTracks/index.html';
-    var redirect_uri = 'http://localhost:8000';
+    var client_id = '6745669faa5a4966bbaf693588f4a4c0';
+    var redirect_uri = base_url;
     var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id +
         '&response_type=token' +
         '&scope=user-library-read' +
@@ -23,7 +22,7 @@ function parseArgs() {
     var hash = location.hash.replace(/#/g, '');
     var all = hash.split('&');
     var args = {};
-    _.each(all, function(keyvalue) {
+    $.each(all, function(keyvalue) {
         var kv = keyvalue.split('=');
         var key = kv[0];
         var val = kv[1];
@@ -63,7 +62,7 @@ function showTracks(tracks) {
         $("#item-list").empty();
         info("");
     }
-    _.each(tracks.items, function(item) {
+    $.each(tracks.items, function(item) {
         var artistName = item.track.artists[0].name;
         var itemElement = $("<div>").text(item.track.name + ' - ' + artistName);
         list.append(itemElement);

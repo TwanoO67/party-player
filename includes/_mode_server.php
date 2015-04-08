@@ -1,4 +1,5 @@
 <script src="/js/aw-party-player_server.js"></script>
+<script src="/js/aw-party-player_spotify.js"></script>
 <script src="/js/build/mediaelement-and-player.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/js/build/mediaelementplayer.css" type="text/css">
 <script>
@@ -50,6 +51,7 @@
 				<br/>
 				Allez sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
 				<!--Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>-->
+				<input type='button' id='go' value='spotify' />
 			</div>
 			<div id='vote-area-ph'></div>
 		</div>
