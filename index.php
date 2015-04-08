@@ -194,6 +194,7 @@ $boostrapversion = "3.3.2";
     session_url = "<?php echo $session_url; ?>";
     serverURL = "<?php echo $serveur_url; ?>";
     spotifyApiURL = "<?php echo $spotify_api_url; ?>";
+    current_url = "<?php echo $server_base_url.$sessid; ?>";
     serverPrefix="Jukebox";
     modeAudio = false;
     lastPlaylistLoading = 0;
