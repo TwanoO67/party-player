@@ -76,7 +76,7 @@ function showTracks(tracks) {
 }
 $(document).ready(
     function() {
-        if (spotify_access_token != '') {
+        if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
             accessToken = spotify_access_token;
             $("#go").hide();
             info('Getting your user profile');
