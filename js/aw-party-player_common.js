@@ -492,7 +492,7 @@ $(document).ready(function(){
     var args = parseArgs();
     if ('access_token' in args) {
         accessToken = args['access_token'];
-        document.location = window.atob(args['state'])+"&access_token="+accessToken;
+        document.location = window.atob(args['state'])+"&spotify_access_token="+accessToken;
     }
     
     

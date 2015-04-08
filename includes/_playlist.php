@@ -20,11 +20,7 @@
                     <a role="menuitem" tabindex="-1" onclick='markAllAsUnread();'>Marquer comme non-lus</a>
                 </li>
                 <li role="presentation">
-		    <?php if(isset($_COOKIE["spotify_token"]) && !empty($_COOKIE["spotify_token"]) && $_COOKIE["spotify_token"] !== 'deleted' ){ ?>
-                    <a role="menuitem" tabindex="-1" onclick='importSpotify();'>Import depuis Spotify</a>
-		    <?php }else{ ?>
-		    <a role="menuitem" tabindex="-1" href="<?php echo $spotify_api_url; ?>">Connexion à Spotify</a>
-		    <?php } ?>
+                	<a role="menuitem" tabindex="-1" id='spotify_button'>Spotify</a>
                 </li>
                 <!--<li role="presentation" class="divider"></li>
                 <li role="presentation">

@@ -120,7 +120,7 @@ function importSpotifyPlaylist(href) {
 		      success: {
 				label: "Ajouter les chansons à la playlist",
 				className: "btn-success",
-				callback: function() {
+				callback: function() {        
 				    return addSpotifyPlaylistToActualPlaylist();
 				}
 			  }
@@ -178,6 +178,15 @@ function importSpotify(){
 	//on rafraichis la page pour afficher le lien de connexion spotify
 	window.location.href.reload;
     }
+}
+
+function authorizeSpotifyUser(){
+    var url = 'https://accounts.spotify.com/authorize?client_id=' + spotify_client_id +
+        '&response_type=token' +
+        '&scope=user-library-read' +
+        "&state=" + window.btoa(current_url) +
+        '&redirect_uri=' + encodeURIComponent(base_url);
+    document.location = url;
 }
 
 function markAllAsUnread(){
@@ -392,4 +401,15 @@ function load(url){
 
 };
 
+
+$(document).ready(function(){
+	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
+		$('#spotify_button').html("Importer depuis Spotify");
+		$('#spotify_button').click(importSpotify);
+	}
+	else{
+		$('#spotify_button').html("Connexion à Spotify");
+		$('#spotify_button').click(authorizeSpotifyUser);
+	}
+})
 
