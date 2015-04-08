@@ -97,7 +97,7 @@ function importSpotifyPlaylist(href) {
 		//Construction de la présentation de la playlist
 		my_import_data = [];
 		var message = "<ul>";
-		data.items.forEach(function(element,index,array){
+		data.tracks.items.forEach(function(element,index,array){
 			
 			if (element.track.name != "" && element.track.id != ""){
 		    	var track_name = element.track.artists[0].name+" - "+element.track.name;
