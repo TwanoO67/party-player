@@ -420,7 +420,7 @@ $(document).ready(function(){
 	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
 		$('#spotify_button').html("Importer depuis Spotify");
 		$('#spotify_button').click(importSpotify);
-		fetchCurrentUserProfile(function(){
+		fetchCurrentUserProfile(function(user){
 			spotifyUser = null;
 			if (user) {
 				spotifyUser = user;
