@@ -76,9 +76,8 @@ function showTracks(tracks) {
 }
 $(document).ready(
     function() {
-        var args = parseArgs();
-        if ('access_token' in args) {
-            accessToken = args['access_token'];
+        if (spotify_access_token != '') {
+            accessToken = spotify_access_token;
             $("#go").hide();
             info('Getting your user profile');
             fetchCurrentUserProfile(function(user) {
