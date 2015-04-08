@@ -136,22 +136,41 @@ function importSpotifyPlaylist(href) {
     
 }
 
+function fetchCurrentUserProfile(callback) {
+    var url = 'https://api.spotify.com/v1/me';
+    callSpotify(url, null, callback);
+}
+function fetchSavedTracks(callback) {
+    var url = 'https://api.spotify.com/v1/me/tracks';
+    callSpotify(url, {}, callback);
+}
+function callSpotify(url, data, callback) {
+    $.ajax(url, {
+        dataType: 'json',
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        },
+        success: function(r) {
+            callback(r);
+        },
+        error: function(r) {
+            callback(null);
+        }
+    });
+}
+
 //Listing des playlist importable depuis spotify
 function importSpotify(){
-    if(jQuery.cookie("spotify_token") != ""){
-        $.getJSON(spotifyApiURL, {
-	    'get_playlists': 'true',
-	    //'sessid': sessid,
-	    //'user': username
-	}, function (data) { 
+    $.getJSON("https://api.spotify.com/v1/"+spotifyUser.id+"/wizzler/playlists", null, function (data) { 
 	    if(data.result == 'error'){
 		bootbox.alert(data.error);
 	    }
 	    else{
 		var message = "<ul>";
-		data.content.forEach(function(element,index,array){
-		    if (element.name != "" && element.tracks_num > 0)
-		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks_num+" titres)</li>";
+		data.items.forEach(function(element,index,array){
+		    if (element.name != "" && element.tracks.total > 0)
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
 		});
 		message += "</ul>";
 		
@@ -173,11 +192,6 @@ function importSpotify(){
 		
 	    }
 	});
-    }
-    else{
-	//on rafraichis la page pour afficher le lien de connexion spotify
-	window.location.href.reload;
-    }
 }
 
 function authorizeSpotifyUser(){
@@ -406,6 +420,12 @@ $(document).ready(function(){
 	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
 		$('#spotify_button').html("Importer depuis Spotify");
 		$('#spotify_button').click(importSpotify);
+		fetchCurrentUserProfile(function(){
+			spotifyUser = null;
+			if (user) {
+				spotifyUser = user;
+			}
+		);
 	}
 	else{
 		$('#spotify_button').html("Connexion à Spotify");
