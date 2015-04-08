@@ -13,12 +13,6 @@ $sessid = '';
 if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
 }
-//autorisation spotify
-else{
-	$encours_url=parse_url($_SERVER["QUERY_STRING"]);
-	var_dump($_SERVER["QUERY_STRING"]);exit;
-	//header('Location: '.base64_decode($_REQUEST['state'])."&access_token=".$_REQUEST['access_token']."&token_type=".$_REQUEST['token_type']."&expires_in=".$_REQUEST['expires_in']);
-}
 
 $base_url = "http://".$_SERVER['SERVER_NAME'];
 $client_base_url = $base_url."/JukeBox";
@@ -200,6 +194,7 @@ $boostrapversion = "3.3.2";
     session_url = "<?php echo $session_url; ?>";
     serverURL = "<?php echo $serveur_url; ?>";
     spotifyApiURL = "<?php echo $spotify_api_url; ?>";
+    spotify_acces_token = "<?php echo @$_REQUEST['access_token']; ?>";
     current_url = "<?php echo $server_base_url.$sessid; ?>";
     serverPrefix="Jukebox";
     modeAudio = false;
