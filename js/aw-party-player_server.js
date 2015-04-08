@@ -149,7 +149,7 @@ function callSpotify(url, data, callback) {
         dataType: 'json',
         data: data,
         headers: {
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer ' + spotify_access_token
         },
         success: function(r) {
             callback(r);
