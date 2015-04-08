@@ -20,7 +20,7 @@ $client_base_url = $base_url."/JukeBox";
 $server_base_url = $base_url."/?mode=server&sessid=";
 $session_url =  $client_base_url.$sessid;
 $serveur_url = "api.php";
-$spotify_api_url = "/includes/spotify.php";
+$spotify_api_url = "/includes/spotify.php";//TODO a delete
 
 $marge_header = '70';
 $boostrapversion = "3.3.2";
@@ -196,6 +196,7 @@ $boostrapversion = "3.3.2";
     serverURL = "<?php echo $serveur_url; ?>";
     spotify_client_id = "<?php echo SPOTIFY_CLIENT_ID; ?>";
     spotify_access_token = "<?php echo @$_REQUEST['spotify_access_token']; ?>";
+    spotifyApiURL = "<?php echo $spotify_api_url; ?>";//TODO a delete
     current_url = "<?php echo $server_base_url.$sessid; ?>";
     serverPrefix="Jukebox";
     modeAudio = false;
