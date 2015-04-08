@@ -425,7 +425,7 @@ $(document).ready(function(){
 			if (user) {
 				spotifyUser = user;
 			}
-		);
+		});
 	}
 	else{
 		$('#spotify_button').html("Connexion à Spotify");
