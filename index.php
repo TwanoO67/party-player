@@ -13,6 +13,9 @@ $sessid = '';
 if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
 }
+elseif(isset($_REQUEST['code']) && isset($_REQUEST['state']) ){
+	header('Location: '.base64_decode($_REQUEST['state'])."&code=".$_REQUEST['code'];
+}
 
 $base_url = "http://".$_SERVER['SERVER_NAME'];
 $client_base_url = $base_url."/JukeBox";

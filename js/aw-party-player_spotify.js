@@ -11,10 +11,11 @@ function info(msg) {
 }
 function authorizeUser() {
     var client_id = '6745669faa5a4966bbaf693588f4a4c0';
-    var redirect_uri = current_url;
+    var redirect_uri = base_url;
     var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id +
         '&response_type=token' +
         '&scope=user-library-read' +
+        "&state=" + window.btoa(current_url) +
         '&redirect_uri=' + encodeURIComponent(redirect_uri);
     document.location = url;
 }
