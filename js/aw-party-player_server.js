@@ -93,15 +93,11 @@ function convertSpotify(){
 //Listing des chasnons d'une playlist spotify
 function importSpotifyPlaylist(href) {
 	BB.hide();
-    $.getJSON(spotifyApiURL, {
-	    'custom': href,
-	    //'sessid': sessid,
-	    //'user': username
-	}, function (data) {
+    callSpotify(href, null, function (data) {
 		//Construction de la présentation de la playlist
 		my_import_data = [];
 		var message = "<ul>";
-		data.content.tracks.items.forEach(function(element,index,array){
+		data.items.forEach(function(element,index,array){
 			
 			if (element.track.name != "" && element.track.id != ""){
 		    	var track_name = element.track.artists[0].name+" - "+element.track.name;
