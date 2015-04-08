@@ -467,6 +467,18 @@ function downloadById(id){
     return false;
 }
 
+function parseArgs() {
+    var hash = location.hash.replace(/#/g, '');
+    var all = hash.split('&');
+    var args = {};
+    $.each(all, function(index,keyvalue) {
+        var kv = keyvalue.split('=');
+        var key = kv[0];
+        var val = kv[1];
+        args[key] = val;
+    });
+    return args;
+}
 
 $(document).ready(function(){
     //récupération du username si existant
@@ -475,6 +487,15 @@ $(document).ready(function(){
         username = $.cookie('username');
     }
     $('#username').html(username);
+    
+    //spotify connexion
+    var args = parseArgs();
+    if ('access_token' in args) {
+        accessToken = args['access_token'];
+        $.cookie('spotify_token',accessToken);
+        document.location = window.atob(args['state'])+"&spotify_access_token="+accessToken;
+    }
+    
     
     //toggle css
     $('.btn-toggle').click(function() {

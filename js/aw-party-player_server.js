@@ -3,7 +3,7 @@ function addSpotifyPlaylistToActualPlaylist(){
 	var nb = 0;
 	for(var index in my_convert_data){
 		var id_youtube = my_convert_data[index];
-		addToPlaylistOnServer(id_youtube);
+		addToPlaylistOnServer(id_youtube,true);
 		nb++;
 	}
 	if(nb>0){
@@ -93,15 +93,11 @@ function convertSpotify(){
 //Listing des chasnons d'une playlist spotify
 function importSpotifyPlaylist(href) {
 	BB.hide();
-    $.getJSON(spotifyApiURL, {
-	    'custom': href,
-	    //'sessid': sessid,
-	    //'user': username
-	}, function (data) {
+    callSpotify(href, null, function (data) {
 		//Construction de la présentation de la playlist
 		my_import_data = [];
 		var message = "<ul>";
-		data.content.tracks.items.forEach(function(element,index,array){
+		data.tracks.items.forEach(function(element,index,array){
 			
 			if (element.track.name != "" && element.track.id != ""){
 		    	var track_name = element.track.artists[0].name+" - "+element.track.name;
@@ -114,13 +110,13 @@ function importSpotifyPlaylist(href) {
 		
 		BB = bootbox.dialog({
 		    message: message,
-		    title: "Playlist : "+data.content.name,
+		    title: "Playlist : "+data.name,
 		    closeButton: true,
 		    buttons: {
 		      success: {
 				label: "Ajouter les chansons à la playlist",
 				className: "btn-success",
-				callback: function() {
+				callback: function() {        
 				    return addSpotifyPlaylistToActualPlaylist();
 				}
 			  }
@@ -136,22 +132,41 @@ function importSpotifyPlaylist(href) {
     
 }
 
+function fetchCurrentUserProfile(callback) {
+    var url = 'https://api.spotify.com/v1/me';
+    callSpotify(url, null, callback);
+}
+function fetchSavedTracks(callback) {
+    var url = 'https://api.spotify.com/v1/me/tracks';
+    callSpotify(url, {}, callback);
+}
+function callSpotify(url, data, callback) {
+    $.ajax(url, {
+        dataType: 'json',
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + spotify_access_token
+        },
+        success: function(r) {
+            callback(r);
+        },
+        error: function(r) {
+            callback(null);
+        }
+    });
+}
+
 //Listing des playlist importable depuis spotify
 function importSpotify(){
-    if(jQuery.cookie("spotify_token") != ""){
-        $.getJSON(spotifyApiURL, {
-	    'get_playlists': 'true',
-	    //'sessid': sessid,
-	    //'user': username
-	}, function (data) { 
+    callSpotify("https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists", null, function (data) { 
 	    if(data.result == 'error'){
 		bootbox.alert(data.error);
 	    }
 	    else{
 		var message = "<ul>";
-		data.content.forEach(function(element,index,array){
-		    if (element.name != "" && element.tracks_num > 0)
-		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks_num+" titres)</li>";
+		data.items.forEach(function(element,index,array){
+		    if (element.name != "" && element.tracks.total > 0)
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
 		});
 		message += "</ul>";
 		
@@ -173,11 +188,15 @@ function importSpotify(){
 		
 	    }
 	});
-    }
-    else{
-	//on rafraichis la page pour afficher le lien de connexion spotify
-	window.location.href.reload;
-    }
+}
+
+function authorizeSpotifyUser(){
+    var url = 'https://accounts.spotify.com/authorize?client_id=' + spotify_client_id +
+        '&response_type=token' +
+        '&scope=user-library-read' +
+        "&state=" + window.btoa(current_url) +
+        '&redirect_uri=' + encodeURIComponent(base_url);
+    document.location = url;
 }
 
 function markAllAsUnread(){
@@ -392,4 +411,21 @@ function load(url){
 
 };
 
+
+$(document).ready(function(){
+	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
+		$('#spotify_button').html("Importer depuis Spotify");
+		$('#spotify_button').click(importSpotify);
+		fetchCurrentUserProfile(function(user){
+			spotifyUser = null;
+			if (user) {
+				spotifyUser = user;
+			}
+		});
+	}
+	else{
+		$('#spotify_button').html("Connexion à Spotify");
+		$('#spotify_button').click(authorizeSpotifyUser);
+	}
+})
 
