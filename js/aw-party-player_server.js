@@ -162,7 +162,7 @@ function callSpotify(url, data, callback) {
 
 //Listing des playlist importable depuis spotify
 function importSpotify(){
-    callSpotify("https://api.spotify.com/v1/"+spotifyUser.id+"/wizzler/playlists", null, function (data) { 
+    callSpotify("https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists", null, function (data) { 
 	    if(data.result == 'error'){
 		bootbox.alert(data.error);
 	    }
