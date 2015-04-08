@@ -13,8 +13,9 @@ $sessid = '';
 if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
 }
-elseif(isset($_REQUEST['code']) && isset($_REQUEST['state']) ){
-	header('Location: '.base64_decode($_REQUEST['state'])."&code=".$_REQUEST['code']);
+//autorisation spotify
+elseif(isset($_REQUEST['access_token']) && isset($_REQUEST['state']) ){
+	header('Location: '.base64_decode($_REQUEST['state'])."&access_token=".$_REQUEST['access_token']."&token_type=".$_REQUEST['token_type']."&expires_in=".$_REQUEST['expires_in']);
 }
 
 $base_url = "http://".$_SERVER['SERVER_NAME'];
