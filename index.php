@@ -14,7 +14,7 @@ if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
 }
 //autorisation spotify
-else(){
+else{
 	$encours_url=parse_url($_SERVER["REQUEST_URI"]);
 	echo $encours_url["fragment"];exit;
 	//header('Location: '.base64_decode($_REQUEST['state'])."&access_token=".$_REQUEST['access_token']."&token_type=".$_REQUEST['token_type']."&expires_in=".$_REQUEST['expires_in']);
