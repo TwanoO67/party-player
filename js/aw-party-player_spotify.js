@@ -22,7 +22,7 @@ function parseArgs() {
     var hash = location.hash.replace(/#/g, '');
     var all = hash.split('&');
     var args = {};
-    $.each(all, function(keyvalue) {
+    $.each(all, function(index,keyvalue) {
         var kv = keyvalue.split('=');
         var key = kv[0];
         var val = kv[1];
@@ -62,7 +62,7 @@ function showTracks(tracks) {
         $("#item-list").empty();
         info("");
     }
-    $.each(tracks.items, function(item) {
+    $.each(tracks.items, function(index,item) {
         var artistName = item.track.artists[0].name;
         var itemElement = $("<div>").text(item.track.name + ' - ' + artistName);
         list.append(itemElement);
