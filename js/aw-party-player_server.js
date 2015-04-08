@@ -110,7 +110,7 @@ function importSpotifyPlaylist(href) {
 		
 		BB = bootbox.dialog({
 		    message: message,
-		    title: "Playlist : "+data.content.name,
+		    title: "Playlist : "+data.name,
 		    closeButton: true,
 		    buttons: {
 		      success: {
