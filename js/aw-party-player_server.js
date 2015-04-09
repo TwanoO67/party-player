@@ -442,7 +442,7 @@ function load(url){
 	    var el = $(this);
 	    el
 	      .width(newWidth)
-	      .height(newWidth * (16/9) );
+	      .height(newWidth * el.data('aspectRatio'));
 	
 	  });
 	
