@@ -412,7 +412,7 @@ function load(url){
     
     //*******fixer la taille de la video
     var allVideos = $("#player-wrapper");
-    fluidEl = $("#colonne_gauche");
+    var fluidEl = $("#colonne_gauche");
 	console.log("height:"+allVideos.height());
 	console.log("width:"+allVideos.width());
 	console.log("new width:"+fluidEl.width());
@@ -442,7 +442,7 @@ function load(url){
 	    var el = $(this);
 	    el
 	      .width(newWidth)
-	      .height(newWidth * el.data('aspectRatio'));
+	      .height(newWidth * (16/9) );
 	
 	  });
 	
