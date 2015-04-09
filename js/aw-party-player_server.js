@@ -367,8 +367,6 @@ function load(url){
         //videoWidth: -1,
         // if set, overrides <video height>
         //videoHeight: -1,
-        videoWidth: newWidth,
-        pluginWidth: newWidth,
         
         // width of audio player
         audioWidth: '100%',
