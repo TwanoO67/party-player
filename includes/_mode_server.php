@@ -44,7 +44,7 @@
 				padding-top: 25px;
 				height: 0;
 			}
-			#player-wrapper iframe {
+			#player-wrapper iframe, video {
 				position: absolute;
 				top: 0;
 				left: 0;
