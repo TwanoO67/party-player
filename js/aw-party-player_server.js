@@ -350,7 +350,7 @@ function loadByYoutubeId(id){
 
 function load(url){
     playerIsLoaded = true;
-    var htmlin = '<video id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
+    var htmlin = '<video width="640px" height="360px" style="width:100%; height:100%;" id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
     // width="'+player_width+'" height="'+player_height+'"
     //version uniquement audio
     if(url.indexOf("mp3") != -1){
@@ -367,7 +367,7 @@ function load(url){
         //videoWidth: -1,
         // if set, overrides <video height>
         //videoHeight: -1,
-        
+        videoWidth: newWidth,
         pluginWidth: newWidth,
         
         // width of audio player
@@ -387,7 +387,7 @@ function load(url){
         // force iPad's native controls
         iPadUseNativeControls: false,
         // force iPhone's native controls
-        iPhoneUseNativeControls: false, 
+        iPhoneUseNativeControls: false,
         // force Android's native controls
         AndroidUseNativeControls: false,
         // forces the hour marker (##:00:00)
@@ -436,7 +436,8 @@ function load(url){
 			  allVideos.width(newWidth).height(newHeight);
 			  mediaElement.width(newWidth).height(newHeight);
 			  $('#mep_0').width(newWidth).height(newHeight);
-			   mediaElement.pluginHeight = newHeight;
+			  mediaElement.pluginHeight = newHeight;
+			  mediaElement.height = newHeight;
 			
 			// Kick off one resize to fix all videos on page load
 			}).resize();
