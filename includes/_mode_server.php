@@ -39,7 +39,7 @@
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
 		<div class='well placeholders'>
 			<h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
-			<div id='player-wrapper'>
+			<div id='player-wrapper' width="50%" style="width:100%;position:relative;">
 				Laissez cette page ouverte pour écouter la musique.<br/>
 				Ajouter des musiques depuis vos smartphones<br/>
 				<img src='/img/phone.svg' width='100px' /><br/>

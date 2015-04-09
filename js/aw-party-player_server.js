@@ -350,7 +350,7 @@ function loadByYoutubeId(id){
 
 function load(url){
     playerIsLoaded = true;
-    var htmlin = '<video width="640px" height="360px" style="width:100%; height:100%;" id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
+    var htmlin = '<video width="640" height="360" style="max-width:100%;height:100%;" id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
     // width="'+player_width+'" height="'+player_height+'"
     //version uniquement audio
     if(url.indexOf("mp3") != -1){
