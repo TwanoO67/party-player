@@ -434,7 +434,7 @@ function load(url){
 	// When the window is resized
 	$(window).resize(function() {
 	
-	  var newWidth = fluidEl.width();
+	  var newWidth = fluidEl.width() - 40;//prise en compte du padding
 	
 	  // Resize all videos according to their own aspect ratio
 	  allVideos.each(function() {
