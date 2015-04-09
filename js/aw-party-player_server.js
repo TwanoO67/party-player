@@ -161,9 +161,7 @@ function importSpotify(optionnal_url){
 	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists"
 	if(typeof optionnal_url !== 'undefined' && optionnal_url != ''){
 		playlist_url = optionnal_url;
-		console.log("import2");
 	}
-	console.log("import3"+playlist_url);
 	
     callSpotify(playlist_url, null, function (data) { 
 	    console.log("import4");
@@ -174,7 +172,7 @@ function importSpotify(optionnal_url){
 		});
 		message += "</ul>";
 		
-		if(typeof data.next !== 'undefined' && data.next !== '' ){
+		if(typeof data.next !== 'undefined' && data.next !== null ){
 			var btn = {
 				label: "Suivant",
 				className: "btn-primary",
