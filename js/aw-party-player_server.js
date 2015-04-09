@@ -164,46 +164,41 @@ function importSpotify(url){
 	}
 	
     callSpotify(playlist_url, null, function (data) { 
-	    if(data.result == 'error'){
-			bootbox.alert(data.error);
-	    }
-	    else{
-			var message = "<ul>";
-			data.items.forEach(function(element,index,array){
-			    if (element.name != "" && element.tracks.total > 0)
-			    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
-			});
-			message += "</ul>";
-			
-			if(typeof data.next !== 'undefined' && data.next !== '' ){
-				var btn = {
-					label: "Suivant",
-					className: "btn-primary",
-					callback: function() {
-						BB.hide();
-					    importSpotify(data.next);
-					}
-				};
-			}
-			else{
-				var btn = {
-					label: "Fermer",
-					className: "btn-primary",
-					callback: function() {
-					    BB.hide();
-					}
-				};
-			}
-			
-			BB = bootbox.dialog({
-			    message: message,
-			    title: "Vos playlists sur Spotify",
-			    closeButton: true,
-			    buttons: {
-			      main: btn
-			    }
-			 });
-	    }
+	    var message = "<ul>";
+		data.items.forEach(function(element,index,array){
+		    if (element.name != "" && element.tracks.total > 0)
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
+		});
+		message += "</ul>";
+		
+		if(typeof data.next !== 'undefined' && data.next !== '' ){
+			var btn = {
+				label: "Suivant",
+				className: "btn-primary",
+				callback: function() {
+					BB.hide();
+				    importSpotify(data.next);
+				}
+			};
+		}
+		else{
+			var btn = {
+				label: "Fermer",
+				className: "btn-primary",
+				callback: function() {
+				    BB.hide();
+				}
+			};
+		}
+		
+		BB = bootbox.dialog({
+		    message: message,
+		    title: "Vos playlists sur Spotify",
+		    closeButton: true,
+		    buttons: {
+		      main: btn
+		    }
+		 });
 	});
 }
 
