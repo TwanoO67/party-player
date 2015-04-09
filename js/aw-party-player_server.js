@@ -436,7 +436,7 @@ function load(url){
 			  
 			 
 			  allVideos.width(newWidth).height(newHeight);
-			  mediaElement.width(newWidth).height(newHeight);
+			  //mediaElement.width(newWidth).height(newHeight);
 			  $('#mep_0').width(newWidth).height(newHeight);
 			  mediaElement.pluginHeight = newHeight;
 			  mediaElement.height = newHeight;
