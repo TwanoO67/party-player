@@ -359,11 +359,17 @@ function load(url){
     
     jQuery('#player-wrapper').html(htmlin);
     
+    var fluidEl = $("#colonne_gauche");
+    var newWidth = fluidEl.width() - 40;//prise en compte du padding
+    
     mediaPlayer = new MediaElementPlayer("#audio-player",{
         // if set, overrides <video width>
-        videoWidth: -1,
+        //videoWidth: -1,
         // if set, overrides <video height>
-        videoHeight: -1,
+        //videoHeight: -1,
+        
+        pluginWidth: newWidth,
+        
         // width of audio player
         audioWidth: '100%',
         // height of audio player
@@ -405,7 +411,7 @@ function load(url){
            
            //*******fixer la taille de la video
 		    var allVideos = $("#audio-player");
-		    var fluidEl = $("#colonne_gauche");
+		    
 			console.log("height:"+allVideos.height());
 			console.log("width:"+allVideos.width());
 			var ratio = allVideos.height() / allVideos.width();
@@ -418,7 +424,7 @@ function load(url){
 			// When the window is resized
 			$(window).resize(function() {
 			
-			  var newWidth = fluidEl.width() - 40;//prise en compte du padding
+			 
 			
 			  // Resize all videos according to their own aspect ratio
 			  var newHeight = newWidth * allVideos.data('aspectRatio');
@@ -426,9 +432,11 @@ function load(url){
 			  console.log("new width:"+newWidth);
 			  console.log("new height:"+newHeight);
 			  
+			 
 			  allVideos.width(newWidth).height(newHeight);
 			  mediaElement.width(newWidth).height(newHeight);
 			  $('#mep_0').width(newWidth).height(newHeight);
+			   mediaElement.pluginHeight = newHeight;
 			
 			// Kick off one resize to fix all videos on page load
 			}).resize();
