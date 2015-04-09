@@ -410,14 +410,16 @@ function load(url){
     mediaPlayer.play();
     
     
-    //fixer la taille de la video
-    var $allVideos = $("#player-wrapper"),
-
+    //*******fixer la taille de la video
+    var allVideos = $("#player-wrapper"),
+	console.log("height:"+allVideos.height());
+	console.log("width:"+allVideos.width());
+	console.log("new width:"+fluidEl.width());
     // The element that is fluid width
-    $fluidEl = $("#colonne_gauche");
+    fluidEl = $("#colonne_gauche");
 
 	// Figure out and save aspect ratio for each video
-	$allVideos.each(function() {
+	allVideos.each(function() {
 	
 	  $(this)
 	    .data('aspectRatio', this.height / this.width)
@@ -431,15 +433,15 @@ function load(url){
 	// When the window is resized
 	$(window).resize(function() {
 	
-	  var newWidth = $fluidEl.width();
+	  var newWidth = fluidEl.width();
 	
 	  // Resize all videos according to their own aspect ratio
-	  $allVideos.each(function() {
+	  allVideos.each(function() {
 	
-	    var $el = $(this);
-	    $el
+	    var el = $(this);
+	    el
 	      .width(newWidth)
-	      .height(newWidth * $el.data('aspectRatio'));
+	      .height(newWidth * el.data('aspectRatio'));
 	
 	  });
 	
