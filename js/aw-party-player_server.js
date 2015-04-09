@@ -157,35 +157,51 @@ function callSpotify(url, data, callback) {
 }
 
 //Listing des playlist importable depuis spotify
-function importSpotify(){
-    callSpotify("https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists", null, function (data) { 
+function importSpotify(url){
+	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists"
+	if(typeof url !== 'undefined'){
+		playlist_url = url;
+	}
+	
+    callSpotify(playlist_url, null, function (data) { 
 	    if(data.result == 'error'){
-		bootbox.alert(data.error);
+			bootbox.alert(data.error);
 	    }
 	    else{
-		var message = "<ul>";
-		data.items.forEach(function(element,index,array){
-		    if (element.name != "" && element.tracks.total > 0)
-		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
-		});
-		message += "</ul>";
-		
-		BB = bootbox.dialog({
-		    message: message,
-		    title: "Vos playlists sur Spotify",
-		    closeButton: true,
-		    buttons: {
-		      main: {
-			label: "Fermer",
-			className: "btn-primary",
-			callback: function() {
-			    BB.hide();
-			  //Example.show("Primary button");
+			var message = "<ul>";
+			data.items.forEach(function(element,index,array){
+			    if (element.name != "" && element.tracks.total > 0)
+			    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
+			});
+			message += "</ul>";
+			
+			if(typeof data.next !== 'undefined' && data.next !== '' ){
+				var btn = {
+					label: "Suivant",
+					className: "btn-primary",
+					callback: function() {
+						BB.hide();
+					    importSpotify(data.next);
+				};
 			}
-		      }
-		    }
-		  });
-		
+			else{
+				var btn = {
+					label: "Fermer",
+					className: "btn-primary",
+					callback: function() {
+					    BB.hide();
+				};
+			}
+			
+			BB = bootbox.dialog({
+			    message: message,
+			    title: "Vos playlists sur Spotify",
+			    closeButton: true,
+			    buttons: {
+			      main: btn
+			      }
+			    }
+			 });
 	    }
 	});
 }
