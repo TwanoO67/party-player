@@ -91,7 +91,7 @@ function convertSpotify(){
 }
 
 //Listing des chasnons d'une playlist spotify
-function importSpotifyPlaylist(href) {
+function importSpotifyPlaylist(href,optionnal_last_called_url) {
 	BB.hide();
     callSpotify(href, null, function (data) {
 		//Construction de la présentation de la playlist
@@ -108,19 +108,38 @@ function importSpotifyPlaylist(href) {
 		});
 		message += "</ul>";
 		
+		var btn_success = {
+			label: "Ajouter les chansons à la playlist",
+			className: "btn-success",
+			callback: function() {        
+			    return addSpotifyPlaylistToActualPlaylist();
+			}
+		  };
+		
+		if(typeof optionnal_last_called_url !== 'undefined' && optionnal_last_called_url !== ''){
+			var boutons = {
+			  back: {
+				label: "Retour",
+				className: "btn-default",
+				callback: function() {        
+				    BB.hide();
+				    importSpotify(optionnal_last_called_url);
+				}
+			  },
+		      success: btn_success
+		    };
+		}
+		else{
+			var boutons = {
+		      success: btn_success
+		    };
+		}
+		
 		BB = bootbox.dialog({
 		    message: message,
 		    title: "Playlist : "+data.name,
 		    closeButton: true,
-		    buttons: {
-		      success: {
-				label: "Ajouter les chansons à la playlist",
-				className: "btn-success",
-				callback: function() {        
-				    return addSpotifyPlaylistToActualPlaylist();
-				}
-			  }
-		    }
+		    buttons: boutons
 		  });
 		  
 		  //lancement de la conversion
@@ -168,7 +187,7 @@ function importSpotify(optionnal_url){
 	    var message = "<ul>";
 		data.items.forEach(function(element,index,array){
 		    if (element.name != "" && element.tracks.total > 0)
-		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\",\""+playlist_url+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
 		});
 		message += "</ul>";
 		
@@ -198,7 +217,7 @@ function importSpotify(optionnal_url){
 		if(typeof data.previous !== 'undefined' && data.previous !== null ){
 			var boutons = {
 				btn_prev: {
-					label: "Suivant",
+					label: "Précédent",
 					className: "btn-primary",
 					callback: function() {
 						BB.hide();
@@ -483,12 +502,6 @@ function load(url){
     
     mediaPlayer.play();
     
-    
-    
-    
-    
-    
-
 };
 
 
