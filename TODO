@@ -1,7 +1,8 @@
 //TODO LIST
+- autoplay sur mobile
 - ajoutez les controles de clavier multimedia sur le player
 - essayer de mixer 2 chansons pour les transitions
-- Tester la connexion à spotify et expiration du token, mieux placer les boutons d'import
+- gérer expiration du token spotify, mieux placer les boutons d'import
 - Ajouter un mode d'import depuis twitter (mode public ) permettant de rajouter une chanson en  postant un tweet
 - Nom des jukebox à modifier, nom des client ne dois pas contenir jukebox
 - onglet connexion avec compte sur partyplayer, lié a facebook, spotify, twitter etc...
@@ -15,7 +16,5 @@
 - room privé/public avec pass?
 - gérer des nom au choix, plutot que des id (attention à la disponibilité)
 - proposer les dernières playlist modifié en accés rapide
-- ne plus mettre le playlist antiflood si on a pas eu de data [Normalement c'est ok, mais a verifier si pas d'appel trop frequent]
-- faire un fondu enchainé des musics
 - integrer un flux rss de next.dj pour pré-remplir les playlists
-- recuperation playlist deezer, soundcloud, youtube etc...
+- recuperation playlist deezer, soundcloud, youtube, m3u etc...

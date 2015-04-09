@@ -97,6 +97,9 @@ $boostrapversion = "3.3.2";
         background-color: #f5f5f5;
         height: 30px;
     }
+    .spotify_import_button{
+	    cursor: pointer;
+    }
 </style>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -127,8 +130,8 @@ $boostrapversion = "3.3.2";
                 <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées.<br/>
                     <br/>
                     Le concept:<br/>
-                    - Vos amis peuvent ajouter des musiques/clips<br/>
-                    - Voter pour/contre les musiques<br/>
+                    - Votre ordinateur sert de jukebox
+                    - Vos amis ajoutent des musiques avec leur smartphone<br/>
                     - Le jukebox lit en continue les musiques les mieux notées<br/>
                     - La soirée peut commencer!!!<br/>
                 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>
@@ -144,7 +147,7 @@ $boostrapversion = "3.3.2";
                 <h1><img src="/img/computer.svg" width='100px'/> + <img src="/img/audio.svg" width='100px'/> = JukeBox!</h1>
                 <br/>
                 <p>
-                    Le JukeBox va pouvoir:<br/>
+                    Le JukeBox va:<br/>
                     - Recevoir les musiques de vos amis<br/>
                     - Afficher les clips, et lire la musique sur ces enceintes<br/>
                 </p>

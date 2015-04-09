@@ -91,7 +91,7 @@ function convertSpotify(){
 }
 
 //Listing des chasnons d'une playlist spotify
-function importSpotifyPlaylist(href) {
+function importSpotifyPlaylist(href,optionnal_last_called_url) {
 	BB.hide();
     callSpotify(href, null, function (data) {
 		//Construction de la présentation de la playlist
@@ -108,19 +108,38 @@ function importSpotifyPlaylist(href) {
 		});
 		message += "</ul>";
 		
+		var btn_success = {
+			label: "Ajouter les chansons à la playlist",
+			className: "btn-success",
+			callback: function() {        
+			    return addSpotifyPlaylistToActualPlaylist();
+			}
+		  };
+		
+		if(typeof optionnal_last_called_url !== 'undefined' && optionnal_last_called_url !== ''){
+			var boutons = {
+			  back: {
+				label: "Retour",
+				className: "btn-default",
+				callback: function() {        
+				    BB.hide();
+				    importSpotify(optionnal_last_called_url);
+				}
+			  },
+		      success: btn_success
+		    };
+		}
+		else{
+			var boutons = {
+		      success: btn_success
+		    };
+		}
+		
 		BB = bootbox.dialog({
 		    message: message,
 		    title: "Playlist : "+data.name,
 		    closeButton: true,
-		    buttons: {
-		      success: {
-				label: "Ajouter les chansons à la playlist",
-				className: "btn-success",
-				callback: function() {        
-				    return addSpotifyPlaylistToActualPlaylist();
-				}
-			  }
-		    }
+		    buttons: boutons
 		  });
 		  
 		  //lancement de la conversion
@@ -145,7 +164,7 @@ function callSpotify(url, data, callback) {
         dataType: 'json',
         data: data,
         headers: {
-            'Authorization': 'Bearer ' + spotify_access_token
+            'Authorization': 'Bearer ' + $.cookie('spotify_token')
         },
         success: function(r) {
             callback(r);
@@ -157,36 +176,70 @@ function callSpotify(url, data, callback) {
 }
 
 //Listing des playlist importable depuis spotify
-function importSpotify(){
-    callSpotify("https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists", null, function (data) { 
-	    if(data.result == 'error'){
-		bootbox.alert(data.error);
-	    }
-	    else{
-		var message = "<ul>";
+function importSpotify(optionnal_url){
+	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists";
+	if(typeof optionnal_url !== 'undefined' && optionnal_url != ''){
+		playlist_url = optionnal_url;
+	}
+	
+    callSpotify(playlist_url, null, function (data) { 
+	    console.log("import4");
+	    var message = "<ul>";
 		data.items.forEach(function(element,index,array){
 		    if (element.name != "" && element.tracks.total > 0)
-		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
+		    message += "<li> <a href='#' onclick='importSpotifyPlaylist(\""+element.href+"\",\""+playlist_url+"\");'>"+element.name+"</a> ("+element.tracks.total+" titres)</li>";
 		});
 		message += "</ul>";
+		
+		//si un next existe on ajoute au bouton
+		if(typeof data.next !== 'undefined' && data.next !== null ){
+			var btn = {
+				label: "Suivant",
+				className: "btn-primary",
+				callback: function() {
+					BB.hide();
+				    importSpotify(data.next);
+				}
+			};
+		}
+		//sinon on met un bouton fermer
+		else{
+			var btn = {
+				label: "Fermer",
+				className: "btn-primary",
+				callback: function() {
+				    BB.hide();
+				}
+			};
+		}
+		
+		//si un previous existe on l'ajoute au bouton
+		if(typeof data.previous !== 'undefined' && data.previous !== null ){
+			var boutons = {
+				btn_prev: {
+					label: "Précédent",
+					className: "btn-primary",
+					callback: function() {
+						BB.hide();
+					    importSpotify(data.previous);
+					}
+				},
+				main: btn
+			};
+		}
+		else{
+			var boutons = {
+		      main: btn
+		    }
+		}
+		
 		
 		BB = bootbox.dialog({
 		    message: message,
 		    title: "Vos playlists sur Spotify",
 		    closeButton: true,
-		    buttons: {
-		      main: {
-			label: "Fermer",
-			className: "btn-primary",
-			callback: function() {
-			    BB.hide();
-			  //Example.show("Primary button");
-			}
-		      }
-		    }
-		  });
-		
-	    }
+		    buttons: boutons
+		 });
 	});
 }
 
@@ -350,7 +403,7 @@ function loadByYoutubeId(id){
 
 function load(url){
     playerIsLoaded = true;
-    var htmlin = '<video id="audio-player" width="640"  height="360" style="max-width:100%;height:100%;" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
+    var htmlin = '<video width="640" height="360" style="max-width:100%;height:100%;" id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
     // width="'+player_width+'" height="'+player_height+'"
     //version uniquement audio
     if(url.indexOf("mp3") != -1){
@@ -359,11 +412,15 @@ function load(url){
     
     jQuery('#player-wrapper').html(htmlin);
     
+    var fluidEl = $("#colonne_gauche");
+    var newWidth = fluidEl.width() - 40;//prise en compte du padding
+    
     mediaPlayer = new MediaElementPlayer("#audio-player",{
-        // if set, overrides <video width>
-        videoWidth: -1,
-        // if set, overrides <video height>
-        videoHeight: -1,
+        videoWidth: newWidth,
+        videoHeight: "100%",
+        pluginWidth: newWidth,
+        pluginHeight: "100%",
+        
         // width of audio player
         audioWidth: '100%',
         // height of audio player
@@ -381,7 +438,7 @@ function load(url){
         // force iPad's native controls
         iPadUseNativeControls: false,
         // force iPhone's native controls
-        iPhoneUseNativeControls: false, 
+        iPhoneUseNativeControls: false,
         // force Android's native controls
         AndroidUseNativeControls: false,
         // forces the hour marker (##:00:00)
@@ -402,30 +459,72 @@ function load(url){
            mediaElement.addEventListener('canplay', function() {
                 mediaPlayer.play();
            }, false);
-       
+           
+           // Resize all videos according to their own aspect ratio
+			var newHeight = newWidth * (9/16);//allVideos.data('aspectRatio');
+            mediaPlayer.player.setPlayerSize(w,h);
+            mediaPlayer.player.setVideoSize(w,h);
+           
+           /*******fixer la taille de la video
+		    var allVideos = $("#audio-player");
+		    
+			console.log("height:"+allVideos.height());
+			console.log("width:"+allVideos.width());
+			var ratio = allVideos.height() / allVideos.width();
+			console.log("ratio:"+ratio);
+			allVideos.data('aspectRatio', ratio );
+			// and remove the hard coded width/height
+			allVideos.removeAttr('height');
+			allVideos.removeAttr('width');
+			
+			// When the window is resized
+			$(window).resize(function() {
+			
+			 
+			
+			  
+			  
+			  console.log("new width:"+newWidth);
+			  console.log("new height:"+newHeight);
+			  
+			 
+			  allVideos.width(newWidth).height(newHeight);
+			  //mediaElement.width(newWidth).height(newHeight);
+			  $('#mep_0').width(newWidth).height(newHeight);
+			  mediaElement.pluginHeight = newHeight;
+			  mediaElement.height = newHeight;
+			
+			// Kick off one resize to fix all videos on page load
+			}).resize();*/
            
         }
     });
     
     mediaPlayer.play();
-
+    
 };
 
 
 $(document).ready(function(){
-	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
-		$('#spotify_button').html("Importer depuis Spotify");
-		$('#spotify_button').click(importSpotify);
+	var spotify_buttons = $('.spotify_import_button');
+	if ($.cookie('spotify_token') != '') {
 		fetchCurrentUserProfile(function(user){
 			spotifyUser = null;
 			if (user) {
 				spotifyUser = user;
+				spotify_buttons.html("Importer depuis Spotify");
+				spotify_buttons.click(function(){importSpotify();});
+			}
+			else{
+				$.cookie('spotify_token','');
+				spotify_buttons.html("Connexion à Spotify");
+				spotify_buttons.click(function(){authorizeSpotifyUser();});
 			}
 		});
 	}
 	else{
-		$('#spotify_button').html("Connexion à Spotify");
-		$('#spotify_button').click(authorizeSpotifyUser);
+		spotify_buttons.html("Connexion à Spotify");
+		spotify_buttons.click(function(){authorizeSpotifyUser();});
 	}
 })
 

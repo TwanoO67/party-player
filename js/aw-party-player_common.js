@@ -87,7 +87,7 @@ function playlistVide(){
 }
 
 function messagePartage(){
-	message('success',"Partagez avec vos amis!","Lien: <a href='"+session_url+"' target='_new' >"+session_url+"</a> ou le JukeBox CODE <b> <a target='_new' href='"+session_url+"' >"+sessid+"</a></b> ");
+	message('success',"Partagez avec vos amis!","Lien: <a href='"+session_url+"' target='_new' >"+session_url+"</a> ou rejoignez le JukeBox: <b> <a target='_new' href='"+session_url+"' >"+sessid+"</a></b> ");
 }
 
 function cible(element){
@@ -480,6 +480,23 @@ function parseArgs() {
     return args;
 }
 
+function findBootstrapEnvironment() {
+    var envs = ['xs', 'sm', 'md', 'lg'];
+
+    $el = $('<div>');
+    $el.appendTo($('body'));
+
+    for (var i = envs.length - 1; i >= 0; i--) {
+        var env = envs[i];
+
+        $el.addClass('hidden-'+env);
+        if ($el.is(':hidden')) {
+            $el.remove();
+            return env
+        }
+    };
+}
+
 $(document).ready(function(){
     //récupération du username si existant
     username = "";
@@ -493,7 +510,7 @@ $(document).ready(function(){
     if ('access_token' in args) {
         accessToken = args['access_token'];
         $.cookie('spotify_token',accessToken);
-        document.location = window.atob(args['state'])+"&spotify_access_token="+accessToken;
+        document.location = window.atob(args['state']);
     }
     
     
