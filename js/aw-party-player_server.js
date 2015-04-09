@@ -407,7 +407,7 @@ function load(url){
                 mediaPlayer.play();
            }, false);
            
-           alert(findBootstrapEnvironment());
+           
            
         }
     });
@@ -415,7 +415,7 @@ function load(url){
     mediaPlayer.play();
     
     
-    
+    alert(findBootstrapEnvironment());
     
     
     
