@@ -412,8 +412,8 @@ function load(url){
 			console.log("ratio:"+ratio);
 			allVideos.data('aspectRatio', ratio );
 			// and remove the hard coded width/height
-			.removeAttr('height')
-			.removeAttr('width');
+			allVideos.removeAttr('height');
+			allVideos.removeAttr('width');
 			
 			// When the window is resized
 			$(window).resize(function() {
@@ -422,9 +422,12 @@ function load(url){
 			
 			  // Resize all videos according to their own aspect ratio
 			  var newHeight = newWidth * allVideos.data('aspectRatio');
-			  allVideos.width(newWidth).height(newHeight);
+			  
 			  console.log("new width:"+newWidth);
 			  console.log("new height:"+newHeight);
+			  
+			  allVideos.width(newWidth).height(newHeight);
+			  
 
 			
 			// Kick off one resize to fix all videos on page load
