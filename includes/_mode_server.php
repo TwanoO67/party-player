@@ -37,21 +37,6 @@
 	<div id='message'></div>
 
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
-		<script>
-			#player-wrapper {
-				position: relative;
-				padding-bottom: 56.25%; /* 16:9 */
-				padding-top: 25px;
-				height: 0;
-			}
-			#player-wrapper iframe, video {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-			}
-		</script>
 		<div class='well placeholders'>
 			<h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
 			<div id='player-wrapper'>
