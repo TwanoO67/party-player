@@ -429,7 +429,7 @@ function load(url){
 			 
 			
 			  // Resize all videos according to their own aspect ratio
-			  var newHeight = newWidth * allVideos.data('aspectRatio');
+			  var newHeight = newWidth * (16/9);//allVideos.data('aspectRatio');
 			  
 			  console.log("new width:"+newWidth);
 			  console.log("new height:"+newHeight);
