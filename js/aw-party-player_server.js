@@ -402,7 +402,6 @@ function load(url){
            mediaElement.addEventListener('canplay', function() {
                 mediaPlayer.play();
            }, false);
-		   mediaPlayer.play();
            
         }
     });
@@ -415,7 +414,7 @@ function load(url){
     var fluidEl = $("#colonne_gauche");
 	console.log("height:"+allVideos.height());
 	console.log("width:"+allVideos.width());
-	console.log("new width:"+fluidEl.width());
+	
     // The element that is fluid width
     
 
@@ -443,7 +442,8 @@ function load(url){
 	    el
 	      .width(newWidth)
 	      .height(newWidth * el.data('aspectRatio'));
-	
+		  console.log("new width:"+newWidth);
+		  console.log("new height:"+(newWidth * el.data('aspectRatio')));
 	  });
 	
 	// Kick off one resize to fix all videos on page load
