@@ -350,7 +350,7 @@ function loadByYoutubeId(id){
 
 function load(url){
     playerIsLoaded = true;
-    var htmlin = '<video id="audio-player" style="max-width:100%;height:100%;" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
+    var htmlin = '<video id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
     // width="'+player_width+'" height="'+player_height+'"
     //version uniquement audio
     if(url.indexOf("mp3") != -1){
@@ -408,6 +408,46 @@ function load(url){
     });
     
     mediaPlayer.play();
+    
+    
+    //fixer la taille de la video
+    var $allVideos = $("#player-wrapper"),
+
+    // The element that is fluid width
+    $fluidEl = $("#colonne_gauche");
+
+	// Figure out and save aspect ratio for each video
+	$allVideos.each(function() {
+	
+	  $(this)
+	    .data('aspectRatio', this.height / this.width)
+	
+	    // and remove the hard coded width/height
+	    .removeAttr('height')
+	    .removeAttr('width');
+	
+	});
+	
+	// When the window is resized
+	$(window).resize(function() {
+	
+	  var newWidth = $fluidEl.width();
+	
+	  // Resize all videos according to their own aspect ratio
+	  $allVideos.each(function() {
+	
+	    var $el = $(this);
+	    $el
+	      .width(newWidth)
+	      .height(newWidth * $el.data('aspectRatio'));
+	
+	  });
+	
+	// Kick off one resize to fix all videos on page load
+	}).resize();
+    
+    
+    
 
 };
 
