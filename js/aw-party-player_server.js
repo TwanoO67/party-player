@@ -182,6 +182,7 @@ function importSpotify(url){
 					callback: function() {
 						BB.hide();
 					    importSpotify(data.next);
+					}
 				};
 			}
 			else{
@@ -190,6 +191,7 @@ function importSpotify(url){
 					className: "btn-primary",
 					callback: function() {
 					    BB.hide();
+					}
 				};
 			}
 			
