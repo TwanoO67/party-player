@@ -407,38 +407,7 @@ function load(url){
                 mediaPlayer.play();
            }, false);
            
-           /*******fixer la taille de la video
-		    var allVideos = $("#audio-player");
-		    
-			console.log("height:"+allVideos.height());
-			console.log("width:"+allVideos.width());
-			var ratio = allVideos.height() / allVideos.width();
-			console.log("ratio:"+ratio);
-			allVideos.data('aspectRatio', ratio );
-			// and remove the hard coded width/height
-			allVideos.removeAttr('height');
-			allVideos.removeAttr('width');
-			
-			// When the window is resized
-			$(window).resize(function() {
-			
-			 
-			
-			  // Resize all videos according to their own aspect ratio
-			  var newHeight = newWidth * (9/16);//allVideos.data('aspectRatio');
-			  
-			  console.log("new width:"+newWidth);
-			  console.log("new height:"+newHeight);
-			  
-			 
-			  allVideos.width(newWidth).height(newHeight);
-			  //mediaElement.width(newWidth).height(newHeight);
-			  $('#mep_0').width(newWidth).height(newHeight);
-			  mediaElement.pluginHeight = newHeight;
-			  mediaElement.height = newHeight;
-			
-			// Kick off one resize to fix all videos on page load
-			}).resize();*/
+           alert(findBootstrapEnvironment());
            
         }
     });
