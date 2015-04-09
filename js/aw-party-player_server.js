@@ -402,7 +402,7 @@ function load(url){
            mediaElement.addEventListener('canplay', function() {
                 mediaPlayer.play();
            }, false);
-       
+		   mediaPlayer.play();
            
         }
     });
