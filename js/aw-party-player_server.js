@@ -404,7 +404,7 @@ function load(url){
            }, false);
            
            //*******fixer la taille de la video
-		    var allVideos = $("#player-wrapper");
+		    var allVideos = $("#audio-player");
 		    var fluidEl = $("#colonne_gauche");
 			console.log("height:"+allVideos.height());
 			console.log("width:"+allVideos.width());
