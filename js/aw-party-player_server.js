@@ -201,7 +201,6 @@ function importSpotify(url){
 			    closeButton: true,
 			    buttons: {
 			      main: btn
-			      }
 			    }
 			 });
 	    }
