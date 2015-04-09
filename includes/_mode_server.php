@@ -43,11 +43,12 @@
 				Laissez cette page ouverte pour écouter la musique.<br/>
 				Ajouter des musiques depuis vos smartphones<br/>
 				<img src='/img/phone.svg' width='100px' /><br/>
-				Flashez le QRCode  ==><br/>
+				Flashez le QRCode  ou aller sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
 				<br/>
-				ou<br/>
-				<br/>
-				Allez sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
+				Vous pouvez aussi charger une playlist depuis Spotify:<br/>
+				<a class="spotify_import_button" >Spotify</a>
+				
+				
 			</div>
 			<div id='vote-area-ph'></div>
 		</div>

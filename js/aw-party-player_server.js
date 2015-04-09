@@ -506,24 +506,25 @@ function load(url){
 
 
 $(document).ready(function(){
+	var spotify_buttons = $('.spotify_import_button');
 	if ($.cookie('spotify_token') != '') {
 		fetchCurrentUserProfile(function(user){
 			spotifyUser = null;
 			if (user) {
 				spotifyUser = user;
-				$('#spotify_button').html("Importer depuis Spotify");
-				$('#spotify_button').click(function(){importSpotify();});
+				spotify_buttons.html("Importer depuis Spotify");
+				spotify_buttons.click(function(){importSpotify();});
 			}
 			else{
 				$.cookie('spotify_token','');
-				$('#spotify_button').html("Connexion à Spotify");
-				$('#spotify_button').click(function(){authorizeSpotifyUser();});
+				spotify_buttons.html("Connexion à Spotify");
+				spotify_buttons.click(function(){authorizeSpotifyUser();});
 			}
 		});
 	}
 	else{
-		$('#spotify_button').html("Connexion à Spotify");
-		$('#spotify_button').click(function(){authorizeSpotifyUser();});
+		spotify_buttons.html("Connexion à Spotify");
+		spotify_buttons.click(function(){authorizeSpotifyUser();});
 	}
 })
 

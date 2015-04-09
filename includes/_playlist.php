@@ -20,7 +20,7 @@
                     <a role="menuitem" tabindex="-1" onclick='markAllAsUnread();'>Marquer comme non-lus</a>
                 </li>
                 <li role="presentation">
-                	<a role="menuitem" tabindex="-1" id='spotify_button'>Spotify</a>
+                	<a role="menuitem" tabindex="-1" class='spotify_import_button'>Spotify</a>
                 </li>
                 <!--<li role="presentation" class="divider"></li>
                 <li role="presentation">
