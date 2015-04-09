@@ -476,7 +476,7 @@ function load(url){
 $(document).ready(function(){
 	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
 		$('#spotify_button').html("Importer depuis Spotify");
-		$('#spotify_button').click(importSpotify);
+		$('#spotify_button').click(function(){importSpotify();});
 		fetchCurrentUserProfile(function(user){
 			spotifyUser = null;
 			if (user) {
@@ -486,7 +486,7 @@ $(document).ready(function(){
 	}
 	else{
 		$('#spotify_button').html("Connexion à Spotify");
-		$('#spotify_button').click(authorizeSpotifyUser);
+		$('#spotify_button').click(function(){authorizeSpotifyUser();});
 	}
 })
 
