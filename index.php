@@ -97,6 +97,9 @@ $boostrapversion = "3.3.2";
         background-color: #f5f5f5;
         height: 30px;
     }
+    .spotify_import_button{
+	    cursor: pointer;
+    }
 </style>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
