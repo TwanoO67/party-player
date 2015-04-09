@@ -128,7 +128,7 @@ $boostrapversion = "3.3.2";
                     <br/>
                     Le concept:<br/>
                     - Votre ordinateur sert de jukebox
-                    - Vos amis ajoute des musiques avec leur smartphone<br/>
+                    - Vos amis ajoutent des musiques avec leur smartphone<br/>
                     - Le jukebox lit en continue les musiques les mieux notées<br/>
                     - La soirée peut commencer!!!<br/>
                 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>

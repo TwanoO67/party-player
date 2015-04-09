@@ -172,6 +172,7 @@ function importSpotify(optionnal_url){
 		});
 		message += "</ul>";
 		
+		//si un next existe on ajoute au bouton
 		if(typeof data.next !== 'undefined' && data.next !== null ){
 			var btn = {
 				label: "Suivant",
@@ -182,6 +183,7 @@ function importSpotify(optionnal_url){
 				}
 			};
 		}
+		//sinon on met un bouton fermer
 		else{
 			var btn = {
 				label: "Fermer",
@@ -192,13 +194,32 @@ function importSpotify(optionnal_url){
 			};
 		}
 		
+		//si un previous existe on l'ajoute au bouton
+		if(typeof data.previous !== 'undefined' && data.previous !== null ){
+			var boutons = {
+				btn_prev: {
+					label: "Suivant",
+					className: "btn-primary",
+					callback: function() {
+						BB.hide();
+					    importSpotify(data.previous);
+					}
+				},
+				main: btn
+			};
+		}
+		else{
+			var boutons = {
+		      main: btn
+		    }
+		}
+		
+		
 		BB = bootbox.dialog({
 		    message: message,
 		    title: "Vos playlists sur Spotify",
 		    closeButton: true,
-		    buttons: {
-		      main: btn
-		    }
+		    buttons: boutons
 		 });
 	});
 }
