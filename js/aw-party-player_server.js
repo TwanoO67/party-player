@@ -363,10 +363,10 @@ function load(url){
     var newWidth = fluidEl.width() - 40;//prise en compte du padding
     
     mediaPlayer = new MediaElementPlayer("#audio-player",{
-        /*videoWidth: newWidth,
+        videoWidth: newWidth,
         videoHeight: "100%",
         pluginWidth: newWidth,
-        pluginHeight: "100%",*/
+        pluginHeight: "100%",
         
         // width of audio player
         audioWidth: '100%',
@@ -413,12 +413,6 @@ function load(url){
     });
     
     mediaPlayer.play();
-    
-    
-    alert(findBootstrapEnvironment());
-    
-    
-    
 
 };
 
