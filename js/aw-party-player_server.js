@@ -408,7 +408,9 @@ function load(url){
 		    var fluidEl = $("#colonne_gauche");
 			console.log("height:"+allVideos.height());
 			console.log("width:"+allVideos.width());
-			allVideos.data('aspectRatio', allVideos.height() / allVideos.width())
+			var ratio = allVideos.height() / allVideos.width();
+			console.log("ratio:"+ratio);
+			allVideos.data('aspectRatio', ratio );
 			// and remove the hard coded width/height
 			.removeAttr('height')
 			.removeAttr('width');
@@ -419,7 +421,7 @@ function load(url){
 			  var newWidth = fluidEl.width() - 40;//prise en compte du padding
 			
 			  // Resize all videos according to their own aspect ratio
-			  var newHeight = newWidth * el.data('aspectRatio');
+			  var newHeight = newWidth * allVideos.data('aspectRatio');
 			  allVideos.width(newWidth).height(newHeight);
 			  console.log("new width:"+newWidth);
 			  console.log("new height:"+newHeight);
