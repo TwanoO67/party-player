@@ -411,12 +411,13 @@ function load(url){
     
     
     //*******fixer la taille de la video
-    var allVideos = $("#player-wrapper"),
+    var allVideos = $("#player-wrapper");
+    fluidEl = $("#colonne_gauche");
 	console.log("height:"+allVideos.height());
 	console.log("width:"+allVideos.width());
 	console.log("new width:"+fluidEl.width());
     // The element that is fluid width
-    fluidEl = $("#colonne_gauche");
+    
 
 	// Figure out and save aspect ratio for each video
 	allVideos.each(function() {
