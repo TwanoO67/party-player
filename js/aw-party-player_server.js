@@ -163,7 +163,7 @@ function importSpotify(optionnal_url){
 		playlist_url = optionnal_url;
 		console.log("import2");
 	}
-	console.log("import3");
+	console.log("import3"+playlist_url);
 	
     callSpotify(playlist_url, null, function (data) { 
 	    console.log("import4");
