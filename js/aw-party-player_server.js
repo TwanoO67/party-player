@@ -363,10 +363,6 @@ function load(url){
     var newWidth = fluidEl.width() - 40;//prise en compte du padding
     
     mediaPlayer = new MediaElementPlayer("#audio-player",{
-        // if set, overrides <video width>
-        //videoWidth: -1,
-        // if set, overrides <video height>
-        //videoHeight: -1,
         videoWidth: newWidth,
         videoHeight: "100%",
         pluginWidth: newWidth,
@@ -411,7 +407,7 @@ function load(url){
                 mediaPlayer.play();
            }, false);
            
-           //*******fixer la taille de la video
+           /*******fixer la taille de la video
 		    var allVideos = $("#audio-player");
 		    
 			console.log("height:"+allVideos.height());
@@ -442,7 +438,7 @@ function load(url){
 			  mediaElement.height = newHeight;
 			
 			// Kick off one resize to fix all videos on page load
-			}).resize();
+			}).resize();*/
            
         }
     });
