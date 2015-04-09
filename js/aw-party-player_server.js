@@ -494,12 +494,12 @@ function load(url){
 
 $(document).ready(function(){
 	if ($.cookie('spotify_token') != '') {
-		$('#spotify_button').html("Importer depuis Spotify");
-		$('#spotify_button').click(function(){importSpotify();});
 		fetchCurrentUserProfile(function(user){
 			spotifyUser = null;
 			if (user) {
 				spotifyUser = user;
+				$('#spotify_button').html("Importer depuis Spotify");
+				$('#spotify_button').click(function(){importSpotify();});
 			}
 			else{
 				$.cookie('spotify_token','');
