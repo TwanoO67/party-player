@@ -350,7 +350,7 @@ function loadByYoutubeId(id){
 
 function load(url){
     playerIsLoaded = true;
-    var htmlin = '<video id="audio-player" width="100%" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
+    var htmlin = '<video id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
     // width="'+player_width+'" height="'+player_height+'"
     //version uniquement audio
     if(url.indexOf("mp3") != -1){
@@ -408,21 +408,10 @@ function load(url){
 		    var fluidEl = $("#colonne_gauche");
 			console.log("height:"+allVideos.height());
 			console.log("width:"+allVideos.width());
-			
-		    // The element that is fluid width
-		    
-		
-			// Figure out and save aspect ratio for each video
-			allVideos.each(function() {
-			
-			  $(this)
-			    .data('aspectRatio', this.height / this.width)
-			
-			    // and remove the hard coded width/height
-			    .removeAttr('height')
-			    .removeAttr('width');
-			
-			});
+			allVideos.data('aspectRatio', allVideos.height() / allVideos.width())
+			// and remove the hard coded width/height
+			.removeAttr('height')
+			.removeAttr('width');
 			
 			// When the window is resized
 			$(window).resize(function() {
@@ -430,15 +419,11 @@ function load(url){
 			  var newWidth = fluidEl.width() - 40;//prise en compte du padding
 			
 			  // Resize all videos according to their own aspect ratio
-			  allVideos.each(function() {
-			
-			    var el = $(this);
-			    el
-			      .width(newWidth)
-			      .height(newWidth * el.data('aspectRatio'));
-				  console.log("new width:"+newWidth);
-				  console.log("new height:"+(newWidth * el.data('aspectRatio')));
-			  });
+			  var newHeight = newWidth * el.data('aspectRatio');
+			  allVideos.width(newWidth).height(newHeight);
+			  console.log("new width:"+newWidth);
+			  console.log("new height:"+newHeight);
+
 			
 			// Kick off one resize to fix all videos on page load
 			}).resize();
