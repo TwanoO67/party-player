@@ -37,10 +37,24 @@
 	<div id='message'></div>
 
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
-
+		<script>
+			#player-wrapper {
+				position: relative;
+				padding-bottom: 56.25%; /* 16:9 */
+				padding-top: 25px;
+				height: 0;
+			}
+			#player-wrapper iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</script>
 		<div class='well placeholders'>
 			<h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
-			<div id='player-wrapper' width="50%" style="width:100%;position:relative;">
+			<div id='player-wrapper'>
 				Laissez cette page ouverte pour écouter la musique.<br/>
 				Ajouter des musiques depuis vos smartphones<br/>
 				<img src='/img/phone.svg' width='100px' /><br/>
@@ -49,8 +63,6 @@
 				ou<br/>
 				<br/>
 				Allez sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
-				<!--Participer au JukeBox, CODE: <b><? echo $sessid ?></b><br/>-->
-				<input type='button' id='go' value='spotify' />
 			</div>
 			<div id='vote-area-ph'></div>
 		</div>
