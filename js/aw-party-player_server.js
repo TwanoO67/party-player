@@ -157,10 +157,10 @@ function callSpotify(url, data, callback) {
 }
 
 //Listing des playlist importable depuis spotify
-function importSpotify(url){
+function importSpotify(optionnal_url){
 	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists"
-	if(typeof url !== 'undefined'){
-		playlist_url = url;
+	if(typeof optionnal_url !== 'undefined'){
+		playlist_url = optionnal_url;
 	}
 	
     callSpotify(playlist_url, null, function (data) { 
