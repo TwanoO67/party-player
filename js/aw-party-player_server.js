@@ -427,7 +427,7 @@ function load(url){
 			  console.log("new height:"+newHeight);
 			  
 			  allVideos.width(newWidth).height(newHeight);
-			  
+			  mediaElement.width(newWidth).height(newHeight);
 
 			
 			// Kick off one resize to fix all videos on page load
