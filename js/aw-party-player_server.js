@@ -159,11 +159,15 @@ function callSpotify(url, data, callback) {
 //Listing des playlist importable depuis spotify
 function importSpotify(optionnal_url){
 	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists"
+	console.log("import1");
 	if(typeof optionnal_url !== 'undefined'){
 		playlist_url = optionnal_url;
+		console.log("import2");
 	}
+	console.log("import3");
 	
     callSpotify(playlist_url, null, function (data) { 
+	    console.log("import4");
 	    var message = "<ul>";
 		data.items.forEach(function(element,index,array){
 		    if (element.name != "" && element.tracks.total > 0)
