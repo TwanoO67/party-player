@@ -145,7 +145,7 @@ function callSpotify(url, data, callback) {
         dataType: 'json',
         data: data,
         headers: {
-            'Authorization': 'Bearer ' + spotify_access_token
+            'Authorization': 'Bearer ' + $.cookie('spotify_token')
         },
         success: function(r) {
             callback(r);
@@ -158,7 +158,7 @@ function callSpotify(url, data, callback) {
 
 //Listing des playlist importable depuis spotify
 function importSpotify(optionnal_url){
-	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists"
+	var playlist_url = "https://api.spotify.com/v1/users/"+spotifyUser.id+"/playlists";
 	if(typeof optionnal_url !== 'undefined' && optionnal_url != ''){
 		playlist_url = optionnal_url;
 	}
@@ -493,13 +493,18 @@ function load(url){
 
 
 $(document).ready(function(){
-	if (typeof spotify_access_token !== 'undefined' && spotify_access_token != '') {
+	if ($.cookie('spotify_token') != '') {
 		$('#spotify_button').html("Importer depuis Spotify");
 		$('#spotify_button').click(function(){importSpotify();});
 		fetchCurrentUserProfile(function(user){
 			spotifyUser = null;
 			if (user) {
 				spotifyUser = user;
+			}
+			else{
+				$.cookie('spotify_token','');
+				$('#spotify_button').html("Connexion à Spotify");
+				$('#spotify_button').click(function(){authorizeSpotifyUser();});
 			}
 		});
 	}
