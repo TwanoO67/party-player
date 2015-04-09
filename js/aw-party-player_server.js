@@ -428,7 +428,7 @@ function load(url){
 			  
 			  allVideos.width(newWidth).height(newHeight);
 			  mediaElement.width(newWidth).height(newHeight);
-
+			  $('#mep_0').width(newWidth).height(newHeight);
 			
 			// Kick off one resize to fix all videos on page load
 			}).resize();
