@@ -9,7 +9,7 @@ include_once('config.php');
 <html lang='fr'>
 <?php
 
-$rand_sessid = strtoupper(substr(md5(rand()), 0, 3));
+$rand_sessid = strtoupper(substr(md5(rand()), 0, 4));
 $sessid = '';
 if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
