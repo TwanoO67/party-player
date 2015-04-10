@@ -5,7 +5,8 @@ Party Player ( http://partyplayer.fr )
 
 Interface web de gestion de playlist collaborative, basée sur les videos youtube.
 
-
+![party player demo]
+(http://partyplayer.fr/demo.png)
 
 =============
 

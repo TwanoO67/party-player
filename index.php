@@ -129,8 +129,7 @@ $boostrapversion = "3.3.2";
                 <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Partagez votre musique!</h1>
                 <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées.<br/>
                     <br/>
-                    Le concept:<br/>
-                    - Votre ordinateur sert de jukebox
+                    - Votre ordinateur sert de jukebox<br/>
                     - Vos amis ajoutent des musiques avec leur smartphone<br/>
                     - Le jukebox lit en continue les musiques les mieux notées<br/>
                     - La soirée peut commencer!!!<br/>
@@ -149,7 +148,7 @@ $boostrapversion = "3.3.2";
                 <p>
                     Le JukeBox va:<br/>
                     - Recevoir les musiques de vos amis<br/>
-                    - Afficher les clips, et lire la musique sur ces enceintes<br/>
+                    - Afficher les clips, et lire la musique sur ses enceintes<br/>
                 </p>
                 <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo2').hide();$('#jumbo3').show()" role="button">Ok</a></p>
             </div>
@@ -175,7 +174,7 @@ $boostrapversion = "3.3.2";
                     <br/>
                     - Cliquez sur "Créer un JukeBox", puis laissez la page ouverte<br/>
                     <br/>
-                    - Utilisez vos smartphones pour ajouter des musiques<br/>
+                    - Utilisez votre smartphone pour ajouter des musiques<br/>
                 </p>
                 <p>
                     <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;" role="button">Créer un JukeBox</a>
