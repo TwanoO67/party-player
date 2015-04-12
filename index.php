@@ -11,7 +11,7 @@ include_once('config.php');
 
 //on définis un nouvel id dispo
 do {
-    $rand_sessid = $rand_sessid = rand(10,9999);//strtoupper(substr(md5(rand()), 0, 4));//ID non-num à utiliser si bcp de user
+    $rand_sessid = $rand_sessid = rand(10,999);//strtoupper(substr(md5(rand()), 0, 4));//ID non-num à utiliser si bcp de user
 } while (file_exists('_playlists/'.$rand_sessid.".json"));
 
 $sessid = '';
@@ -48,7 +48,6 @@ $boostrapversion = "3.3.2";
 </head>
 
 <body>
-	<?php echo ANALYTICS; ?>
 <style>
     .row{
         margin-left: 15px;
@@ -334,7 +333,7 @@ if( !isset($_REQUEST['mode']) || ($_REQUEST['mode'] != 'server' && $_REQUEST['mo
     include_once('./includes/_mode_'.$mode.'.php');
 } ?>
 
-
+<?php echo ANALYTICS; ?>
 <!--<footer class="footer">
     <div class="container">
         <div class="row">
