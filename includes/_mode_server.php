@@ -38,14 +38,14 @@
 
 	<div class='col-xs-12 col-sm-8' id='colonne_gauche'>
 		<div class='well placeholders'>
-			<h2 id='main-title'>C'est prêt, Ajoutez des musiques!</h2>
+			<h2 id='main-title'>C'est prêt! Ajoutez des musiques!</h2>
 			<div id='player-wrapper' width="50%" style="width:100%;position:relative;">
 				Laissez cette page ouverte pour écouter la musique.<br/>
-				Ajouter des musiques depuis vos smartphones<br/>
+				Ajouter des musiques depuis votre smartphone<br/>
 				<img src='/img/phone.svg' width='100px' /><br/>
-				Flashez le QRCode  ou aller sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
+				Flashez le QRCode ou aller sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
 				<br/>
-				Vous pouvez aussi charger une playlist depuis Spotify:<br/>
+				Vous pouvez aussi commencer par charger une playlist Spotify:<br/>
 				<a class="spotify_import_button" >Spotify</a>
 				
 				

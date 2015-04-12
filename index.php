@@ -44,7 +44,7 @@ $boostrapversion = "3.3.2";
     <script src="/js/jquery.cookie.js"></script>
     <script src="/js/bootbox.min.js" type="text/javascript"></script>
     <link rel="icon" type="image/png" href="/css/favicon.png" />
-    <title>Party Player - le JukeBox collaboratif de vos soirées!</title>
+    <title>Party Player - le Jukebox collaboratif de vos soirées!</title>
 </head>
 
 <body>
