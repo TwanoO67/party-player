@@ -132,7 +132,7 @@ $boostrapversion = "3.3.2";
 
             <div class="jumbotron" id="jumbo1">
                 <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Partagez votre musique!</h1>
-                <p>PartyPlayer permet de créer un Jukebox Collaboratif pour vos soirées.<br/>
+                <p>PartyPlayer permet de créer un Jukebox collaboratif pour vos soirées.<br/>
                     <br/>
                     - Votre ordinateur sert de jukebox<br/>
                     - Vos amis ajoutent des musiques avec leur smartphone<br/>
