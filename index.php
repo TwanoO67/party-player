@@ -11,7 +11,7 @@ include_once('config.php');
 
 //on définis un nouvel id dispo
 do {
-    $rand_sessid = strtoupper(substr(md5(rand()), 0, 4));
+    $rand_sessid = $rand_sessid = rand(10,9999);//strtoupper(substr(md5(rand()), 0, 4));//ID non-num à utiliser si bcp de user
 } while (file_exists('_playlists/'.$rand_sessid.".json"));
 
 $sessid = '';
@@ -20,7 +20,7 @@ if(isset($_REQUEST['sessid']) ){
 }
 
 $base_url = "http://".$_SERVER['SERVER_NAME'];
-$client_base_url = $base_url."/Jukebox/";
+$client_base_url = $base_url."/jukebox/";
 $server_base_url = $base_url."/player/";
 $session_url =  $client_base_url.$sessid;
 $serveur_url = "api.php";
