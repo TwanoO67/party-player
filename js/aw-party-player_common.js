@@ -509,15 +509,15 @@ $(document).ready(function(){
     var args = parseArgs();
     if ('access_token' in args) {
         accessToken = args['access_token'];
-        $.cookie('spotify_token',accessToken);
-        document.location = window.atob(args['state']);
-    }
-    
-    //deezer connexion
-    var args = parseArgs();
-    if ('access_token' in args) {
-        accessToken = args['code'];
-        $.cookie('deezer_token',accessToken);
+        
+        if( document.referrer.indexOf("spotify") !== false){
+        	$.cookie('spotify_token',accessToken);
+			document.location = window.atob(args['state']);
+		}
+ 
+		if( document.referrer.indexOf("deezer") !== false){
+        	$.cookie('deezer_token',accessToken);
+        }
     }
     
     
