@@ -35,7 +35,8 @@
         if($time){
     	    $data['lastUpdateTime'] = time();
     	}
-        return file_put_contents($filename, json_encode($data));
+    	$data['lastUpdateIP'] = $_SERVER['REMOTE_ADDR'];
+        return file_put_contents($filename, json_encode($data,JSON_PRETTY_PRINT));
     }
     
     function getLastReadID($data){
