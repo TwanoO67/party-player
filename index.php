@@ -116,7 +116,7 @@ $boostrapversion = "3.3.2";
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>-->
-            <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /><span style='color:red;font-style:italic;'> Party Player </span><span id="subtitle">&nbsp;le JukeBox collaboratif de vos soirées!</span></a>
+            <a class="navbar-brand" href="/"><img src='/css/favicon.png' height='20px' /><span style='color:red;font-style:italic;'> Party Player </span><span id="subtitle">&nbsp;le Jukebox de vos soirées!</span></a>
             <!--<div class='nav'><span>&nbsp; Transformer votre PC en Jukebox!<span></div>-->
         </div>
 
