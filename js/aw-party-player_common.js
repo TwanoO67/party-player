@@ -510,12 +510,12 @@ $(document).ready(function(){
     if ('access_token' in args) {
         accessToken = args['access_token'];
         
-        if( document.referrer.indexOf("spotify") !== false){
+        if( $.cookie('oauth_last_caller') == "spotify" ){
         	$.cookie('spotify_token',accessToken);
 			document.location = window.atob(args['state']);
 		}
  
-		if( document.referrer.indexOf("deezer") !== false){
+		if( $.cookie('oauth_last_caller') == "deezer" ){
         	$.cookie('deezer_token',accessToken);
         }
     }

@@ -244,6 +244,7 @@ function importSpotify(optionnal_url){
 }
 
 function authorizeSpotifyUser(){
+	$.cookie('oauth_last_caller','spotify');
     var url = 'https://accounts.spotify.com/authorize?client_id=' + spotify_client_id +
         '&response_type=token' +
         '&scope=user-library-read' +
@@ -253,6 +254,7 @@ function authorizeSpotifyUser(){
 }
 
 function authorizeDeezerUser(){
+	$.cookie('oauth_last_caller','deezer');
     var url = 'https://connect.deezer.com/oauth/auth.php?app_id='+deezer_appid+'&response_type=token&redirect_uri='+ encodeURIComponent(current_url+"?deezer=connect")+'&perms=basic_access,email';
     document.location = url;
 }
