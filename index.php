@@ -201,6 +201,9 @@ $boostrapversion = "3.3.2";
     serverURL = "<?php echo $serveur_url; ?>";
     spotify_client_id = "<?php echo SPOTIFY_CLIENT_ID; ?>";
     spotify_access_token = "<?php echo @$_REQUEST['spotify_access_token']; ?>";
+    deezer_appid = "<?php echo DEEZER_APPID; ?>";
+    deezer_access_token = "<?php echo @$_REQUEST['deezer_access_token']; ?>";
+    
     current_url = "<?php echo $server_base_url.$sessid; ?>";
     serverPrefix="Jukebox";
     modeAudio = false;
@@ -327,9 +330,7 @@ if( !isset($_REQUEST['mode']) || ($_REQUEST['mode'] != 'server' && $_REQUEST['mo
     </script>
 <?php }else{
     $mode = $_REQUEST['mode'];
-    echo " <script>
-	        	    mode = '".$mode."';
-                    </script>";
+    echo " <script> mode = '".$mode."'; </script>";
     include_once('./includes/_mode_'.$mode.'.php');
 } ?>
 

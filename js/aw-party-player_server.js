@@ -151,7 +151,7 @@ function importSpotifyPlaylist(href,optionnal_last_called_url) {
     
 }
 
-function fetchCurrentUserProfile(callback) {
+function fetchCurrentUserSpotifyProfile(callback) {
     var url = 'https://api.spotify.com/v1/me';
     callSpotify(url, null, callback);
 }
@@ -250,6 +250,33 @@ function authorizeSpotifyUser(){
         "&state=" + window.btoa(current_url) +
         '&redirect_uri=' + encodeURIComponent(base_url);
     document.location = url;
+}
+
+function authorizeDeezerUser(){
+    var url = 'https://connect.deezer.com/oauth/auth.php?app_id='+deezer_appid+'&response_type=token&redirect_uri='+ encodeURIComponent(current_url+"&deezer=connect")+'&perms=basic_access,email';
+    document.location = url;
+}
+
+function fetchCurrentUserDeezerProfile(callback) {
+    var url = 'http://api.deezer.com/user/me';
+    callDeezer(url, null, callback);
+}
+
+function callDeezer(url, data, callback) {
+	if(data == null){
+		data = {};
+	}
+	data['access_token'] = $.cookie('deezer_token');
+    $.ajax(url, {
+        dataType: 'json',
+        data: data
+        success: function(r) {
+            callback(r);
+        },
+        error: function(r) {
+            callback(null);
+        }
+    });
 }
 
 function markAllAsUnread(){
@@ -506,9 +533,10 @@ function load(url){
 
 
 $(document).ready(function(){
+	//SPOTIFY
 	var spotify_buttons = $('.spotify_import_button');
 	if ($.cookie('spotify_token') != '') {
-		fetchCurrentUserProfile(function(user){
+		fetchCurrentUserSpotifyProfile(function(user){
 			spotifyUser = null;
 			if (user) {
 				spotifyUser = user;
@@ -526,5 +554,28 @@ $(document).ready(function(){
 		spotify_buttons.html("Connexion à Spotify");
 		spotify_buttons.click(function(){authorizeSpotifyUser();});
 	}
+	
+	//DEEZER
+	var deezer_buttons = $('.deezer_import_button');
+	if ($.cookie('deezer_token') != '') {
+		fetchCurrentUserDeezerProfile(function(user){
+			deezerUser = null;
+			if (user) {
+				deezerUser = user;
+				deezer_buttons.html("Importer depuis Deezer");
+				deezer_buttons.click(function(){importDeezer();});
+			}
+			else{
+				$.cookie('deezer_token','');
+				deezer_buttons.html("Connexion à Deezer");
+				deezer_buttons.click(function(){authorizeDeezerUser();});
+			}
+		});
+	}
+	else{
+		deezer_buttons.html("Connexion à Deezer");
+		deezer_buttons.click(function(){authorizeDeezerUser();});
+	}
+
 })
 

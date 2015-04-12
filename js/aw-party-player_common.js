@@ -513,6 +513,13 @@ $(document).ready(function(){
         document.location = window.atob(args['state']);
     }
     
+    //deezer connexion
+    var args = parseArgs();
+    if ('access_token' in args) {
+        accessToken = args['code'];
+        $.cookie('deezer_token',accessToken);
+    }
+    
     
     //toggle css
     $('.btn-toggle').click(function() {

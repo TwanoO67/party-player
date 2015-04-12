@@ -45,9 +45,9 @@
 				<img src='/img/phone.svg' width='100px' /><br/>
 				Flashez le QRCode ou aller sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
 				<br/>
-				Vous pouvez aussi commencer par charger une playlist Spotify:<br/>
+				Vous pouvez aussi commencer par charger une playlist:<br/>
 				<a class="spotify_import_button" >Spotify</a>
-				
+				<a class="deezer_import_button" >Deezer</a>
 				
 			</div>
 			<div id='vote-area-ph'></div>

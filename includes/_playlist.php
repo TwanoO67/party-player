@@ -22,6 +22,9 @@
                 <li role="presentation">
                 	<a role="menuitem" tabindex="-1" class='spotify_import_button'>Spotify</a>
                 </li>
+                <li role="presentation">
+                	<a role="menuitem" tabindex="-1" class='deezer_import_button'>Deezer</a>
+                </li>
                 <!--<li role="presentation" class="divider"></li>
                 <li role="presentation">
                     <a role="menuitem" tabindex="-1" href="#">Enregistrer la playlist</a>
