@@ -48,6 +48,7 @@ $boostrapversion = "3.3.2";
 </head>
 
 <body>
+	<?php echo ANALYTICS; ?>
 <style>
     .row{
         margin-left: 15px;

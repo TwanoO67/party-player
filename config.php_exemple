@@ -2,4 +2,5 @@
     define('SPOTIFY_CLIENT_ID','>>>');
     define('SPOTIFY_CLIENT_SECRET','>>>>');
     define('SPOTIFY_REDIRECT_URI','>>>>');
+    define('ANALYTICS',"<script>//from google</script>");
 ?>
