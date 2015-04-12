@@ -253,7 +253,7 @@ function authorizeSpotifyUser(){
 }
 
 function authorizeDeezerUser(){
-    var url = 'https://connect.deezer.com/oauth/auth.php?app_id='+deezer_appid+'&response_type=token&redirect_uri='+ encodeURIComponent(current_url+"&deezer=connect")+'&perms=basic_access,email';
+    var url = 'https://connect.deezer.com/oauth/auth.php?app_id='+deezer_appid+'&response_type=token&redirect_uri='+ encodeURIComponent(current_url+"?deezer=connect")+'&perms=basic_access,email';
     document.location = url;
 }
 
