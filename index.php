@@ -20,7 +20,7 @@ if(isset($_REQUEST['sessid']) ){
 }
 
 $base_url = "http://".$_SERVER['SERVER_NAME'];
-$client_base_url = $base_url."/jukebox/";
+$client_base_url = $base_url."/Jukebox/";
 $server_base_url = $base_url."/player/";
 $session_url =  $client_base_url.$sessid;
 $serveur_url = "api.php";
@@ -134,9 +134,9 @@ $boostrapversion = "3.3.2";
                 <h1><img src="/img/headphones.svg" alt="equalizer" style='width:70px;vertical-align: top;'/> Partagez votre musique!</h1>
                 <p>PartyPlayer permet de créer un Jukebox collaboratif pour vos soirées.<br/>
                     <br/>
-                    - Votre ordinateur sert de jukebox<br/>
+                    - Votre ordinateur sert de Jukebox<br/>
                     - Vos amis ajoutent des musiques avec leur smartphone<br/>
-                    - Le jukebox lit en continue les musiques les mieux notées<br/>
+                    - Le Jukebox lit en continue les musiques les mieux notées<br/>
                     - La soirée peut commencer!!!<br/>
                 <div class='text-center'><img src="/img/people.svg" width='120px' /></div><br/>
 
@@ -148,10 +148,10 @@ $boostrapversion = "3.3.2";
             </div>
 
             <div class="jumbotron" id="jumbo2" style="display:none;">
-                <h1><img src="/img/computer.svg" width='100px'/> + <img src="/img/audio.svg" width='100px'/> = JukeBox!</h1>
+                <h1><img src="/img/computer.svg" width='100px'/> + <img src="/img/audio.svg" width='100px'/> = Jukebox!</h1>
                 <br/>
                 <p>
-                    Le JukeBox va:<br/>
+                    Le Jukebox va:<br/>
                     - Recevoir les musiques de vos amis<br/>
                     - Afficher les clips, et lire la musique sur ses enceintes<br/>
                 </p>
@@ -166,7 +166,7 @@ $boostrapversion = "3.3.2";
                     ou<br/>
                     <br/>
                     - Allez sur <?php echo $base_url; ?> <br/>
-                    - Participez à la playlist, en tapant le CODE de votre JukeBox<br/>
+                    - Participez à la playlist, en tapant le CODE de votre Jukebox<br/>
                 </p>
                 <p><a class="btn btn-primary btn-lg" href="#" onclick="$('#jumbo3').hide();$('#jumbo4').show()" role="button">Ok!</a></p>
             </div>
@@ -177,12 +177,12 @@ $boostrapversion = "3.3.2";
                 <p>
                     - Ouvrez le site <?php echo $base_url; ?> sur l'ordinateur qui a des enceintes<br/>
                     <br/>
-                    - Cliquez sur "Créer un JukeBox", puis laissez la page ouverte<br/>
+                    - Cliquez sur "Créer un Jukebox", puis laissez la page ouverte<br/>
                     <br/>
                     - Utilisez votre smartphone pour ajouter des musiques<br/>
                 </p>
                 <p>
-                    <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;" role="button">Créer un JukeBox</a>
+                    <a class="btn btn-success btn-lg" href="#" onclick="window.location.href = '<?php echo $server_base_url; ?>'+rand_sessid;" role="button">Créer un Jukebox</a>
                 </p>
             </div>
 
@@ -257,7 +257,7 @@ if( !isset($_REQUEST['mode']) || ($_REQUEST['mode'] != 'server' && $_REQUEST['mo
                 'Nouveau Jukebox </label> ' +
                 '</div><div class="radio"> '+
                 '<label for="mode-client"> ' +
-                '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un JukeBox existant </label> ' +
+                '<input type="radio" name="mode" id="mode-client" value="client"> Rejoindre un Jukebox existant </label> ' +
                 '</div> ' +
                 '</div> ' +
                 '</div> ' +
@@ -319,7 +319,7 @@ if( !isset($_REQUEST['mode']) || ($_REQUEST['mode'] != 'server' && $_REQUEST['mo
 
             Intro.on("hide", function() {    // remove the event listeners when the dialog is dismissed
                 console.log('on hide');
-                bootbox.alert("Vous devez choisir de participer à un jukebox, ou d'en creer un nouveau...",function(){
+                bootbox.alert("Vous devez choisir de participer à un Jukebox, ou d'en creer un nouveau...",function(){
                     console.log('callback');
                     document.location.reload();
                 });
