@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 
-	RewriteRule ^JukeBox(.*)$ /?mode=client&sessid=$1 [NC,QSA,L]
-	RewriteRule ^Player(.*)$ /?mode=server&sessid=$1 [NC,QSA,L]
+	RewriteRule ^jukebox/(.*)$ /?mode=client&sessid=$1 [NC,QSA,L]
+	RewriteRule ^player/(.*)$ /?mode=server&sessid=$1 [NC,QSA,L]
 </IfModule>
