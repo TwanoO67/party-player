@@ -46,7 +46,7 @@
 				Flashez le QRCode ou aller sur <a target="_blank" href="<?php echo $session_url; ?>"><b><?php echo $session_url; ?></b></a><br/>
 				<br/>
 				Vous pouvez aussi commencer par charger une playlist:<br/>
-				<a class="spotify_import_button" >Spotify</a>
+				<a class="spotify_import_button" >Spotify</a><br/>
 				<a class="deezer_import_button" >Deezer</a>
 				
 			</div>

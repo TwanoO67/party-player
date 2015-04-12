@@ -23,7 +23,7 @@ $base_url = "http://".$_SERVER['SERVER_NAME'];
 $client_base_url = $base_url."/jukebox/";
 $server_base_url = $base_url."/player/";
 $session_url =  $client_base_url.$sessid;
-$serveur_url = "api.php";
+$serveur_url = $base_url."/api.php";
 
 $marge_header = '70';
 $boostrapversion = "3.3.2";
