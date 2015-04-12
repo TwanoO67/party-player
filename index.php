@@ -9,7 +9,11 @@ include_once('config.php');
 <html lang='fr'>
 <?php
 
-$rand_sessid = strtoupper(substr(md5(rand()), 0, 4));
+//on définis un nouvel id dispo
+do {
+    $rand_sessid = strtoupper(substr(md5(rand()), 0, 4));
+} while (file_exists('_playlists/'.$rand_sessid.".json"));
+
 $sessid = '';
 if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
