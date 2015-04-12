@@ -21,7 +21,7 @@ if(isset($_REQUEST['sessid']) ){
 
 $base_url = "http://".$_SERVER['SERVER_NAME'];
 $client_base_url = $base_url."/JukeBox";
-$server_base_url = $base_url."/?mode=server&sessid=";
+$server_base_url = $base_url."/Player";
 $session_url =  $client_base_url.$sessid;
 $serveur_url = "api.php";
 

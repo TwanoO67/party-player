@@ -2,4 +2,5 @@
 	RewriteEngine on
 
 	RewriteRule ^JukeBox(.*)$ /?mode=client&sessid=$1 [NC,QSA,L]
+	RewriteRule ^Player(.*)$ /?mode=server&sessid=$1 [NC,QSA,L]
 </IfModule>
