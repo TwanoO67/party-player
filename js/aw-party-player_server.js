@@ -269,7 +269,7 @@ function callDeezer(url, data, callback) {
 	data['access_token'] = $.cookie('deezer_token');
     $.ajax(url, {
         dataType: 'json',
-        data: data
+        data: data,
         success: function(r) {
             callback(r);
         },
