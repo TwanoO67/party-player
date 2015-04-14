@@ -1,5 +1,7 @@
 //TODO LIST
 - autoplay sur mobile
+- remote depuis mobile (avec pass)
+- mot de pass facultatif sur les playlist
 - ajoutez les controles de clavier multimedia sur le player
 - essayer de mixer 2 chansons pour les transitions
 - gérer expiration du token spotify, mieux placer les boutons d'import
@@ -12,7 +14,7 @@
 - ajouter un partage du lien de participation facebook/twitter/email
 - enregistrer les ID de playlist créer dans le localStorage pour retrouver plus tard (voir tous le json)
 - client: tester l'existance d'une playlist si ID fournie
-- mot de passe pour les admins sur le mode serveur      
+- mot de passe pour les admins sur le mode serveur
 - room privé/public avec pass?
 - gérer des nom au choix, plutot que des id (attention à la disponibilité)
 - proposer les dernières playlist modifié en accés rapide
