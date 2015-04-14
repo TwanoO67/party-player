@@ -3,3 +3,4 @@
 config.php
 _playlists/*.json
 .DS_Store
+autosync.php
