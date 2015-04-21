@@ -1,9 +1,9 @@
 <?php
-    header('Access-Control-Allow-Origin: *');//Test
+    header('Access-Control-Allow-Origin: *');
 	/*
     	FONCTIONS
 	*/
-
+	
 	function compareItems($a, $b) {
 		//si les 2 chansons sont parmis les lu / nouvelle, on les trie par vote
 	    if ($a['alreadyRead'] === false && $b['alreadyRead'] === false) {
@@ -19,17 +19,17 @@
     	    return ($a['alreadyRead'] < $b['alreadyRead']) ? -1 : 1;
 	    }
 	}
-
+	
 	function triItemsByVote($data){
     	//re-ordonne le tableau aprés les votes
         usort($data['items'], 'compareItems');//compare par lecture et vote
         //arsort($data['items']);//re-ordonne en fonction de la place obtenue
         //$data['items'] = array_reverse($data['items']);//trie par ordre décroissant
-
+        
         $data['lastUpdateTime'] = time();
         return $data;
 	}
-
+	
 	function ecritureData($data,$time=true){
         global $filename;
         if($time){
@@ -38,7 +38,7 @@
     	$data['lastUpdateIP'] = $_SERVER['REMOTE_ADDR'];
         return file_put_contents($filename, json_encode($data,JSON_PRETTY_PRINT));
     }
-
+    
     function getLastReadID($data){
         $lastRead = 1;
         $result = 0;
@@ -50,25 +50,25 @@
         }
         return $result;
     }
-
-
+	
+	
 	/*
-
+    	
     	DEBUT SCRIPT
-
+    	
 	*/
-
+	
     $reponse = array();
     $reponse['result'] = 'error';
-
+    
     if( isset($_REQUEST['sessid']) )
     {
         $id = strtoupper($_REQUEST['sessid']);
         $filename = '_playlists/'.$id.'.json';
-
+        
         if( isset($_REQUEST['mode']) ){
             $mode = $_REQUEST['mode'];
-
+            
             //fournie: mode=create,sessid
             //recu: result,content
             if($mode == 'create'){
@@ -93,7 +93,7 @@
                 if(file_exists($filename)){
                 	$donnee = file_get_contents($filename);
                 }
-
+                
                 if($donnee != ''){
                     $data = json_decode($donnee,true);
 	                if(is_array($data) && is_array($data['items'])){
@@ -101,8 +101,8 @@
     	            }
     	        }
             }
-
-
+            
+            
             if(!$data_ready){
                 $reponse['error'] = "no_file";
             }
@@ -123,7 +123,7 @@
 			                $item_exist = true;
 		                }
 	                }
-
+	                
 	                if($item_exist){
 		                $reponse['error'] = "Cette vidéo est déjà dans la liste...";
 	                }
@@ -135,11 +135,11 @@
 		                $new_item['vote'] = 0;
 		                $new_item['votes'] = array();
 		                $new_item['alreadyRead'] = false;
-
+		                
 	                    $data['items'][] = $new_item;
-
+	                    
 	                    $data = triItemsByVote( $data );
-
+	                    
 	                    if(ecritureData($data)){
 	                        $reponse['result'] = 'success';
 	                    }
@@ -167,7 +167,7 @@
 			                $item_found = true;
 		                }
 	                }
-
+	                
 	                if(!$item_found){
     	                $reponse['result'] = 'item non trouvé';
     	            }
@@ -195,7 +195,7 @@
             //fournie: mode=vote,user,item_id,vote
             //recu: result
             elseif($mode == 'vote'){
-
+                
                 if(empty($_REQUEST['user']) || empty($_REQUEST['item_id']) || empty($_REQUEST['vote']) ){
                     $reponse['error'] = "Données incomplètes pour voter!";
                 }
@@ -204,20 +204,20 @@
                     $id = $_REQUEST['item_id'];
                     $vote = $_REQUEST['vote'];
                     $vote_token = $_REQUEST['vote_token'];
-
+                    
                     $found = false;
                     $alreadyVoted = false;
-
+                    
                     foreach($data['items'] as &$item){
 	                	if(  $item['id'] == $id){
-
+    	                	
     	                	//check si deja voté
                             foreach($item['votes'] as $vote){
                                 if($vote['user'] == $user || $vpte['token'] == $vote_token){
                                     $alreadyVoted = true;
                                 }
                             }
-
+                            
                             if(!$alreadyVoted){
 	                            $value = $_REQUEST['vote'];
     		                	if($value == 'moins'){
@@ -234,7 +234,7 @@
     			                	'value' => $value
     		                	);
     		                	$item['votes'][] = $vote;
-
+    		                	
     		                	$found = true;
 		                	}
 		                	else{
@@ -242,10 +242,10 @@
         	                }
 	                	}
 	                }
-
+	                
 	                if($found){
 		                $data = triItemsByVote($data);
-
+		                
 		                if(ecritureData($data)){
 	                        $reponse['result'] = 'success';
 	                    }
@@ -256,12 +256,12 @@
 	                else{
 		                $reponse['error'] = "ID non existant";
 	                }
-
-
-                }
+	                
+                   
+                } 
             }
             elseif($mode == 'next_track'){
-
+                
                     $last = $_REQUEST['last_played'];
                     $next_track = 0;
                     //si on a deja une chanson, on passe à la suivante
@@ -285,7 +285,7 @@
 		                	}
 		                }
                     }
-
+                    
                     //sinon on envoi le premier non-lu
                     if(!$found){
                         foreach($data['items'] as &$item){
@@ -295,11 +295,11 @@
 			                }
                         }
                     }
-
+                    
                     if( count($data['items'])==0 ){
 	                    $reponse['error'] = "no_data";
                     }elseif($next_track === 0){
-	                    $reponse['error'] = "Plus de chanson à lire. ";
+	                    $reponse['error'] = "Plus de chanson à lire. ";   
 	                    ecritureData($data,false);
                     }
                     else{
@@ -311,8 +311,8 @@
     	                    $reponse['error'] = "erreur de sauvegarde du fichier";
                         }
                     }
-
-
+                    
+                    
             }
             //fournie: mode=add,sessid,id,user
             //recu: result,content
@@ -329,9 +329,9 @@
 			                $item_found = true;
 		                }
 	                }
-
+	                
 	                $data = triItemsByVote($data);
-
+	                
 	                if(!$item_found){
     	                $reponse['result'] = 'item non trouvé';
     	            }
@@ -348,7 +348,7 @@
 	                    $item['alreadyRead'] = false;
     	            }
     	            $data = triItemsByVote($data);
-
+                    
                     if(ecritureData($data)){
                         $reponse['result'] = 'success';
                     }
@@ -358,23 +358,23 @@
             }
             elseif($mode == 'last_read'){
                 //ajout d'un item dans le fichier
-
+                
 	                $id = getLastReadID($data);
-
+	                	                
 	                if($id > 0){
                         $reponse['result'] = 'success';
                     }
                     else{
                         $reponse['error'] = 'no_read';
                     }
-
+                
             }
-
+            
         }
         else{
             $reponse['error'] = "Pas de mode selectionné!";
         }
-
+        
     }
     else{
         $reponse['error'] = "Numéro de session invalide!";
