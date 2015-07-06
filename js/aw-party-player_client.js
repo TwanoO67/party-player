@@ -65,10 +65,10 @@ function buildHTMLPlaylistItem(element,title){
     html += 'data-vote="'+element.vote+'" ';
     html += 'data-user="'+element.addUser+'" ';
     html += 'class="list-group-item ';
-    
+
     html += 'data-toggle="tooltip" data-placement="top" title=" Ajouté par '+element.addUser+" \n";
     html += ' le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'" ';
-    
+
     if(element.alreadyRead){
         html += 'alreadyRead';
     }
@@ -81,7 +81,7 @@ function buildHTMLPlaylistItem(element,title){
             alreadyVoted = true;
         }
     });
-    
+
     //bouton de vote
     if(!alreadyVoted){
         html += '<button type="button" class="btn btn-success playlist_item_votebutton vote_ligne_'+id+'" onclick="vote(\''+id+'\',\'plus\')"><span class="glyphicon glyphicon-thumbs-up"></span></button>&nbsp;<button type="button" class="btn btn-danger playlist_item_votebutton vote_ligne_'+id+'" onclick="vote(\''+id+'\',\'moins\')"><span class="glyphicon glyphicon-thumbs-down"></span></button>&nbsp;';//element.vote
@@ -97,20 +97,20 @@ function buildHTMLPlaylistItem(element,title){
         }
         html += '"></span>&nbsp;'+element.vote+'</button>&nbsp;';
     }
-    
+
     html += '<div class="playlist_item_title">'+title+'</div>';
-    
+
     /*//ligne de date
     html += '<div class="playlist_item_ligne" style="float:left" >';
         html += '<div class="playlist_item_user"> Ajouté par '+element.addUser+'</div>';
         html += '<div class="playlist_item_date"> le '+d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear()+' à '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2)+'</div>';
     html += '</div>';*/
-    
-    
-     
+
+
+
     html += '</div>';
-    
-    
+
+
     //bootbox de resultat de vote
     html += '<div style="display:none" id="detail_vote_'+id+'" >';
     html += ''+title+'';
@@ -128,13 +128,13 @@ function buildHTMLPlaylistItem(element,title){
                html += '<span class="glyphicon glyphicon-thumbs-down"></span>';
            }
            //html += elem.value;
-           html += '&nbsp;'+elem.user+'</li>'; 
+           html += '&nbsp;'+elem.user+'</li>';
         });
         html += '</ul>';
     }
     html += ' </div>'
-    
-    
+
+
     return html;
 }
 
@@ -187,9 +187,9 @@ function searchPlaylistOnYoutube(query){
         //sinon on affiche les resultat dans le tableau
         else{
             data.feed.entry.forEach(function(element,index,array){
-                
+
                 var id = element['yt$playlistId']['$t'];
-                
+
                 var ligne = buildHTMLResultatPlaylistItem(
                     index,
                     element.title['$t'],
@@ -205,7 +205,7 @@ function searchPlaylistOnYoutube(query){
 };
 
 function searchYoutube(query){
-	
+
 	var my_callback = function(data){
 	$('#result').html('');
     $('#result_more_content').html('')
@@ -213,23 +213,23 @@ function searchYoutube(query){
     var nb_result = 0;
     var nb_refus = 0;
     //pour chaque resultat venant de youtube
-    data.feed.entry.forEach(function(element,index,array){
-        var duree = 0;
-        
-        if( typeof(element['media$group']) !== 'undefined' 
-        && typeof(element['media$group']['media$content']) !== 'undefined' 
+    data.items.forEach(function(element,index,array){
+        /*var duree = 0;
+
+        if( typeof(element['media$group']) !== 'undefined'
+        && typeof(element['media$group']['media$content']) !== 'undefined'
         && typeof(element['media$group']['media$content'][0]) !== 'undefined'
         )
             duree = element['media$group']['media$content'][0]['duration'];
         //si le resultat ne contient pas des trucs trop court ou trop long (spam)
-        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){
+        if(duree > minDurationSearchTrack && duree < maxDurationSearchTrack){*/
             nb_result++;
-            var id = element['media$group']['yt$videoid']['$t'];
-            
+            var id = element['id']['videoId'];
+
             var ligne = buildHTMLResultatTrackItem(
                 nb_result,
-                element['media$group']['media$thumbnail'][0].url,
-                element.title['$t'],
+                element['thumbnails']['defaults'].url,
+                element.title,
                 id
             );
             //premier resultat
@@ -242,18 +242,18 @@ function searchYoutube(query){
                 $('#result_more_content').hide();
                 $('#result_more_content').append(ligne);
             }
-        }
+        /*}
         else{
             nb_refus++;
-        }
+        }*/
     });
     console.log(" Nombre de recherche exclue: "+nb_refus);
     $('#search-result').show();
     cible('#search-result');
 	};
-	
+
 	searchTrackOnYoutube(query,my_callback);
-	
+
 }
 
 /*function changeModeAudio(){
@@ -282,7 +282,7 @@ function vote(id,vote){
         'item_id': id,
         'vote': vote,
         'vote_token': vote_token
-    }, function (data) { 
+    }, function (data) {
         if(data.result == 'error'){
             bootbox.alert(data.error);
         }
@@ -334,7 +334,7 @@ function compte_a_rebours(id,timer)
         }
       }
     });
-    
+
     var timer = 20;
     compte_a_rebours(id,timer);
 }*/
@@ -372,14 +372,14 @@ function addAsNextAndLoad(id){
 
 $(document).ready(function()
 {
-    
+
     //rend la playlist drag n drop
     $("#playlist").sortable({
       update: function( event, ui ) {
           savePlaylistOnServer();
       }
     });
-    
+
     //gére la touche entré sur la recherche
     $("#recherche").keypress(function( event ) {
         if ( event.which == 13 ) {
@@ -387,7 +387,7 @@ $(document).ready(function()
             searchYoutube($("#recherche").val());
         }
     });
-    
+
     $("#recherche-playlist").keypress(function( event ) {
         if ( event.which == 13 ) {
             event.preventDefault();
