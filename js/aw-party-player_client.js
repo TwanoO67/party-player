@@ -228,7 +228,7 @@ function searchYoutube(query){
 
             var ligne = buildHTMLResultatTrackItem(
                 nb_result,
-                element['snippet']['thumbnails']['defaults']['url'],
+                element['snippet']['thumbnails']['default']['url'],
                 element.title,
                 id
             );
