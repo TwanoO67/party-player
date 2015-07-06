@@ -49,16 +49,6 @@ $boostrapversion = "3.3.2";
 
 <body>
 	<?php echo ANALYTICS; ?>
-
-  <scrip>
-    //Coupure du service
-    bootbox.alert("Attention: Le partyplayer ne fonctionne plus depuis la sortie des API YoutubeV3",function(){
-        document.location = "https://github.com/TwanoO67/party-player";
-    });
-  </script>
-
-
-
 <style>
     .row{
         margin-left: 15px;
@@ -240,6 +230,15 @@ $boostrapversion = "3.3.2";
         $('#subtitle').hide();
     }
 </script>
+
+<scrip>
+  //Coupure du service
+  bootbox.alert("Attention: Le partyplayer ne fonctionne plus depuis la sortie des API YoutubeV3",function(){
+      document.location = "https://github.com/TwanoO67/party-player";
+  });
+</script>
+
+
 <?php
 //lancement de l'appli
 if( !isset($_REQUEST['mode']) || ($_REQUEST['mode'] != 'server' && $_REQUEST['mode'] != 'client') ){
