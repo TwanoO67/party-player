@@ -231,7 +231,7 @@ $boostrapversion = "3.3.2";
     }
 </script>
 
-<scrip>
+<script>
   //Coupure du service
   bootbox.alert("Attention: Le partyplayer ne fonctionne plus depuis la sortie des API YoutubeV3",function(){
       document.location = "https://github.com/TwanoO67/party-player";
