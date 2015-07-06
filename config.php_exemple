@@ -1,4 +1,5 @@
 <?php
+    define('YOUTUBE_V3_APIKEY',">>>");
     define('SPOTIFY_CLIENT_ID','>>>');
     define('SPOTIFY_CLIENT_SECRET','>>>>');
     define('SPOTIFY_REDIRECT_URI','>>>>');
