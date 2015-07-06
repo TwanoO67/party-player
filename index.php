@@ -49,6 +49,16 @@ $boostrapversion = "3.3.2";
 
 <body>
 	<?php echo ANALYTICS; ?>
+
+  <scrip>
+    //Coupure du service
+    bootbox.alert("Attention: Le partyplayer ne fonctionne plus depuis la sortie des API YoutubeV3",function(){
+        document.location = "https://github.com/TwanoO67/party-player";
+    });
+  </script>
+
+
+
 <style>
     .row{
         margin-left: 15px;
@@ -121,7 +131,7 @@ $boostrapversion = "3.3.2";
         </div>
 
         <!--<div id="nav-main" class="navbar-collapse collapse">
-            <a class="navbar-brand" id='username' onclick='changeUsername();' style='float:right'>UserName</a>     
+            <a class="navbar-brand" id='username' onclick='changeUsername();' style='float:right'>UserName</a>
         </div>-->
 
     </div>

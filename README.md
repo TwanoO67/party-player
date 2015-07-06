@@ -4,13 +4,7 @@ party-player
 
 ATTENTION:
 
-Le projet est au point mort, depuis la sortie des API Youtube v3 (mars 15) plus aucune recherche n'est possible sur cette plateforme.
-Le projet devra donc etre ré-écris totalement à partir d'une autre source... Bref la majorité du code est devenu inutile.
-
-WARNING:
-
-The project reached a dead end, since the release of Youtube V3 API (march 15) searching video is no more allowed.
-The project should be totally rewritten with another music source... but for the moment most of the code is useless.
+Le projet doit etre ré-écrit pour les APi Youtube V3. Pour l'instant il est inutilisable
 
 
 
