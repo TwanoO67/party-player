@@ -302,7 +302,7 @@ function searchTrackOnYoutube(query,callback,cb_params){
 	            }
 	    },
 	    success: function (data) {
-	        //si aucun resultat, on corrige l'orthographe
+	        /*//si aucun resultat, on corrige l'orthographe
 	        if(typeof data.feed.entry == 'undefined' ){
 	            var spell = '';
 	            var title = '';
@@ -321,14 +321,14 @@ function searchTrackOnYoutube(query,callback,cb_params){
 	            }
 	        }
 	        //sinon on affiche les resultat dans le tableau
-	        else{
+	        else{*/
 	            if(typeof callback !== 'undefined' && typeof cb_params !== 'undefined'){
 		            callback(data,cb_params);
 	            }
 	            else if(typeof callback !== 'undefined' ){
 		            callback(data);
 	            }
-	        }
+	        //}
     	}
     });
 }
