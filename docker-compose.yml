@@ -1,0 +1,35 @@
+services:
+  party-player:
+    build: .
+    container_name: party-player
+    ports:
+      - "8080:80"
+    volumes:
+      # Montage du code source
+      - ./index.php:/var/www/html/index.php
+      - ./api.php:/var/www/html/api.php
+      - ./config.php:/var/www/html/config.php
+      - ./css:/var/www/html/css
+      - ./img:/var/www/html/img
+      - ./includes:/var/www/html/includes
+      - ./js:/var/www/html/js
+      # Volume persistant pour les playlists
+      - playlist-data:/var/www/html/_playlists
+      # Fichier .htaccess si nécessaire
+      - ./.htaccess:/var/www/html/.htaccess:ro
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - PHP_MEMORY_LIMIT=256M
+      - PHP_UPLOAD_MAX_FILESIZE=50M
+      - PHP_POST_MAX_SIZE=50M
+    restart: unless-stopped
+    networks:
+      - party-player-network
+
+volumes:
+  playlist-data:
+    driver: local
+
+networks:
+  party-player-network:
+    driver: bridge

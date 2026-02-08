@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo "🎉 Party Player - Démarrage avec Docker"
+echo "========================================"
+echo ""
+
+# Vérifier si Docker est installé
+if ! command -v docker &> /dev/null; then
+    echo "❌ Docker n'est pas installé. Veuillez installer Docker d'abord."
+    echo "   https://docs.docker.com/get-docker/"
+    exit 1
+fi
+
+# Vérifier si Docker Compose est installé
+if ! command -v docker-compose &> /dev/null; then
+    echo "❌ Docker Compose n'est pas installé."
+    exit 1
+fi
+
+echo "✅ Docker et Docker Compose sont installés"
+echo ""
+
+# Construire et démarrer les conteneurs
+echo "🔨 Construction de l'image Docker..."
+docker-compose build
+
+echo ""
+echo "🚀 Démarrage du conteneur..."
+docker-compose up -d
+
+echo ""
+echo "✅ Party Player est maintenant en cours d'exécution!"
+echo ""
+echo "📍 Accédez à l'application sur: http://localhost:8080"
+echo ""
+echo "🎮 Modes disponibles:"
+echo "   - Mode Player: http://localhost:8080/?mode=server"
+echo "   - Mode Client: http://localhost:8080/?mode=client&sessid=[session-id]"
+echo ""
+echo "📋 Commandes utiles:"
+echo "   - Voir les logs:     docker-compose logs -f"
+echo "   - Arrêter:           docker-compose down"
+echo "   - Redémarrer:        docker-compose restart"
+echo ""

@@ -162,44 +162,46 @@ function videResultat(){
 };
 
 function searchPlaylistOnYoutube(query){
-    var yt_url = "https://gdata.youtube.com/feeds/api/playlists/snippets?q="+encodeURI(query)+"&alt=json&v=2";
-    $.getJSON(yt_url, function (data) {
-        $('#result').html('');
-        $('#research-result-title').html("Playlist: "+query);
-        //si aucun resultat, on corrige l'orthographe
-        if(typeof data.feed.entry == 'undefined' ){
-            var spell = '';
-            /*var title = '';
-            data.feed.link.forEach(function(element,index,array){
-                if(element.rel == "http://schemas.google.com/g/2006#spellcorrection"){
-                    spell = element.href;
-                    title = element.title;
-                }
-            });
-            if(spell != ''){
-                $('#recherche').val(title);
-                searchYoutubeUrl(spell);
+    var yt_url = "https://www.googleapis.com/youtube/v3/search";
+    var params = {
+        part: 'snippet',
+        type: 'playlist',
+        q: query,
+        maxResults: 25,
+        key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI'
+    };
+    $.ajax({
+        dataType: "json",
+        url: yt_url,
+        data: params,
+        success: function (data) {
+            $('#result').html('');
+            $('#research-result-title').html("Playlist: "+query);
+            //si aucun resultat
+            if(!data.items || data.items.length === 0){
+                // Pas de résultats
             }
+            //sinon on affiche les resultat dans le tableau
             else{
-                videResultat();
-            }*/
-        }
-        //sinon on affiche les resultat dans le tableau
-        else{
-            data.feed.entry.forEach(function(element,index,array){
+                data.items.forEach(function(element,index,array){
 
-                var id = element['yt$playlistId']['$t'];
+                    var id = element.id.playlistId;
 
-                var ligne = buildHTMLResultatPlaylistItem(
-                    index,
-                    element.title['$t'],
-                    element.summary['$t'],
-                    id
-                );
-                $('#result').append(ligne);
-            });
-            $('#search-result').show();
-            cible('#search-result');
+                    var ligne = buildHTMLResultatPlaylistItem(
+                        index,
+                        element.snippet.title,
+                        element.snippet.description,
+                        id
+                    );
+                    $('#result').append(ligne);
+                });
+                $('#search-result').show();
+                cible('#search-result');
+            }
+        },
+        error: function(err) {
+            console.error('Erreur recherche playlist:', err);
+            $('#result').html('');
         }
     });
 };

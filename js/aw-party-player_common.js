@@ -333,6 +333,37 @@ function searchTrackOnYoutube(query,callback,cb_params){
     });
 }
 
+// Helper function to parse ISO 8601 duration (PT5M30S) to seconds
+function parseDuration(isoDuration) {
+    if (!isoDuration) return 0;
+    var match = isoDuration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    if (!match) return 0;
+    var hours = parseInt((match[1] || '0H').slice(0, -1));
+    var minutes = parseInt((match[2] || '0M').slice(0, -1));
+    var seconds = parseInt((match[3] || '0S').slice(0, -1));
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+// Helper function to normalize YouTube API v3 response to v2 format
+function normalizeVideoInfoV3(v3Response) {
+    if (!v3Response.items || v3Response.items.length === 0) {
+        return null;
+    }
+    var item = v3Response.items[0];
+    return {
+        entry: {
+            title: { '$t': item.snippet.title },
+            media$group: {
+                yt$videoid: { '$t': item.id },
+                media$thumbnail: item.snippet.thumbnails && item.snippet.thumbnails.default ?
+                    [{ url: item.snippet.thumbnails.default.url }] : [],
+                media$content: item.contentDetails ?
+                    [{ duration: parseDuration(item.contentDetails.duration) }] : [{ duration: 0 }]
+            }
+        }
+    };
+}
+
 function getYoutubeTrackInfo(id,callback,callback_error){
     //si on a deja les informations en local
     if(typeof youtubeTrackInfo[id] != 'undefined'){
@@ -342,15 +373,29 @@ function getYoutubeTrackInfo(id,callback,callback_error){
     }
     //sinon on les cherche sur youtube
     else{
-        var url = "https://gdata.youtube.com/feeds/api/videos/"+id+"?alt=json";
+        var url = "https://www.googleapis.com/youtube/v3/videos";
+        var params = {
+            part: 'snippet,contentDetails',
+            id: id,
+            key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI'
+        };
         $.ajax({
 		  dataType: "json",
 		  url: url,
-		  data: {},
+		  data: params,
 		  success: function (data) {
-            youtubeTrackInfo[id] = data;
-            if(typeof callback == 'function'){
-                callback(data);
+            // Normalize v3 response to v2 format for backward compatibility
+            var normalizedData = normalizeVideoInfoV3(data);
+            if (normalizedData) {
+                youtubeTrackInfo[id] = normalizedData;
+                if(typeof callback == 'function'){
+                    callback(normalizedData);
+                }
+            } else {
+                // Video not found or deleted
+                if(typeof callback_error == 'function'){
+                    callback_error({status: 404, message: 'Video not found'});
+                }
             }
           },
           error: function(data){
@@ -362,20 +407,80 @@ function getYoutubeTrackInfo(id,callback,callback_error){
     }
 }
 
+// Helper function to normalize YouTube API v3 playlist response to v2 format
+function normalizePlaylistInfoV3(allItems) {
+    return {
+        feed: {
+            title: { '$t': 'Playlist' },
+            entry: allItems.map(function(item) {
+                return {
+                    title: { '$t': item.snippet.title },
+                    summary: { '$t': item.snippet.description || '' },
+                    'media$group': {
+                        'yt$videoid': { '$t': item.snippet.resourceId.videoId },
+                        'media$thumbnail': item.snippet.thumbnails && item.snippet.thumbnails.default ?
+                            [{ url: item.snippet.thumbnails.default.url }] : []
+                    }
+                };
+            })
+        }
+    };
+}
+
+// Helper function to fetch a single page of playlist items (for pagination)
+function fetchPlaylistPage(playlistId, pageToken, allItems, finalCallback) {
+    var url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+    var params = {
+        part: 'snippet,contentDetails',
+        playlistId: playlistId,
+        maxResults: 50,
+        key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI'
+    };
+
+    if (pageToken) {
+        params.pageToken = pageToken;
+    }
+
+    $.ajax({
+        dataType: "json",
+        url: url,
+        data: params,
+        success: function(data) {
+            // Add current page items to collection
+            allItems = allItems.concat(data.items || []);
+
+            // If there's a next page, fetch it recursively
+            if (data.nextPageToken) {
+                fetchPlaylistPage(playlistId, data.nextPageToken, allItems, finalCallback);
+            } else {
+                // All pages fetched, normalize and return
+                var normalized = normalizePlaylistInfoV3(allItems);
+                finalCallback(normalized);
+            }
+        },
+        error: function(err) {
+            console.error('Erreur récupération page playlist:', err);
+            // Return what we have so far
+            var normalized = normalizePlaylistInfoV3(allItems);
+            finalCallback(normalized);
+        }
+    });
+}
+
 function getYoutubePlaylistInfo(playlistId,callback){
-    //si on a deja les inforamtions en locale
+    //si on a deja les informations en locale
     if(typeof youtubePlaylistInfo[playlistId] != 'undefined'){
         if(typeof callback == 'function'){
             callback(youtubePlaylistInfo[playlistId]);
         }
     }
-    //sinon on les cherche sur youtube
+    //sinon on les cherche sur youtube avec pagination
     else{
-        var url = "https://gdata.youtube.com/feeds/api/playlists/"+playlistId+"?alt=json&v=2";
-        jQuery.getJSON(url, function (data) {
-            youtubePlaylistInfo[playlistId] = data;
+        var allItems = [];
+        fetchPlaylistPage(playlistId, null, allItems, function(completeData) {
+            youtubePlaylistInfo[playlistId] = completeData;
             if(typeof callback == 'function'){
-                callback(data);
+                callback(completeData);
             }
         });
     }

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test:*)",
+      "Bash(docker-compose build:*)",
+      "Bash(docker-compose up:*)"
+    ]
+  }
+}
