@@ -84,10 +84,12 @@ function callYouTubeAPI($endpoint, $params) {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-    // Ne pas envoyer de header Referer
+    // Envoyer le Referer pour correspondre aux restrictions de la clé API
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $referer = $scheme . '://' . $_SERVER['HTTP_HOST'] . '/';
+    curl_setopt($ch, CURLOPT_REFERER, $referer);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Accept: application/json',
-        'User-Agent: Party-Player-Proxy/1.0'
+        'Accept: application/json'
     ]);
 
     // Exécuter la requête
