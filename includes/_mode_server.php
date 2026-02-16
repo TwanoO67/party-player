@@ -63,7 +63,9 @@
 				<span onclick='$("#share_panel").hide();' style='float:right;cursor:pointer;'>X</span>
 			</div>
 			<div class="panel-body placeholders">
-				<img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=<?php echo urlencode($session_url); ?>&choe=UTF-8" /><br/>
+				<div id="qrcode" style="display:inline-block;"></div><br/>
+				<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+				<script>new QRCode(document.getElementById("qrcode"), {text: "<?php echo $session_url; ?>", width: 250, height: 250});</script>
 			</div>
 		</div>
 
