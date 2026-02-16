@@ -162,13 +162,13 @@ function videResultat(){
 };
 
 function searchPlaylistOnYoutube(query){
-    var yt_url = "https://www.googleapis.com/youtube/v3/search";
+    var yt_url = "/api/youtube-proxy.php";
     var params = {
+        endpoint: 'search',
         part: 'snippet',
         type: 'playlist',
         q: query,
-        maxResults: 25,
-        key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI'
+        maxResults: 25
     };
     $.ajax({
         dataType: "json",

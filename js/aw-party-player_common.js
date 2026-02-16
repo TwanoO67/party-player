@@ -277,10 +277,10 @@ function buildLocalPlaylistRecursive(tab_element,cb){
 }
 
 function searchTrackOnYoutube(query,callback,cb_params){
-  var youtube_url = 'https://www.googleapis.com/youtube/v3/search'; // endpoint url
+  var youtube_url = '/api/youtube-proxy.php'; // proxy url
     var params = {
+      endpoint: 'search',       // YouTube API endpoint
       part: 'snippet, id',          // required for YouTube v3 API request
-      key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI',     // developer key
       type: 'video',
       videoEmbeddable: 'true',  // only return videos that can be embedded
       maxResults: 10,           // limit the search results to max of 5
@@ -371,13 +371,13 @@ function getYoutubeTrackInfo(id,callback,callback_error){
             callback(youtubeTrackInfo[id]);
         }
     }
-    //sinon on les cherche sur youtube
+    //sinon on les cherche sur youtube via le proxy
     else{
-        var url = "https://www.googleapis.com/youtube/v3/videos";
+        var url = "/api/youtube-proxy.php";
         var params = {
+            endpoint: 'videos',
             part: 'snippet,contentDetails',
-            id: id,
-            key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI'
+            id: id
         };
         $.ajax({
 		  dataType: "json",
@@ -429,12 +429,12 @@ function normalizePlaylistInfoV3(allItems) {
 
 // Helper function to fetch a single page of playlist items (for pagination)
 function fetchPlaylistPage(playlistId, pageToken, allItems, finalCallback) {
-    var url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+    var url = '/api/youtube-proxy.php';
     var params = {
+        endpoint: 'playlistItems',
         part: 'snippet,contentDetails',
         playlistId: playlistId,
-        maxResults: 50,
-        key: 'AIzaSyBIVxF2SP7ozlaVsOfTB8nj-1TJhkP3NsI'
+        maxResults: 50
     };
 
     if (pageToken) {

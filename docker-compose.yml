@@ -8,6 +8,7 @@ services:
       # Montage du code source
       - ./index.php:/var/www/html/index.php
       - ./api.php:/var/www/html/api.php
+      - ./api:/var/www/html/api
       - ./config.php:/var/www/html/config.php
       - ./css:/var/www/html/css
       - ./img:/var/www/html/img
