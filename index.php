@@ -19,7 +19,8 @@ if(isset($_REQUEST['sessid']) ){
     $sessid = $_REQUEST['sessid'];
 }
 
-$base_url = "http://".$_SERVER['SERVER_NAME'];
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$base_url = $scheme."://".$_SERVER['HTTP_HOST'];
 $client_base_url = $base_url."/jukebox/";
 $server_base_url = $base_url."/player/";
 $session_url =  $client_base_url.$sessid;
@@ -230,14 +231,6 @@ $boostrapversion = "3.3.2";
         $('#subtitle').hide();
     }
 </script>
-
-<script>
-  //Coupure du service
-  bootbox.alert("Attention: Le partyplayer ne fonctionne plus depuis la sortie des API YoutubeV3",function(){
-      document.location = "https://github.com/TwanoO67/party-player";
-  });
-</script>
-
 
 <?php
 //lancement de l'appli
