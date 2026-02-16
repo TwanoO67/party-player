@@ -401,57 +401,50 @@ function loadByYoutubeId(id){
     markAsRead(id);
 }
 
+function getPlayerDimensions(){
+    var fluidEl = $("#colonne_gauche");
+    var w = fluidEl.width() - 40;
+    return { width: w, height: w * (9/16) };
+}
+
+function resizePlayer(){
+    var dim = getPlayerDimensions();
+    jQuery('.mejs-container').css({width: dim.width, height: dim.height});
+    jQuery('.mejs-mediaelement, .mejs-mediaelement iframe').css({width: dim.width, height: dim.height});
+    jQuery('.mejs-overlay, .mejs-overlay-loading').css({width: dim.width, height: dim.height});
+}
+
 function load(url){
     playerIsLoaded = true;
     var htmlin = '<video width="640" height="360" style="max-width:100%;height:100%;" id="audio-player" preload="auto" autoplay controls="controls"><source type="video/youtube" src="'+url+'" /></video>';
-    // width="'+player_width+'" height="'+player_height+'"
     //version uniquement audio
     if(url.indexOf("mp3") != -1){
         htmlin = '<audio id="audio-player" autoplay="true" preload="none" src="'+url+'" type="audio/mp3" controls="controls"/></audio>';
     }
-    
+
     jQuery('#player-wrapper').html(htmlin);
-    
-    var fluidEl = $("#colonne_gauche");
-    var newWidth = fluidEl.width() - 40;//prise en compte du padding
-    
+
+    var dim = getPlayerDimensions();
     mediaPlayer = new MediaElementPlayer("#audio-player",{
-        videoWidth: newWidth,
-        videoHeight: "100%",
-        pluginWidth: newWidth,
-        pluginHeight: "100%",
-        
-        // width of audio player
+        videoWidth: dim.width,
+        videoHeight: dim.height,
+        pluginWidth: dim.width,
+        pluginHeight: dim.height,
         audioWidth: '100%',
-        // height of audio player
         audioHeight: 30,
-        // initial volume when the player starts
         startVolume: 1,
-        // useful for <audio> player loops
         loop: false,
-        // enables Flash and Silverlight to resize to content size
-        enableAutosize: true,
-        // the order of controls you want on the control bar (and other plugins below)
+        enableAutosize: false,
         features: ['playpause','progress','current','duration','tracks','volume','fullscreen'],
-        // Hide controls when playing and mouse is not over the video
         alwaysShowControls: false,
-        // force iPad's native controls
         iPadUseNativeControls: false,
-        // force iPhone's native controls
         iPhoneUseNativeControls: false,
-        // force Android's native controls
         AndroidUseNativeControls: false,
-        // forces the hour marker (##:00:00)
         alwaysShowHours: false,
-        // show framecount in timecode (##:00:00:00)
         showTimecodeFrameCount: false,
-        // used when showTimecodeFrameCount is set to true
         framesPerSecond: 25,
-        // turns keyboard support on and off for this instance
         enableKeyboard: true,
-        // when this player starts, it will pause other players
         pauseOtherPlayers: true,
-        // array of keyboard commands
         keyActions: [],
         success: function(mediaElement, domObject)
         {
@@ -459,49 +452,15 @@ function load(url){
            mediaElement.addEventListener('canplay', function() {
                 mediaPlayer.play();
            }, false);
-           
-           // Resize all videos according to their own aspect ratio
-			var newHeight = newWidth * (9/16);//allVideos.data('aspectRatio');
-            mediaPlayer.player.setPlayerSize(w,h);
-            mediaPlayer.player.setVideoSize(w,h);
-           
-           /*******fixer la taille de la video
-		    var allVideos = $("#audio-player");
-		    
-			console.log("height:"+allVideos.height());
-			console.log("width:"+allVideos.width());
-			var ratio = allVideos.height() / allVideos.width();
-			console.log("ratio:"+ratio);
-			allVideos.data('aspectRatio', ratio );
-			// and remove the hard coded width/height
-			allVideos.removeAttr('height');
-			allVideos.removeAttr('width');
-			
-			// When the window is resized
-			$(window).resize(function() {
-			
-			 
-			
-			  
-			  
-			  console.log("new width:"+newWidth);
-			  console.log("new height:"+newHeight);
-			  
-			 
-			  allVideos.width(newWidth).height(newHeight);
-			  //mediaElement.width(newWidth).height(newHeight);
-			  $('#mep_0').width(newWidth).height(newHeight);
-			  mediaElement.pluginHeight = newHeight;
-			  mediaElement.height = newHeight;
-			
-			// Kick off one resize to fix all videos on page load
-			}).resize();*/
-           
+
+           resizePlayer();
+
+           $(window).on('resize', resizePlayer);
         }
     });
-    
+
     mediaPlayer.play();
-    
+
 };
 
 
