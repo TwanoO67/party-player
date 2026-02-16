@@ -1,0 +1,176 @@
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+import * as spotifyService from '../services/spotify'
+import { searchVideos } from '../services/youtube'
+import { usePlaylistStore } from './playlist'
+import { useSessionStore } from './session'
+import type { SpotifyUser, SpotifyPlaylist, SpotifyTrack } from '../types/spotify'
+
+export const useSpotifyStore = defineStore('spotify', () => {
+  const token = ref(spotifyService.getSpotifyToken())
+  const user = ref<SpotifyUser | null>(null)
+  const playlists = ref<SpotifyPlaylist[]>([])
+  const tracks = ref<SpotifyTrack[]>([])
+  const importing = ref(false)
+  const importProgress = ref(0)
+  const importTotal = ref(0)
+  const importErrors = ref<string[]>([])
+  const currentStep = ref<'idle' | 'playlists' | 'tracks' | 'converting'>('idle')
+  const loading = ref(false)
+
+  const isConnected = computed(() => !!token.value && !!user.value)
+  const isConfigured = computed(() => spotifyService.isSpotifyConfigured())
+
+  async function init() {
+    if (!token.value) return
+    try {
+      loading.value = true
+      user.value = await spotifyService.fetchUserProfile(token.value)
+    } catch {
+      token.value = ''
+      user.value = null
+      spotifyService.clearSpotifyToken()
+    } finally {
+      loading.value = false
+    }
+  }
+
+  function authorize() {
+    spotifyService.authorizeSpotify(window.location.href)
+  }
+
+  function handleCallback() {
+    const result = spotifyService.parseSpotifyCallback()
+    if (result) {
+      token.value = result.token
+      spotifyService.setSpotifyToken(result.token)
+      // Clean hash from URL
+      window.history.replaceState(null, '', result.returnUrl)
+      return true
+    }
+    return false
+  }
+
+  function disconnect() {
+    token.value = ''
+    user.value = null
+    playlists.value = []
+    tracks.value = []
+    currentStep.value = 'idle'
+    spotifyService.clearSpotifyToken()
+  }
+
+  async function loadPlaylists() {
+    if (!token.value) return
+    loading.value = true
+    currentStep.value = 'playlists'
+    try {
+      const allPlaylists: SpotifyPlaylist[] = []
+      let url: string | undefined
+      do {
+        const res = await spotifyService.fetchUserPlaylists(token.value, url)
+        allPlaylists.push(...res.items)
+        url = res.next || undefined
+      } while (url)
+      playlists.value = allPlaylists
+    } catch (e) {
+      console.error('Failed to load playlists:', e)
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function loadPlaylistTracks(tracksUrl: string) {
+    if (!token.value) return
+    loading.value = true
+    currentStep.value = 'tracks'
+    try {
+      const allTracks: SpotifyTrack[] = []
+      let url: string | null = tracksUrl
+      while (url) {
+        const res = await spotifyService.fetchPlaylistTracks(token.value, url)
+        allTracks.push(...res.items)
+        url = res.next
+      }
+      tracks.value = allTracks
+    } catch (e) {
+      console.error('Failed to load tracks:', e)
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function convertAndAdd(sessid: string) {
+    const playlistStore = usePlaylistStore()
+    const sessionStore = useSessionStore()
+
+    importing.value = true
+    currentStep.value = 'converting'
+    importTotal.value = tracks.value.length
+    importProgress.value = 0
+    importErrors.value = []
+
+    for (const item of tracks.value) {
+      const track = item.track
+      if (!track || !track.name || !track.artists?.length) {
+        importProgress.value++
+        continue
+      }
+
+      const query = `${track.artists[0].name} - ${track.name}`
+      try {
+        const results = await searchVideos(query, 3)
+        if (results.items?.length) {
+          // Pick first embeddable result
+          const videoId = results.items[0].id.videoId
+          if (videoId) {
+            await playlistStore.addTrack(sessid, videoId, sessionStore.username)
+          }
+        } else {
+          importErrors.value.push(query)
+        }
+      } catch {
+        importErrors.value.push(query)
+      }
+      importProgress.value++
+
+      // Small delay to avoid rate limiting
+      await new Promise((r) => setTimeout(r, 300))
+    }
+
+    importing.value = false
+    currentStep.value = 'idle'
+  }
+
+  function reset() {
+    tracks.value = []
+    playlists.value = []
+    currentStep.value = 'idle'
+    importProgress.value = 0
+    importTotal.value = 0
+    importErrors.value = []
+  }
+
+  return {
+    token,
+    user,
+    playlists,
+    tracks,
+    importing,
+    importProgress,
+    importTotal,
+    importErrors,
+    currentStep,
+    loading,
+    isConnected,
+    isConfigured,
+    init,
+    authorize,
+    handleCallback,
+    disconnect,
+    loadPlaylists,
+    loadPlaylistTracks,
+    convertAndAdd,
+    reset,
+  }
+})
