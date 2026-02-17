@@ -49,6 +49,7 @@ export function useYouTubePlayer(containerId: string) {
         height: '100%',
         width: '100%',
         playerVars: {
+          autoplay: 1,
           controls: 1,
           modestbranding: 1,
           rel: 0,
@@ -84,7 +85,9 @@ export function useYouTubePlayer(containerId: string) {
 
   function loadVideo(videoId: string) {
     if (player && ready.value) {
-      player.loadVideoById(videoId)
+      player.loadVideoById({ videoId, suggestedQuality: 'default' })
+      // loadVideoById should auto-play, but force it as fallback
+      player.playVideo()
     }
   }
 

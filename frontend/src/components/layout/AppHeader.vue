@@ -14,12 +14,12 @@ const router = useRouter()
         <div class="w-10 h-10 rounded-full border-2 border-neon-pink flex items-center justify-center shadow-neon-pink">
           <span class="text-neon-pink text-lg">&#9654;</span>
         </div>
-        <h1 class="font-display text-sm md:text-base">
+        <h1 class="font-display text-base md:text-lg">
           <span class="text-neon-pink text-glow-pink">Party</span>
           <span class="text-neon-cyan text-glow-cyan ml-1">Player</span>
         </h1>
       </button>
-      <span class="text-white/40 text-xs font-mono hidden sm:inline ml-2">
+      <span class="text-white/40 text-base md:text-lg font-mono hidden sm:inline ml-2">
         le Jukebox de vos soirées!
       </span>
     </div>

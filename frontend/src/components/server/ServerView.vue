@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useSessionStore } from '../../stores/session'
 import { usePlaylistStore } from '../../stores/playlist'
 import { usePlayerStore } from '../../stores/player'
@@ -32,6 +32,16 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   playlistStore.stopPolling()
 })
+
+// Auto-play first unread track when nothing is playing
+watch(
+  () => playlistStore.unreadItems.length,
+  (newLen, oldLen) => {
+    if (newLen > 0 && !playerStore.currentVideoId) {
+      playTrack(playlistStore.unreadItems[0].id)
+    }
+  },
+)
 
 async function playTrack(videoId: string) {
   lastPlayedId.value = videoId
@@ -66,20 +76,20 @@ async function handleUnreadAll() {
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto px-4 py-4">
+  <div class="w-full px-4 py-4">
     <div class="flex flex-col lg:flex-row gap-4">
       <!-- Left column: Video Player -->
       <div class="flex-1 min-w-0">
         <!-- Title -->
         <h2
           v-if="playerStore.currentTitle"
-          class="font-display text-xs md:text-sm text-neon-pink text-glow-pink mb-3 truncate"
+          class="font-display text-sm md:text-base text-neon-pink text-glow-pink mb-3 truncate"
         >
           {{ playerStore.currentTitle }}
         </h2>
         <h2
           v-else
-          class="font-display text-xs md:text-sm text-white/40 mb-3"
+          class="font-display text-sm md:text-base text-white/40 mb-3"
         >
           En attente de musique...
         </h2>
@@ -92,13 +102,13 @@ async function handleUnreadAll() {
         <!-- Controls under player -->
         <div class="flex gap-2 mt-3">
           <button
-            class="btn-neon btn-neon-cyan text-xs !px-4 !py-2"
+            class="btn-neon btn-neon-cyan text-sm !px-4 !py-2"
             @click="loadNextTrack"
           >
             &#9654;&#9654; Suivant
           </button>
           <button
-            class="btn-neon btn-neon-purple text-xs !px-4 !py-2"
+            class="btn-neon btn-neon-purple text-sm !px-4 !py-2"
             @click="handleUnreadAll"
           >
             &#8634; Tout relire
@@ -107,7 +117,7 @@ async function handleUnreadAll() {
       </div>
 
       <!-- Right column: QR + Playlist -->
-      <div class="w-full lg:w-96 flex flex-col gap-4 shrink-0">
+      <div class="w-full lg:w-[36rem] flex flex-col gap-4 shrink-0">
         <QRCodePanel :sessid="sessid" />
 
         <!-- Spotify Import -->
@@ -116,12 +126,12 @@ async function handleUnreadAll() {
         <!-- Playlist -->
         <div class="bg-surface-card border border-neon-purple/30 rounded-xl overflow-hidden flex-1">
           <div class="px-4 py-3 border-b border-neon-purple/20">
-            <h3 class="font-display text-xs text-neon-purple">
+            <h3 class="font-display text-base text-neon-purple">
               Playlist
             </h3>
           </div>
 
-          <div class="max-h-96 overflow-y-auto">
+          <div class="max-h-[32rem] overflow-y-auto">
             <!-- Unread items -->
             <div v-if="playlistStore.unreadItems.length" class="p-2 space-y-1">
               <PlaylistItem
@@ -140,7 +150,7 @@ async function handleUnreadAll() {
               v-if="playlistStore.readItems.length"
               class="px-4 py-1.5 bg-surface-elevated/50 text-center"
             >
-              <span class="font-mono text-xs text-white/30">Deja lu</span>
+              <span class="font-mono text-sm text-white/30">Deja lu</span>
             </div>
 
             <!-- Read items -->
@@ -161,10 +171,10 @@ async function handleUnreadAll() {
               v-if="!playlistStore.items.length"
               class="p-8 text-center"
             >
-              <p class="font-mono text-sm text-white/30">
+              <p class="font-mono text-base text-white/30">
                 Playlist vide
               </p>
-              <p class="font-mono text-xs text-white/20 mt-2">
+              <p class="font-mono text-sm text-white/20 mt-2">
                 Scannez le QR code pour ajouter des musiques
               </p>
             </div>

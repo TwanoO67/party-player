@@ -34,7 +34,7 @@ function convertAll() {
     <!-- Connect / Import button -->
     <button
       v-if="spotify.currentStep === 'idle' && !spotify.importing"
-      class="btn-neon btn-neon-green text-xs !px-4 !py-2 w-full"
+      class="btn-neon btn-neon-green text-sm !px-4 !py-2 w-full"
       :disabled="!spotify.isConfigured"
       @click="startImport"
     >
@@ -53,7 +53,7 @@ function convertAll() {
       class="mt-3 bg-surface-card border border-neon-green/30 rounded-xl overflow-hidden"
     >
       <div class="px-4 py-3 border-b border-neon-green/20 flex items-center justify-between">
-        <h4 class="font-display text-xs text-neon-green">Vos playlists Spotify</h4>
+        <h4 class="font-display text-sm text-neon-green">Vos playlists Spotify</h4>
         <button
           class="text-white/40 hover:text-white text-xs cursor-pointer"
           @click="spotify.reset()"
@@ -63,7 +63,7 @@ function convertAll() {
       </div>
 
       <div v-if="spotify.loading" class="p-4 text-center">
-        <span class="font-mono text-sm text-neon-green animate-glow-pulse">Chargement...</span>
+        <span class="font-mono text-base text-neon-green animate-glow-pulse">Chargement...</span>
       </div>
 
       <div v-else class="max-h-64 overflow-y-auto">
@@ -85,8 +85,8 @@ function convertAll() {
             <span class="text-neon-green">&#9834;</span>
           </div>
           <div class="min-w-0 flex-1">
-            <p class="text-sm text-white truncate">{{ pl.name }}</p>
-            <p class="text-xs font-mono text-white/30">{{ pl.tracks.total }} titres</p>
+            <p class="text-base text-white truncate">{{ pl.name }}</p>
+            <p class="text-sm font-mono text-white/30">{{ pl.tracks.total }} titres</p>
           </div>
         </button>
       </div>
@@ -98,7 +98,7 @@ function convertAll() {
       class="mt-3 bg-surface-card border border-neon-green/30 rounded-xl overflow-hidden"
     >
       <div class="px-4 py-3 border-b border-neon-green/20 flex items-center justify-between">
-        <h4 class="font-display text-xs text-neon-green">{{ spotify.tracks.length }} titres</h4>
+        <h4 class="font-display text-sm text-neon-green">{{ spotify.tracks.length }} titres</h4>
         <div class="flex gap-2">
           <button
             class="text-xs font-mono text-white/40 hover:text-white cursor-pointer"
@@ -119,7 +119,7 @@ function convertAll() {
         <div
           v-for="(item, i) in spotify.tracks"
           :key="i"
-          class="px-4 py-1.5 text-xs font-mono text-white/50 border-b border-white/5"
+          class="px-4 py-1.5 text-sm font-mono text-white/50 border-b border-white/5"
         >
           {{ item.track?.artists?.[0]?.name }} - {{ item.track?.name }}
         </div>
@@ -127,7 +127,7 @@ function convertAll() {
 
       <div class="p-3">
         <button
-          class="btn-neon btn-neon-green text-xs !px-4 !py-2 w-full"
+          class="btn-neon btn-neon-green text-sm !px-4 !py-2 w-full"
           @click="convertAll"
         >
           Ajouter tout a la playlist
@@ -141,8 +141,8 @@ function convertAll() {
       class="mt-3 bg-surface-card border border-neon-green/30 rounded-xl p-4"
     >
       <div class="flex items-center justify-between mb-2">
-        <span class="font-display text-xs text-neon-green">Conversion en cours...</span>
-        <span class="font-mono text-xs text-white/50">
+        <span class="font-display text-sm text-neon-green">Conversion en cours...</span>
+        <span class="font-mono text-sm text-white/50">
           {{ spotify.importProgress }}/{{ spotify.importTotal }}
         </span>
       </div>
@@ -156,7 +156,7 @@ function convertAll() {
       </div>
 
       <div v-if="spotify.importErrors.length" class="mt-2">
-        <p class="font-mono text-xs text-neon-pink">
+        <p class="font-mono text-sm text-neon-pink">
           {{ spotify.importErrors.length }} erreur(s)
         </p>
       </div>

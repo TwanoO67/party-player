@@ -23,7 +23,7 @@ function handleAdd(videoId: string) {
   <div class="mt-3">
     <!-- Loading -->
     <div v-if="loading" class="text-center py-4">
-      <span class="font-mono text-sm text-neon-cyan animate-glow-pulse">Recherche...</span>
+      <span class="font-mono text-base text-neon-cyan animate-glow-pulse">Recherche...</span>
     </div>
 
     <!-- Results list -->
@@ -42,10 +42,10 @@ function handleAdd(videoId: string) {
 
         <!-- Info -->
         <div class="flex-1 min-w-0">
-          <p class="text-sm font-body text-white truncate">
+          <p class="text-base font-body text-white truncate">
             {{ item.snippet.title }}
           </p>
-          <p class="text-xs font-mono text-white/30 truncate">
+          <p class="text-sm font-mono text-white/30 truncate">
             {{ item.snippet.channelTitle }}
           </p>
         </div>
@@ -70,7 +70,7 @@ function handleAdd(videoId: string) {
 
     <!-- No results -->
     <div v-else-if="!loading" class="text-center py-4">
-      <p class="font-mono text-sm text-white/30">Aucun résultat</p>
+      <p class="font-mono text-base text-white/30">Aucun résultat</p>
     </div>
   </div>
 </template>
