@@ -1,3 +1,13 @@
+# Stage 1: Build frontend
+FROM node:20-alpine AS frontend-build
+
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: PHP + Apache with built frontend
 FROM php:8.4-apache
 
 # Installer les extensions PHP nécessaires
@@ -26,19 +36,18 @@ RUN echo '<Directory /var/www/html/>\n\
 </Directory>' > /etc/apache2/conf-available/party-player.conf && \
     a2enconf party-player
 
-# Copier les fichiers de l'application
-COPY . /var/www/html/
+# Copier les fichiers backend PHP
+COPY api.php /var/www/html/
+COPY api/ /var/www/html/api/
+COPY .htaccess /var/www/html/
+COPY config.php_exemple /var/www/html/config.php_exemple
+
+# Copier le frontend buildé directement à la racine du DocumentRoot
+COPY --from=frontend-build /app/dist/ /var/www/html/
 
 # Créer config.php depuis l'exemple s'il n'existe pas
 RUN if [ ! -f /var/www/html/config.php ]; then \
         cp /var/www/html/config.php_exemple /var/www/html/config.php; \
-    fi
-
-# Créer .htaccess depuis l'exemple s'il n'existe pas
-RUN if [ ! -f /var/www/html/.htaccess ]; then \
-        if [ -f /var/www/html/.htaccess_exemple ]; then \
-            cp /var/www/html/.htaccess_exemple /var/www/html/.htaccess; \
-        fi; \
     fi
 
 # Définir les permissions appropriées

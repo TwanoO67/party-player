@@ -28,7 +28,7 @@ export function authorizeSpotify(redirectUrl: string) {
     'https://accounts.spotify.com/authorize?client_id=' +
     SPOTIFY_CLIENT_ID +
     '&response_type=token' +
-    '&scope=user-library-read' +
+    '&scope=user-library-read%20playlist-read-private%20playlist-read-collaborative' +
     '&state=' +
     window.btoa(redirectUrl) +
     '&redirect_uri=' +

@@ -87,8 +87,15 @@ export const usePlaylistStore = defineStore('playlist', () => {
     return api.prevTrack(sessid, currentPlaying)
   }
 
-  function startPolling(sessid: string, intervalMs: number) {
+  function reset() {
     stopPolling()
+    items.value = []
+    lastUpdateTime.value = 0
+    error.value = ''
+  }
+
+  function startPolling(sessid: string, intervalMs: number) {
+    reset()
     fetchPlaylist(sessid)
     pollingInterval = setInterval(() => fetchPlaylist(sessid), intervalMs)
   }
@@ -115,6 +122,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
     unreadAll,
     getNextTrack,
     getPrevTrack,
+    reset,
     startPolling,
     stopPolling,
   }

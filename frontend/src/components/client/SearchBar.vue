@@ -31,7 +31,7 @@ async function search() {
 }
 
 async function handleAdd(videoId: string) {
-  const res = await emit('add', videoId)
+  emit('add', videoId)
   // Remove from results after adding
   results.value = results.value.filter((r) => r.id.videoId !== videoId)
 }

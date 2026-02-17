@@ -4,7 +4,6 @@ import { useSessionStore } from '../../stores/session'
 import { usePlaylistStore } from '../../stores/playlist'
 import { usePlayerStore } from '../../stores/player'
 import SearchBar from './SearchBar.vue'
-import SearchResults from './SearchResults.vue'
 import PlaylistItem from '../shared/PlaylistItem.vue'
 
 const props = defineProps<{ sessid: string }>()

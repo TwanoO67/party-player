@@ -6,8 +6,6 @@ const props = defineProps<{ sessid: string }>()
 const spotify = useSpotifyStore()
 
 onMounted(async () => {
-  // Handle OAuth callback
-  spotify.handleCallback()
   // Init connection if token exists
   await spotify.init()
 })

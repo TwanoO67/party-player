@@ -22,7 +22,7 @@ const lastPlayedId = ref('')
 onMounted(async () => {
   sessionStore.setSession(props.sessid, 'server')
   // Try to read first; only create if session doesn't exist
-  const res = await playlistStore.fetchPlaylist(props.sessid)
+  await playlistStore.fetchPlaylist(props.sessid)
   if (playlistStore.lastUpdateTime === 0) {
     await createSession(props.sessid)
   }
@@ -36,7 +36,7 @@ onBeforeUnmount(() => {
 // Auto-play first unread track when nothing is playing
 watch(
   () => playlistStore.unreadItems.length,
-  (newLen, oldLen) => {
+  (newLen, _oldLen) => {
     if (newLen > 0 && !playerStore.currentVideoId) {
       playTrack(playlistStore.unreadItems[0].id)
     }

@@ -5,18 +5,16 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # Montage du code source
-      - ./index.php:/var/www/html/index.php
+      # Backend PHP (montage pour dev)
       - ./api.php:/var/www/html/api.php
       - ./api:/var/www/html/api
       - ./config.php:/var/www/html/config.php
-      - ./css:/var/www/html/css
-      - ./img:/var/www/html/img
-      - ./includes:/var/www/html/includes
-      - ./js:/var/www/html/js
+      # Frontend buildé (montage pour dev, sinon utilisé depuis l'image)
+      - ./dist/index.html:/var/www/html/index.html
+      - ./dist/assets:/var/www/html/assets
       # Volume persistant pour les playlists
       - playlist-data:/var/www/html/_playlists
-      # Fichier .htaccess si nécessaire
+      # Fichier .htaccess
       - ./.htaccess:/var/www/html/.htaccess:ro
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
