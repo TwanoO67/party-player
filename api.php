@@ -316,6 +316,43 @@
             }
             //fournie: mode=add,sessid,id,user
             //recu: result,content
+            elseif($mode == 'prev_track'){
+
+                    $current = $_REQUEST['current_playing'];
+                    $prev_track = 0;
+
+                    // Find the last read item before the current one
+                    // Read items are sorted by alreadyRead timestamp, we want the most recent one
+                    $best_read_time = 0;
+                    foreach($data['items'] as &$item){
+                        if($item['id'] != $current && $item['alreadyRead'] !== false && $item['alreadyRead'] > $best_read_time){
+                            $best_read_time = $item['alreadyRead'];
+                            $prev_track = $item['id'];
+                        }
+                    }
+
+                    // Mark the previous track as unread so it plays again
+                    if($prev_track !== 0){
+                        foreach($data['items'] as &$item){
+                            if($item['id'] == $prev_track){
+                                $item['alreadyRead'] = false;
+                            }
+                        }
+                        $data = triItemsByVote($data);
+
+                        $reponse['content'] = $prev_track;
+                        if(ecritureData($data)){
+                            $reponse['result'] = 'success';
+                        }
+                        else{
+                            $reponse['error'] = "erreur de sauvegarde du fichier";
+                        }
+                    }
+                    else{
+                        $reponse['error'] = "Pas de chanson précédente.";
+                    }
+
+            }
             elseif($mode == 'mark_read'){
                 //ajout d'un item dans le fichier
                 if(empty($_REQUEST['id'])){

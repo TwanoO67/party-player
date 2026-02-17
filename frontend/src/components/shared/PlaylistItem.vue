@@ -39,13 +39,22 @@ const dateStr = computed(() => {
 
 <template>
   <div
-    class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all group"
+    class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all group cursor-pointer"
     :class="[
       isRead ? 'bg-surface-dark/50 opacity-50' : 'bg-surface-card',
       isPlaying ? 'border border-neon-green/60 shadow-neon-green' : 'border border-transparent',
       !isRead && !isPlaying ? 'border-l-4 border-l-neon-cyan hover:bg-surface-elevated/50' : '',
     ]"
+    @click="emit('play', item.id)"
   >
+    <!-- Vote count -->
+    <span
+      class="min-w-12 text-center font-mono text-3xl font-bold px-2 py-1 rounded shrink-0"
+      :class="item.vote > 0 ? 'text-neon-green' : item.vote < 0 ? 'text-neon-pink' : 'text-white/30'"
+    >
+      {{ item.vote > 0 ? '+' : '' }}{{ item.vote }}
+    </span>
+
     <!-- Thumbnail -->
     <img
       v-if="thumbnail"
@@ -63,7 +72,7 @@ const dateStr = computed(() => {
     </div>
 
     <!-- Actions -->
-    <div class="flex items-center gap-2 shrink-0">
+    <div class="flex items-center gap-2 shrink-0" @click.stop>
       <!-- Server actions -->
       <template v-if="mode === 'server'">
         <button
@@ -100,13 +109,6 @@ const dateStr = computed(() => {
         </button>
       </template>
 
-      <!-- Vote count -->
-      <span
-        class="min-w-6 text-center font-mono text-sm px-1.5 py-0.5 rounded"
-        :class="item.vote > 0 ? 'text-neon-green bg-neon-green/10' : item.vote < 0 ? 'text-neon-pink bg-neon-pink/10' : 'text-white/30'"
-      >
-        {{ item.vote > 0 ? '+' : '' }}{{ item.vote }}
-      </span>
     </div>
   </div>
 </template>
