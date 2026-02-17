@@ -33,7 +33,7 @@ onMounted(async () => {
     class="bg-surface-card border border-neon-yellow/30 rounded-xl overflow-hidden"
   >
     <div class="px-4 py-3 flex items-center justify-between border-b border-neon-yellow/20">
-      <h3 class="font-display text-xs text-neon-yellow">
+      <h3 class="font-display text-sm text-neon-yellow">
         JukeBox <span class="text-white">{{ sessid }}</span>
       </h3>
       <button
@@ -53,7 +53,7 @@ onMounted(async () => {
       <a
         :href="clientUrl"
         target="_blank"
-        class="font-mono text-xs text-neon-cyan hover:text-glow-cyan transition-all break-all text-center"
+        class="font-mono text-sm text-neon-cyan hover:text-glow-cyan transition-all break-all text-center"
       >
         {{ clientUrl }}
       </a>

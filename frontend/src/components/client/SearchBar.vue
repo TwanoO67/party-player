@@ -52,7 +52,7 @@ function clear() {
           v-model="query"
           type="text"
           placeholder="Rechercher un artiste ou un titre..."
-          class="w-full bg-surface-card border border-neon-cyan/30 rounded-lg pl-4 pr-10 py-3 text-white font-mono text-sm focus:outline-none focus:border-neon-cyan focus:shadow-neon-cyan transition-all"
+          class="w-full bg-surface-card border border-neon-cyan/30 rounded-lg pl-4 pr-10 py-3 text-white font-mono text-base focus:outline-none focus:border-neon-cyan focus:shadow-neon-cyan transition-all"
           @keyup.enter="search"
         />
         <button

@@ -51,14 +51,14 @@ async function handleVote(id: string, value: 'plus' | 'moins') {
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto px-4 py-4">
+  <div class="w-full px-4 py-4">
     <!-- Username prompt -->
     <div
       v-if="showUsernamePrompt"
       class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
     >
       <div class="bg-surface-card border border-neon-cyan/40 rounded-xl p-6 w-full max-w-sm border-glow-cyan">
-        <h3 class="font-display text-xs text-neon-cyan mb-4 text-center">
+        <h3 class="font-display text-sm text-neon-cyan mb-4 text-center">
           Votre nom ?
         </h3>
         <input
@@ -78,11 +78,11 @@ async function handleVote(id: string, value: 'plus' | 'moins') {
     <!-- Header with session info -->
     <div class="flex items-center justify-between mb-4">
       <div>
-        <h2 class="font-display text-xs text-neon-pink">
+        <h2 class="font-display text-sm text-neon-pink">
           JukeBox <span class="text-neon-cyan">{{ sessid }}</span>
         </h2>
         <button
-          class="text-xs font-mono text-white/40 hover:text-neon-cyan transition-colors cursor-pointer mt-1"
+          class="text-sm font-mono text-white/40 hover:text-neon-cyan transition-colors cursor-pointer mt-1"
           @click="showUsernamePrompt = true"
         >
           {{ sessionStore.username }} &#9998;
@@ -100,14 +100,14 @@ async function handleVote(id: string, value: 'plus' | 'moins') {
     >
       <span class="w-3 h-3 rounded-full bg-neon-green animate-glow-pulse shrink-0"></span>
       <div class="min-w-0">
-        <p class="text-xs font-mono text-white/40">En lecture</p>
-        <p class="text-sm font-body text-neon-green truncate">{{ playerStore.currentTitle }}</p>
+        <p class="text-sm font-mono text-white/40">En lecture</p>
+        <p class="text-base font-body text-neon-green truncate">{{ playerStore.currentTitle }}</p>
       </div>
     </div>
 
     <!-- Playlist -->
     <div class="mt-4">
-      <h3 class="font-display text-xs text-neon-purple mb-3">
+      <h3 class="font-display text-sm text-neon-purple mb-3">
         Playlist
       </h3>
 
@@ -126,7 +126,7 @@ async function handleVote(id: string, value: 'plus' | 'moins') {
         v-if="playlistStore.readItems.length"
         class="my-3 text-center"
       >
-        <span class="font-mono text-xs text-white/20 bg-surface-dark px-3">Deja lu</span>
+        <span class="font-mono text-sm text-white/20 bg-surface-dark px-3">Deja lu</span>
       </div>
       <div v-if="playlistStore.readItems.length" class="space-y-1.5 opacity-50">
         <PlaylistItem
@@ -141,8 +141,8 @@ async function handleVote(id: string, value: 'plus' | 'moins') {
         v-if="!playlistStore.items.length"
         class="text-center py-8"
       >
-        <p class="font-mono text-sm text-white/30">Playlist vide</p>
-        <p class="font-mono text-xs text-white/20 mt-1">Cherchez et ajoutez des musiques !</p>
+        <p class="font-mono text-base text-white/30">Playlist vide</p>
+        <p class="font-mono text-sm text-white/20 mt-1">Cherchez et ajoutez des musiques !</p>
       </div>
     </div>
   </div>

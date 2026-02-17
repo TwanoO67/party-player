@@ -35,7 +35,7 @@ defineExpose({ loadVideo, ready })
         class="w-3 h-3 rounded-full shrink-0"
         :class="playerStore.isPlaying ? 'bg-neon-green animate-glow-pulse' : 'bg-neon-yellow'"
       ></span>
-      <span class="font-mono text-sm text-neon-cyan truncate">
+      <span class="font-mono text-base text-neon-cyan truncate">
         {{ playerStore.currentTitle }}
       </span>
     </div>

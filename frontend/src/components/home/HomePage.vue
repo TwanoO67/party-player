@@ -27,7 +27,7 @@ function joinSession() {
       <p class="font-mono text-xl md:text-2xl text-neon-cyan/80 mb-2">
         Le Jukebox collaboratif de vos soirées
       </p>
-      <p class="text-white/50 text-sm mt-4">
+      <p class="text-white/50 text-base mt-4">
         Chaque invité ajoute ses musiques depuis son smartphone
       </p>
     </div>
@@ -36,22 +36,22 @@ function joinSession() {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
       <div class="bg-surface-card border border-neon-cyan/20 rounded-xl p-6 text-center hover:border-neon-cyan/50 transition-colors">
         <div class="text-4xl mb-4">&#127911;</div>
-        <h3 class="font-display text-xs text-neon-cyan mb-3">1. Créer</h3>
-        <p class="text-white/60 text-sm font-mono">
+        <h3 class="font-display text-sm text-neon-cyan mb-3">1. Créer</h3>
+        <p class="text-white/60 text-base font-mono">
           Lancez un Jukebox sur l'ordinateur qui diffuse la musique
         </p>
       </div>
       <div class="bg-surface-card border border-neon-pink/20 rounded-xl p-6 text-center hover:border-neon-pink/50 transition-colors">
         <div class="text-4xl mb-4">&#128241;</div>
-        <h3 class="font-display text-xs text-neon-pink mb-3">2. Partager</h3>
-        <p class="text-white/60 text-sm font-mono">
+        <h3 class="font-display text-sm text-neon-pink mb-3">2. Partager</h3>
+        <p class="text-white/60 text-base font-mono">
           Partagez le QR code avec vos invités
         </p>
       </div>
       <div class="bg-surface-card border border-neon-purple/20 rounded-xl p-6 text-center hover:border-neon-purple/50 transition-colors">
         <div class="text-4xl mb-4">&#127926;</div>
-        <h3 class="font-display text-xs text-neon-purple mb-3">3. Écouter</h3>
-        <p class="text-white/60 text-sm font-mono">
+        <h3 class="font-display text-sm text-neon-purple mb-3">3. Écouter</h3>
+        <p class="text-white/60 text-base font-mono">
           Chacun ajoute ses musiques et vote pour ses préférées
         </p>
       </div>
@@ -61,8 +61,8 @@ function joinSession() {
     <div class="flex flex-col md:flex-row gap-6 items-center justify-center">
       <!-- Create -->
       <div class="bg-surface-card border border-neon-pink/30 rounded-xl p-8 text-center w-full md:w-auto border-glow-pink">
-        <h3 class="font-display text-xs text-neon-pink mb-4">Lancer un Jukebox</h3>
-        <p class="text-white/50 text-sm font-mono mb-6">
+        <h3 class="font-display text-sm text-neon-pink mb-4">Lancer un Jukebox</h3>
+        <p class="text-white/50 text-base font-mono mb-6">
           Session #{{ generatedId }}
         </p>
         <button class="btn-neon-pink w-full" @click="createSession">
@@ -70,11 +70,11 @@ function joinSession() {
         </button>
       </div>
 
-      <span class="text-white/30 font-display text-xs">ou</span>
+      <span class="text-white/30 font-display text-sm">ou</span>
 
       <!-- Join -->
       <div class="bg-surface-card border border-neon-cyan/30 rounded-xl p-8 text-center w-full md:w-auto">
-        <h3 class="font-display text-xs text-neon-cyan mb-4">Rejoindre</h3>
+        <h3 class="font-display text-sm text-neon-cyan mb-4">Rejoindre</h3>
         <input
           v-model="sessidInput"
           type="text"
