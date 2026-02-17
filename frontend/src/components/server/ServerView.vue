@@ -57,6 +57,13 @@ async function playTrack(videoId: string) {
   await playlistStore.fetchPlaylist(props.sessid)
 }
 
+async function loadPreviousTrack() {
+  const res = await playlistStore.getPrevTrack(props.sessid, lastPlayedId.value)
+  if (res.result === 'success' && res.content) {
+    playTrack(res.content as string)
+  }
+}
+
 async function loadNextTrack() {
   const res = await playlistStore.getNextTrack(props.sessid, lastPlayedId.value)
   if (res.result === 'success' && res.content) {
@@ -101,6 +108,12 @@ async function handleUnreadAll() {
 
         <!-- Controls under player -->
         <div class="flex gap-2 mt-3">
+          <button
+            class="btn-neon btn-neon-cyan text-sm !px-4 !py-2"
+            @click="loadPreviousTrack"
+          >
+            &#9664;&#9664; Précédent
+          </button>
           <button
             class="btn-neon btn-neon-cyan text-sm !px-4 !py-2"
             @click="loadNextTrack"

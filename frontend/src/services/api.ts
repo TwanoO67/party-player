@@ -62,6 +62,10 @@ export function nextTrack(sessid: string, lastPlayed: string) {
   return request<string>({ mode: 'next_track', sessid, last_played: lastPlayed })
 }
 
+export function prevTrack(sessid: string, currentPlaying: string) {
+  return request<string>({ mode: 'prev_track', sessid, current_playing: currentPlaying })
+}
+
 export function markRead(sessid: string, id: string) {
   return request({ mode: 'mark_read', sessid, id })
 }

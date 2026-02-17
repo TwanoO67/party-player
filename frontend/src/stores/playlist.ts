@@ -72,6 +72,8 @@ export const usePlaylistStore = defineStore('playlist', () => {
   async function unreadAll(sessid: string) {
     const res = await api.unreadAll(sessid)
     if (res.result === 'success') {
+      // Reset lastUpdateTime to force a full refresh
+      lastUpdateTime.value = 0
       await fetchPlaylist(sessid)
     }
     return res
@@ -79,6 +81,10 @@ export const usePlaylistStore = defineStore('playlist', () => {
 
   async function getNextTrack(sessid: string, lastPlayed: string) {
     return api.nextTrack(sessid, lastPlayed)
+  }
+
+  async function getPrevTrack(sessid: string, currentPlaying: string) {
+    return api.prevTrack(sessid, currentPlaying)
   }
 
   function startPolling(sessid: string, intervalMs: number) {
@@ -108,6 +114,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
     markRead,
     unreadAll,
     getNextTrack,
+    getPrevTrack,
     startPolling,
     stopPolling,
   }
