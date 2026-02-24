@@ -178,5 +178,26 @@ function convertAll() {
         </p>
       </div>
     </div>
+
+    <!-- Quota exceeded (persistant, indépendant de l'étape en cours) -->
+    <div
+      v-if="spotify.quotaExceeded"
+      class="mt-3 bg-neon-pink/10 border border-neon-pink/40 rounded-xl p-4"
+    >
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <p class="font-mono text-sm text-neon-pink">Quota YouTube dépassé</p>
+          <p class="font-mono text-xs text-white/50 mt-1">
+            {{ spotify.importProgress }}/{{ spotify.importTotal }} titres traités. La recherche YouTube est temporairement indisponible — réessaie demain.
+          </p>
+        </div>
+        <button
+          class="text-white/30 hover:text-white text-xs shrink-0 cursor-pointer"
+          @click="spotify.reset()"
+        >
+          &#10005;
+        </button>
+      </div>
+    </div>
   </div>
 </template>

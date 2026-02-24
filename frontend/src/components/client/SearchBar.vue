@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import SearchResults from './SearchResults.vue'
-import { searchVideos } from '../../services/youtube'
+import { searchVideos, YouTubeQuotaError } from '../../services/youtube'
 import type { YouTubeSearchResult } from '../../types/youtube'
 
 const emit = defineEmits<{
@@ -12,6 +12,7 @@ const query = ref('')
 const results = ref<YouTubeSearchResult[]>([])
 const searching = ref(false)
 const searched = ref(false)
+const quotaExceeded = ref(false)
 
 async function search() {
   const q = query.value.trim()
@@ -19,12 +20,17 @@ async function search() {
 
   searching.value = true
   searched.value = true
+  quotaExceeded.value = false
   try {
     const res = await searchVideos(q)
     results.value = res.items || []
   } catch (e) {
-    console.error('Search failed:', e)
     results.value = []
+    if (e instanceof YouTubeQuotaError) {
+      quotaExceeded.value = true
+    } else {
+      console.error('Search failed:', e)
+    }
   } finally {
     searching.value = false
   }
@@ -72,9 +78,15 @@ function clear() {
       </button>
     </div>
 
+    <!-- Quota exceeded -->
+    <div v-if="quotaExceeded" class="mt-3 text-center py-4 px-3 bg-neon-pink/10 border border-neon-pink/30 rounded-lg">
+      <p class="font-mono text-base text-neon-pink">Quota YouTube dépassé</p>
+      <p class="font-mono text-sm text-white/40 mt-1">La recherche est temporairement indisponible. Réessaie demain.</p>
+    </div>
+
     <!-- Results -->
     <SearchResults
-      v-if="searched"
+      v-else-if="searched"
       :results="results"
       :loading="searching"
       @add="handleAdd"
