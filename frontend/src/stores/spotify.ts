@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import * as spotifyService from '../services/spotify'
-import { searchVideos } from '../services/youtube'
+import { searchVideos, YouTubeQuotaError } from '../services/youtube'
 import { usePlaylistStore } from './playlist'
 import { useSessionStore } from './session'
 import type { SpotifyUser, SpotifyPlaylist, SpotifyTrack } from '../types/spotify'
@@ -18,6 +18,7 @@ export const useSpotifyStore = defineStore('spotify', () => {
   const currentStep = ref<'idle' | 'playlists' | 'tracks' | 'converting'>('idle')
   const loading = ref(false)
   const trackStates = ref<Record<string, 'loading' | 'done' | 'error'>>({})
+  const quotaExceeded = ref(false)
 
 
   const isConnected = computed(() => !!token.value && !!user.value)
@@ -99,6 +100,7 @@ export const useSpotifyStore = defineStore('spotify', () => {
     importTotal.value = tracks.value.length
     importProgress.value = 0
     importErrors.value = []
+    quotaExceeded.value = false
 
     for (const item of tracks.value) {
       const track = item.track
@@ -111,7 +113,6 @@ export const useSpotifyStore = defineStore('spotify', () => {
       try {
         const results = await searchVideos(query, 3)
         if (results.items?.length) {
-          // Pick first embeddable result
           const videoId = results.items[0].id.videoId
           if (videoId) {
             await playlistStore.addTrack(sessid, videoId, sessionStore.username)
@@ -119,7 +120,11 @@ export const useSpotifyStore = defineStore('spotify', () => {
         } else {
           importErrors.value.push(query)
         }
-      } catch {
+      } catch (e) {
+        if (e instanceof YouTubeQuotaError) {
+          quotaExceeded.value = true
+          break
+        }
         importErrors.value.push(query)
       }
       importProgress.value++
@@ -150,7 +155,8 @@ export const useSpotifyStore = defineStore('spotify', () => {
       } else {
         trackStates.value[trackId] = 'error'
       }
-    } catch {
+    } catch (e) {
+      if (e instanceof YouTubeQuotaError) quotaExceeded.value = true
       trackStates.value[trackId] = 'error'
     }
   }
@@ -163,6 +169,7 @@ export const useSpotifyStore = defineStore('spotify', () => {
     importTotal.value = 0
     importErrors.value = []
     trackStates.value = {}
+    quotaExceeded.value = false
   }
 
   return {
@@ -182,6 +189,7 @@ export const useSpotifyStore = defineStore('spotify', () => {
     authorize,
     disconnect,
     trackStates,
+    quotaExceeded,
     loadPlaylists,
     loadPlaylistTracks,
     convertAndAdd,

@@ -2,12 +2,20 @@ import type { YouTubeSearchResponse, YouTubeVideoResponse, YouTubePlaylistItemRe
 
 const PROXY_URL = '/api/youtube-proxy.php'
 
+export class YouTubeQuotaError extends Error {
+  constructor() {
+    super('YouTube API quota exceeded')
+    this.name = 'YouTubeQuotaError'
+  }
+}
+
 async function ytRequest<T>(params: Record<string, string>): Promise<T> {
   const url = new URL(PROXY_URL, window.location.origin)
   for (const [key, value] of Object.entries(params)) {
     url.searchParams.set(key, value)
   }
   const res = await fetch(url.toString())
+  if (res.status === 403) throw new YouTubeQuotaError()
   if (!res.ok) throw new Error(`YouTube API error: ${res.status}`)
   return res.json()
 }
