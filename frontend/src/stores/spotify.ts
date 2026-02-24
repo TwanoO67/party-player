@@ -39,17 +39,6 @@ export const useSpotifyStore = defineStore('spotify', () => {
     await spotifyService.authorizeSpotify(window.location.href)
   }
 
-  async function handleCallback() {
-    const result = await spotifyService.parseSpotifyCallback()
-    if (result) {
-      token.value = result.token
-      spotifyService.setSpotifyToken(result.token)
-      window.history.replaceState(null, '', result.returnUrl)
-      return true
-    }
-    return false
-  }
-
   function disconnect() {
     token.value = ''
     user.value = null
@@ -165,7 +154,6 @@ export const useSpotifyStore = defineStore('spotify', () => {
     isConfigured,
     init,
     authorize,
-    handleCallback,
     disconnect,
     loadPlaylists,
     loadPlaylistTracks,
