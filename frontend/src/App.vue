@@ -6,20 +6,17 @@ import AppHeader from './components/layout/AppHeader.vue'
 
 const router = useRouter()
 
-onMounted(() => {
-  // Handle Spotify OAuth callback at app level
-  // Spotify redirects to origin/ with token in hash
-  const result = parseSpotifyCallback()
+onMounted(async () => {
+  // Handle Spotify OAuth callback (PKCE flow: ?code= in query params)
+  const result = await parseSpotifyCallback()
   if (result) {
     setSpotifyToken(result.token)
-    // Extract path from the full return URL
     let path = '/'
     try {
       path = new URL(result.returnUrl).pathname
     } catch {
       path = result.returnUrl
     }
-    // Clean hash and navigate to the return URL
     window.history.replaceState(null, '', '/')
     router.replace(path)
   }

@@ -35,16 +35,15 @@ export const useSpotifyStore = defineStore('spotify', () => {
     }
   }
 
-  function authorize() {
-    spotifyService.authorizeSpotify(window.location.href)
+  async function authorize() {
+    await spotifyService.authorizeSpotify(window.location.href)
   }
 
-  function handleCallback() {
-    const result = spotifyService.parseSpotifyCallback()
+  async function handleCallback() {
+    const result = await spotifyService.parseSpotifyCallback()
     if (result) {
       token.value = result.token
       spotifyService.setSpotifyToken(result.token)
-      // Clean hash from URL
       window.history.replaceState(null, '', result.returnUrl)
       return true
     }
