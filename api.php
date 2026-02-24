@@ -167,7 +167,8 @@
 			                $item_found = true;
 		                }
 	                }
-	                
+	                $data['items'] = array_values($data['items']);
+
 	                if(!$item_found){
     	                $reponse['result'] = 'item non trouvé';
     	            }

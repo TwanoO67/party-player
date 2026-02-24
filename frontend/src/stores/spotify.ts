@@ -17,6 +17,8 @@ export const useSpotifyStore = defineStore('spotify', () => {
   const importErrors = ref<string[]>([])
   const currentStep = ref<'idle' | 'playlists' | 'tracks' | 'converting'>('idle')
   const loading = ref(false)
+  const trackStates = ref<Record<string, 'loading' | 'done' | 'error'>>({})
+
 
   const isConnected = computed(() => !!token.value && !!user.value)
   const isConfigured = computed(() => spotifyService.isSpotifyConfigured())
@@ -130,6 +132,29 @@ export const useSpotifyStore = defineStore('spotify', () => {
     currentStep.value = 'idle'
   }
 
+  async function convertAndAddSingle(sessid: string, trackId: string) {
+    const item = tracks.value.find((t) => t.track?.id === trackId)
+    const track = item?.track
+    if (!track?.name || !track.artists?.length) return
+
+    const playlistStore = usePlaylistStore()
+    const sessionStore = useSessionStore()
+    const query = `${track.artists[0].name} - ${track.name}`
+    trackStates.value[trackId] = 'loading'
+    try {
+      const results = await searchVideos(query, 3)
+      const videoId = results.items?.[0]?.id?.videoId
+      if (videoId) {
+        await playlistStore.addTrack(sessid, videoId, sessionStore.username)
+        trackStates.value[trackId] = 'done'
+      } else {
+        trackStates.value[trackId] = 'error'
+      }
+    } catch {
+      trackStates.value[trackId] = 'error'
+    }
+  }
+
   function reset() {
     tracks.value = []
     playlists.value = []
@@ -137,6 +162,7 @@ export const useSpotifyStore = defineStore('spotify', () => {
     importProgress.value = 0
     importTotal.value = 0
     importErrors.value = []
+    trackStates.value = {}
   }
 
   return {
@@ -155,9 +181,11 @@ export const useSpotifyStore = defineStore('spotify', () => {
     init,
     authorize,
     disconnect,
+    trackStates,
     loadPlaylists,
     loadPlaylistTracks,
     convertAndAdd,
+    convertAndAddSingle,
     reset,
   }
 })
