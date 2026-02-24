@@ -23,7 +23,8 @@
       "mcp__chrome-devtools__new_page",
       "Bash(npm run build:*)",
       "Bash(docker compose up:*)",
-      "mcp__chrome-devtools__list_pages"
+      "mcp__chrome-devtools__list_pages",
+      "WebSearch"
     ]
   }
 }
