@@ -22,7 +22,8 @@ export const usePlaylistStore = defineStore('playlist', () => {
       const res = await api.readPlaylist(sessid, lastUpdateTime.value)
       if (res.result === 'success' && res.content && res.content !== 'no_news') {
         const data = res.content as PlaylistData
-        items.value = data.items || []
+        const raw = data.items
+        items.value = Array.isArray(raw) ? raw : Object.values(raw ?? {})
         lastUpdateTime.value = data.lastUpdateTime || 0
       }
     } catch (e) {

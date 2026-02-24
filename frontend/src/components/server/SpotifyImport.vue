@@ -115,11 +115,30 @@ function convertAll() {
 
       <div class="max-h-48 overflow-y-auto">
         <div
-          v-for="(item, i) in spotify.tracks"
-          :key="i"
-          class="px-4 py-1.5 text-sm font-mono text-white/50 border-b border-white/5"
+          v-for="item in spotify.tracks"
+          :key="item.track?.id"
+          class="flex items-center gap-2 px-4 py-1.5 border-b border-white/5"
         >
-          {{ item.track?.artists?.[0]?.name }} - {{ item.track?.name }}
+          <span class="flex-1 text-sm font-mono text-white/50 truncate">
+            {{ item.track?.artists?.[0]?.name }} - {{ item.track?.name }}
+          </span>
+          <button
+            class="shrink-0 w-6 h-6 flex items-center justify-center rounded text-xs transition-colors cursor-pointer"
+            :class="{
+              'text-neon-green/60 hover:text-neon-green hover:bg-neon-green/10': !spotify.trackStates[item.track?.id ?? ''],
+              'text-white/30 cursor-not-allowed': spotify.trackStates[item.track?.id ?? ''] === 'loading',
+              'text-neon-green cursor-default': spotify.trackStates[item.track?.id ?? ''] === 'done',
+              'text-neon-pink cursor-pointer': spotify.trackStates[item.track?.id ?? ''] === 'error',
+            }"
+            :disabled="spotify.trackStates[item.track?.id ?? ''] === 'loading' || spotify.trackStates[item.track?.id ?? ''] === 'done'"
+            :title="spotify.trackStates[item.track?.id ?? ''] === 'error' ? 'Réessayer' : 'Ajouter'"
+            @click="item.track?.id && spotify.convertAndAddSingle(props.sessid, item.track.id)"
+          >
+            <template v-if="spotify.trackStates[item.track?.id ?? ''] === 'loading'">⏳</template>
+            <template v-else-if="spotify.trackStates[item.track?.id ?? ''] === 'done'">✓</template>
+            <template v-else-if="spotify.trackStates[item.track?.id ?? ''] === 'error'">✕</template>
+            <template v-else>+</template>
+          </button>
         </div>
       </div>
 
