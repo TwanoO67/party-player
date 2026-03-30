@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useSpotifyStore } from '../../stores/spotify'
 
 const props = defineProps<{ sessid: string }>()
 const spotify = useSpotifyStore()
+
+const selectedTrackIds = ref<Set<string>>(new Set())
+
+const MAX_SELECTION = 5
 
 onMounted(async () => {
   // Init connection if token exists
@@ -19,11 +23,29 @@ function startImport() {
 }
 
 async function selectPlaylist(tracksUrl: string) {
+  selectedTrackIds.value = new Set()
   await spotify.loadPlaylistTracks(tracksUrl)
 }
 
-function convertAll() {
-  spotify.convertAndAdd(props.sessid)
+function toggleTrack(trackId: string) {
+  const set = selectedTrackIds.value
+  if (set.has(trackId)) {
+    set.delete(trackId)
+  } else if (set.size < MAX_SELECTION) {
+    set.add(trackId)
+  }
+  // Force reactivity
+  selectedTrackIds.value = new Set(set)
+}
+
+const selectionCount = computed(() => selectedTrackIds.value.size)
+const selectionFull = computed(() => selectedTrackIds.value.size >= MAX_SELECTION)
+
+async function importSelected() {
+  for (const trackId of selectedTrackIds.value) {
+    await spotify.convertAndAddSingle(props.sessid, trackId)
+  }
+  selectedTrackIds.value = new Set()
 }
 </script>
 
@@ -100,7 +122,7 @@ function convertAll() {
         <div class="flex gap-2">
           <button
             class="text-xs font-mono text-white/40 hover:text-white cursor-pointer"
-            @click="spotify.reset(); spotify.loadPlaylists()"
+            @click="selectedTrackIds = new Set(); spotify.reset(); spotify.loadPlaylists()"
           >
             &#8592; Retour
           </button>
@@ -118,36 +140,52 @@ function convertAll() {
           v-for="item in spotify.tracks"
           :key="item.track?.id"
           class="flex items-center gap-2 px-4 py-1.5 border-b border-white/5"
+          :class="{ 'opacity-40': spotify.trackStates[item.track?.id ?? ''] === 'done' }"
         >
-          <span class="flex-1 text-sm font-mono text-white/50 truncate">
+          <!-- Checkbox de sélection -->
+          <button
+            v-if="spotify.trackStates[item.track?.id ?? ''] !== 'done'"
+            class="shrink-0 w-5 h-5 rounded border flex items-center justify-center transition-colors text-xs"
+            :class="{
+              'border-neon-green bg-neon-green text-black': selectedTrackIds.has(item.track?.id ?? ''),
+              'border-white/20 text-transparent hover:border-neon-green/60': !selectedTrackIds.has(item.track?.id ?? '') && !selectionFull,
+              'border-white/10 text-transparent cursor-not-allowed': !selectedTrackIds.has(item.track?.id ?? '') && selectionFull,
+            }"
+            :disabled="(!selectedTrackIds.has(item.track?.id ?? '') && selectionFull) || spotify.trackStates[item.track?.id ?? ''] === 'loading'"
+            @click="item.track?.id && toggleTrack(item.track.id)"
+          >✓</button>
+          <!-- Icône état pour les titres déjà importés -->
+          <span v-else class="shrink-0 w-5 h-5 flex items-center justify-center text-xs text-neon-green">✓</span>
+
+          <span
+            class="flex-1 text-sm font-mono truncate"
+            :class="spotify.trackStates[item.track?.id ?? ''] === 'done' ? 'text-white/30' : 'text-white/50'"
+          >
             {{ item.track?.artists?.[0]?.name }} - {{ item.track?.name }}
           </span>
+
+          <!-- État loading/error -->
+          <span
+            v-if="spotify.trackStates[item.track?.id ?? ''] === 'loading'"
+            class="shrink-0 text-xs text-white/30"
+          >⏳</span>
           <button
-            class="shrink-0 w-6 h-6 flex items-center justify-center rounded text-xs transition-colors cursor-pointer"
-            :class="{
-              'text-neon-green/60 hover:text-neon-green hover:bg-neon-green/10': !spotify.trackStates[item.track?.id ?? ''],
-              'text-white/30 cursor-not-allowed': spotify.trackStates[item.track?.id ?? ''] === 'loading',
-              'text-neon-green cursor-default': spotify.trackStates[item.track?.id ?? ''] === 'done',
-              'text-neon-pink cursor-pointer': spotify.trackStates[item.track?.id ?? ''] === 'error',
-            }"
-            :disabled="spotify.trackStates[item.track?.id ?? ''] === 'loading' || spotify.trackStates[item.track?.id ?? ''] === 'done'"
-            :title="spotify.trackStates[item.track?.id ?? ''] === 'error' ? 'Réessayer' : 'Ajouter'"
+            v-else-if="spotify.trackStates[item.track?.id ?? ''] === 'error'"
+            class="shrink-0 text-xs text-neon-pink cursor-pointer"
+            title="Réessayer"
             @click="item.track?.id && spotify.convertAndAddSingle(props.sessid, item.track.id)"
-          >
-            <template v-if="spotify.trackStates[item.track?.id ?? ''] === 'loading'">⏳</template>
-            <template v-else-if="spotify.trackStates[item.track?.id ?? ''] === 'done'">✓</template>
-            <template v-else-if="spotify.trackStates[item.track?.id ?? ''] === 'error'">✕</template>
-            <template v-else>+</template>
-          </button>
+          >✕</button>
         </div>
       </div>
 
-      <div class="p-3">
+      <div class="px-3 py-2 border-t border-neon-green/10 flex items-center justify-between gap-2">
+        <span class="font-mono text-xs text-white/30">{{ selectionCount }}/{{ MAX_SELECTION }} sélectionnés</span>
         <button
-          class="btn-neon btn-neon-green text-sm !px-4 !py-2 w-full"
-          @click="convertAll"
+          class="btn-neon btn-neon-green text-sm !px-3 !py-1.5"
+          :disabled="selectionCount === 0"
+          @click="importSelected"
         >
-          Ajouter tout a la playlist
+          Importer ({{ selectionCount }})
         </button>
       </div>
     </div>
