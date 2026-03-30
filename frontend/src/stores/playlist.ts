@@ -95,6 +95,8 @@ export const usePlaylistStore = defineStore('playlist', () => {
     error.value = ''
   }
 
+  const isPolling = computed(() => pollingInterval !== null)
+
   function startPolling(sessid: string, intervalMs: number) {
     reset()
     fetchPlaylist(sessid)
@@ -110,6 +112,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
 
   return {
     items,
+    isPolling,
     lastUpdateTime,
     loading,
     error,
