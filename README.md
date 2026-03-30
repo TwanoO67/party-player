@@ -7,8 +7,8 @@ Party Player ( http://partyplayer.weberantoine.fr )
 
 Interface web de gestion de playlist collaborative, basée sur les videos youtube.
 
-![party player demo]
-(./demo.png)
+<img width="1666" height="839" alt="image" src="https://github.com/user-attachments/assets/e2ef18a9-c208-4865-8f43-6dcb3e6b3e45" />
+
 
 ## 🚀 Démarrage rapide avec Docker
 
