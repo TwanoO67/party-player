@@ -19,6 +19,11 @@ export const useSessionStore = defineStore('session', () => {
     Cookies.set('username', name)
   }
 
+  function clearUsername() {
+    username.value = ''
+    Cookies.remove('username')
+  }
+
   function setSession(id: string, m: 'server' | 'client') {
     sessid.value = id
     mode.value = m
@@ -28,5 +33,5 @@ export const useSessionStore = defineStore('session', () => {
     }
   }
 
-  return { sessid, mode, username, voteToken, setUsername, setSession }
+  return { sessid, mode, username, voteToken, setUsername, clearUsername, setSession }
 })
