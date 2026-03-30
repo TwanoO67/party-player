@@ -3,7 +3,7 @@ party-player
 
 ✅ **MISE À JOUR 2026:** Le projet a été migré vers l'API YouTube Data v3 et est maintenant fonctionnel!
 
-Party Player ( http://partyplayer.fr )
+Party Player ( http://partyplayer.weberantoine.fr )
 
 Interface web de gestion de playlist collaborative, basée sur les videos youtube.
 
