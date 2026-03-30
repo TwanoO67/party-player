@@ -65,6 +65,70 @@ function checkRateLimit() {
 }
 
 /**
+ * Initialise et retourne la connexion SQLite pour le cache
+ */
+function getDb() {
+    $dbPath = __DIR__ . '/../youtube_cache.db';
+    $db = new SQLite3($dbPath);
+    $db->exec('CREATE TABLE IF NOT EXISTS youtube_cache (
+        slug     TEXT    PRIMARY KEY,
+        endpoint TEXT    NOT NULL,
+        response TEXT    NOT NULL,
+        created_at INTEGER NOT NULL
+    )');
+    return $db;
+}
+
+/**
+ * Convertit une chaîne en slug insensible à la casse/accents/espaces
+ */
+function slugify($text) {
+    $text = mb_strtolower($text, 'UTF-8');
+    if (function_exists('iconv')) {
+        $text = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
+    }
+    $text = preg_replace('/[^a-z0-9]+/', '-', $text);
+    return trim($text, '-');
+}
+
+/**
+ * Construit la clé de cache à partir de l'endpoint et des paramètres
+ */
+function buildCacheSlug($endpoint, $params) {
+    ksort($params);
+    $parts = [$endpoint];
+    foreach ($params as $k => $v) {
+        $parts[] = $k . ':' . $v;
+    }
+    return slugify(implode(' ', $parts));
+}
+
+/**
+ * Récupère une réponse depuis le cache SQLite
+ */
+function getCached($db, $slug) {
+    $stmt = $db->prepare('SELECT response FROM youtube_cache WHERE slug = :slug');
+    $stmt->bindValue(':slug', $slug, SQLITE3_TEXT);
+    $row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    return $row ? $row['response'] : null;
+}
+
+/**
+ * Enregistre une réponse dans le cache SQLite
+ */
+function setCached($db, $slug, $endpoint, $response) {
+    $stmt = $db->prepare(
+        'INSERT OR REPLACE INTO youtube_cache (slug, endpoint, response, created_at)
+         VALUES (:slug, :endpoint, :response, :created_at)'
+    );
+    $stmt->bindValue(':slug',       $slug,     SQLITE3_TEXT);
+    $stmt->bindValue(':endpoint',   $endpoint, SQLITE3_TEXT);
+    $stmt->bindValue(':response',   $response, SQLITE3_TEXT);
+    $stmt->bindValue(':created_at', time(),    SQLITE3_INTEGER);
+    $stmt->execute();
+}
+
+/**
  * Faire un appel à l'API YouTube avec cURL
  */
 function callYouTubeAPI($endpoint, $params) {
@@ -208,5 +272,24 @@ if (!empty($validationErrors)) {
     exit;
 }
 
-// Appeler l'API YouTube et retourner la réponse
-echo callYouTubeAPI($endpoint, $params);
+// Vérifier le cache SQLite avant d'appeler YouTube
+$db   = getDb();
+$slug = buildCacheSlug($endpoint, $params);
+
+$cached = getCached($db, $slug);
+if ($cached !== null) {
+    header('X-Cache: HIT');
+    echo $cached;
+    exit;
+}
+
+// Pas en cache : appel réel à l'API YouTube
+header('X-Cache: MISS');
+$response = callYouTubeAPI($endpoint, $params);
+
+// On ne met en cache que les réponses 200
+if (http_response_code() === 200) {
+    setCached($db, $slug, $endpoint, $response);
+}
+
+echo $response;
