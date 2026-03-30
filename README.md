@@ -35,4 +35,4 @@ Le projet à besoin d'aide!
 
 Vous avez des idées d'amélioration ?
 Vous êtes graphiste ou développeur et vous voulez aider?
-Contactez: perso@weberantoine.fr
+Contactez: [mailto:weber.antoine@outlook.com](weber.antoine@outlook.com)
